@@ -49,3 +49,7 @@ while True:
 	else:
 		print "you are good !!!"
 		break
+
+'''
+功能ok, 考虑line 45,48是否需要
+'''

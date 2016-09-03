@@ -51,4 +51,8 @@ for num in nums:
             sec_num = num
 
 print max_num, sec_num
-        
+
+
+'''
+功能ok
+'''

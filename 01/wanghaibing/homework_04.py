@@ -5,3 +5,9 @@ for i in range(1,10):
         pro=j*i
         print '%s*%s=%s' % (j,i,pro) ,
     print "\n"
+
+'''
+功能ok
+作业二ok，但乘法口诀，每一行多一个换行，可以使用print ''代替line7
+
+'''

@@ -14,3 +14,7 @@ while True:
         print 'result: %s small' % in_num
     else:
         print 'You input error.' % in_num
+
+'''
+功能ok
+'''

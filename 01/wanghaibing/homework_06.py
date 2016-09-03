@@ -17,3 +17,7 @@ while True:
            sum1=0
     #print _list3
     print 'Max ai: %s' % (max(_list3))
+
+'''
+功能ok
+'''

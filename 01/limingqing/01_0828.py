@@ -18,3 +18,13 @@ for i in range(1,10):
     for j in range(1,10):
         ji=i * j
         print '%s * %s = %s' % (i,j,ji)
+
+
+'''
+作业一功能ok
+
+作业二:    考虑和预期有什么差异，由什么原因导致
+            a.print打印内容后会自动换行
+            b.line 20打后不想换行,与a冲突     ==> 通过在print最后添加逗号来不打印换行
+            c.在循环完j后需要有一个换行       ==> line21 通过print ''添加换行
+'''

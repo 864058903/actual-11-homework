@@ -15,3 +15,7 @@ for n in _list:
     else:
         continue
 print 'The first max: %s \nThe second max: %s' % (max_1,max_2)
+
+'''
+功能ok
+'''

@@ -17,4 +17,12 @@ for i in range(len(ListTest))[::-1]:
         SecondMaxNum = ListTest[i]
         break
 
-print '最大的数字：%s, 第二大的数字：%s' % (MaxNum, SecondMaxNum)
+print u'最大的数字：%s, 第二大的数字：%s' % (MaxNum, SecondMaxNum)
+
+'''
+Line 9 - 12， 是的结果将list从小到大排序，功能ok
+Line 14拿到最大值ok
+Line 15 - 18，从list后往前遍历，找到比最大值小的第二个数，功能ok
+
+问题Line 22 使用的变量SecondMaxNum定义在19行，保证变量一定可用，可以在代码的中先定义(使用同一的层级， MaxNum=xxx, SecondMaxNum=None)
+'''

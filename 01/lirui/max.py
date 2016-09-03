@@ -7,3 +7,7 @@ for max_2 in list_num:
     if max_2 < max_1:
         break
 print 'first  num:%d \nsecond num:%d' % (max_1,max_2)
+
+'''
+功能ok
+'''

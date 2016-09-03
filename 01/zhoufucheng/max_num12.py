@@ -17,3 +17,7 @@ for i in num_list:
         b = i
 
 print 'first:%s, second:%s' % (a, b)
+
+'''
+功能ok
+'''

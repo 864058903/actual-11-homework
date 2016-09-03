@@ -15,6 +15,11 @@ for x in nums:
             max_num2 = max_num1
             max_num1 = x
         if x < max_num1:
-            max_num2 = x 
+            max_num2 = x
 print 'max_num1 is %s \nmax_num2 is %s' % (max_num1,max_num2)
 print 'done'
+
+
+'''
+功能ok
+'''

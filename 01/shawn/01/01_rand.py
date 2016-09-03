@@ -14,12 +14,16 @@ while True:
     if value == num:
         print 'hah, congratulations!'
         break
-    
+
     elif value > num:
         print '%s To %s' % (min_num,value)
         max_num = value
-   
+
     elif value < num:
         print '%s To %s' % (value,max_num)
         min_num = value
 
+
+'''
+功能ok
+'''
