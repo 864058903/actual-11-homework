@@ -43,13 +43,14 @@
 # new_arr=[]
 # if len(arr1) >= len(arr2):
 #     for i in arr2:
-#         if i in arr1:
+#         if i in arr1 and i not in new_arr:
+#
 #             new_arr.append(i)
 #         else:
 #             continue
 # else:
 #     for i in arr1:
-#         if i in arr2:
+#         if i in arr2 and i not in new_arr:
 #             new_arr.append(i)
 #         else:
 #             continue
@@ -61,10 +62,12 @@
 比如用户输入user1:119,user2;112,user3:113
 最终输出[('user2', '112'), ('user3', '113'), ('user1', '119')]'''
 
-# user_num=int(raw_input('请输入你想创建几个用户数：'))
-# user_lists=[]
-# for i in range(user_num):
-#     user_name=raw_input('请输入用户名：')
-#     user_id = raw_input('请输入ID号：')
-#     user_lists.append((user_name,user_id))
-# print user_lists
+user_input=raw_input('请输入用户信息：')
+user_list = user_input.split(',')
+user_newlist = []
+print  user_list
+for i in user_list:
+    user_tuple = tuple(i.split(':'))
+    print user_tuple
+    user_newlist.append(user_tuple)
+print user_newlist
