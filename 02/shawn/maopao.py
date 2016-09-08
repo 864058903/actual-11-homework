@@ -1,4 +1,5 @@
-#coding: utf-8
+#!/usr/bin/env python
+#encoding: utf-8
 #autho = shawn
 
 nums = [123,23,1,23,13,4,2,14,1]
