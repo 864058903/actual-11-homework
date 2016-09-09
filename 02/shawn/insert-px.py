@@ -22,7 +22,6 @@ while True:
             origin_list.append(value)
         print origin_list
     else:
-        print origin_list
         break
         
         
