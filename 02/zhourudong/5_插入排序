@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+a_list = [5,7,1,3]
+temp_list_num = 0
+list_length = len(a_list)
+j = 0
+for i in range(list_length):
+	j = i
+	temp_list_num = a_list[i]
+	while j > 0 and temp_list_num < a_list[j -1]:
+		''' 
+		当列表右边数值小于左边的列表数值,进入此循环,  
+		,把列表前一个数值往后边挤，给较小数值让出空位置(a)
+		'''
+		a_list[j] = a_list[j-1]
+		j -= 1
+	a_list[j] = temp_list_num    # 此次循环的较小数值放到位置(a)
+print a_list
