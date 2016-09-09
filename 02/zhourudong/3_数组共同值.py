@@ -11,10 +11,10 @@ arr2 = [2,1,3,2,43,234,454,452,234,14,21,14]
 temp_list = []
 
 for i in xrange(len(arr2)):
-	if (arr2[i] in arr1 ) and (arr2 not in temp_list):
+	if (arr2[i] in arr1 ) and (arr2[i] not in temp_list):
 		temp_list.append(arr2[i])
 
-print list(set(temp_list))
+print temp_list
 '''
 遍历列表对比，两个数组有相同的元素则添加
 使用集合去重
