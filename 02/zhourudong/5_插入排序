@@ -11,7 +11,7 @@ for i in range(list_length):
 	while j > 0 and temp_list_num < a_list[j -1]:
 		''' 
 		当列表右边数值小于左边的列表数值,进入此循环,  
-		,把列表前一个数值往后边挤，给较小数值让出空位置(a)
+		把列表前一个数值往后边挤，给较小数值让出空位置(a)
 		'''
 		a_list[j] = a_list[j-1]
 		j -= 1
