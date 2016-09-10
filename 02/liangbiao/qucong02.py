@@ -27,3 +27,9 @@ for element in arr3:
 		num = num - 1
 
 print arr3
+
+'''
+功能ok
+改进点
+1. 将line12-line27修改为1行
+'''

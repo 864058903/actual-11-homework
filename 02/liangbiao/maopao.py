@@ -10,3 +10,7 @@ for i in range(len(_list1) - 1):
 		_list1[i + 1] = _list1[i]
 		_list1[i] = temp
 print _list1
+
+'''
+此处只将最大的元素排到了list最后，如果想要将list排成一个从小到大，需要把这个过程循环多少次呢
+'''

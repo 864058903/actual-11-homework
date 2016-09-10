@@ -9,3 +9,7 @@ _input = raw_input('please input (name:id):')
 for i in _input.split(','):
 	names.append(tuple(i.split(':')))
 print names
+
+'''
+功能ok
+'''

@@ -10,3 +10,7 @@ for element in _list1:
 		_list1.remove(element)
 		num = num - 1
 print _list1
+
+'''
+功能ok
+'''
