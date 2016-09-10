@@ -5,12 +5,12 @@ def print_(id):
    for i in id:
       print '\033[31m%s\033[0m' % i[1],
    print
-   
+
 while True:
     name=raw_input('Please enter your Name/exit: ')
     if name == "exit":
        exit()
-    while True:   
+    while True:
        num=0
        n_id=raw_input('Please enter your Id/exit: ')
        if n_id == "exit":
@@ -31,3 +31,7 @@ while True:
               print '\033[31mYour input is :\033[0m\n %s ' % alist
               break
 
+
+'''
+功能ok
+'''

@@ -7,7 +7,11 @@ for x in arr1:
 	if x  in arr2:
 		arr_num.append(x)
 		pass
-		
-		
-			
+
+
+
 print arr_num
+
+'''
+功能有点小问题, 此时arr_num中是否可能存在多个相同的值
+'''

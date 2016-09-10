@@ -11,3 +11,8 @@ for i in alist:
        blist.append(i)
 print blist
 
+'''
+功能ok
+改进:
+1. line 5-line10是否能修改为1行
+'''

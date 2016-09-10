@@ -24,6 +24,13 @@
 #         if list_num[i] > list_num[i+1]:
 #             list_num[i],list_num[i+1]=list_num[i+1],list_num[i]
 # print list_num
+'''
+功能ok
+改进点
+1. 考虑下line22可以循环几次就ok
+2. 考虑下line23可以循环几次就ok
+'''
+
 '''数组去重'''
 # num_list01=[1,2,3,4,2,12,3,14,3,2,12,3,14,3,21,2,2,3,4111,22,3333,4]
 # new_numlist=[]
@@ -36,6 +43,11 @@
 #         new_numlist.append(i)
 # print new_numlist
 
+'''
+功能ok
+改进:
+1. line42-43有用吗？
+'''
 
 '''求两个数组共同的值（去重）'''
 # arr1 = [1, 2, 3, 4, 2, 12, 3, 14, 3, 2, 12, 3, 14, 3, 21, 2, 2, 3, 4111, 22, 3333, 4]
@@ -56,6 +68,13 @@
 #             continue
 # print new_arr
 
+'''
+功能ok
+改进点
+1. line56有用吗
+2. line61-62有用吗
+'''
+
 '''5. 用户输入员工名字和id，名字和id之间用:分隔
 多个用户 用逗号分隔
 最终输入所有用户对应id的信息
@@ -71,3 +90,7 @@ for i in user_list:
     print user_tuple
     user_newlist.append(user_tuple)
 print user_newlist
+
+'''
+功能ok
+'''

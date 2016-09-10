@@ -15,4 +15,9 @@ for i in arr1_:
 	if i in arr2_:
 		arr.append(i)
 print arr
-    
+
+''' 
+功能ok
+改进点:
+1. line8-line16修改为一个for循环
+'''

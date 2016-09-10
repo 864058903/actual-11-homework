@@ -26,4 +26,7 @@ while True:
     else:
        pxlist.append(int(astr))
        px_(pxlist,px)
-    
+
+'''
+功能ok
+'''

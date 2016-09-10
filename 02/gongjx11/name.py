@@ -9,3 +9,6 @@ for a in user.split(','):
   users.append(strip)
 print(users)
 
+'''
+功能ok
+'''

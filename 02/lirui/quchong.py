@@ -6,3 +6,9 @@ for i in num1:
 	if not i in num2:
 		num2.append(i)
 print num2
+
+'''
+功能ok
+改进点:
+1. 不在数组中尽量使用e not in list格式
+'''

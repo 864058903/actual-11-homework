@@ -10,3 +10,7 @@ for i in arr1:
         _list.append(i)
 
 print _list
+
+'''
+功能ok
+'''

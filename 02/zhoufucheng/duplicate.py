@@ -11,3 +11,7 @@ for i in _list:
         straff_list.append(i)
 
 print straff_list
+
+'''
+功能ok
+'''

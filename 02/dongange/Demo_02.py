@@ -22,4 +22,11 @@ for i in range(len(List_1_2)):
         NewList.append(List_1_2[i])
 
 print NewList
-                                    
+
+
+'''
+功能ok
+改进点：
+1. line14 直接for遍历list中元素
+2. 将line14-22使用一个for循环搞定
+'''

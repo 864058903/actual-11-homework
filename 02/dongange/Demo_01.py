@@ -15,3 +15,10 @@ for i in range(len(NumsList)):
         NewList.append(NumsList[i])
 
 print NewList
+
+'''
+功能ok
+改进点：
+1. line11 直接for遍历list中元素
+2. 将line12-14使用not 改为2行
+'''

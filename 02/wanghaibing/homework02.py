@@ -6,3 +6,9 @@ for i in range(len(alist)):
        if alist[j] > alist[j+1] :
           alist[j],alist[j+1]=alist[j+1],alist[j]
 print   alist
+
+'''
+功能ok
+改进
+1. 考虑line4是否可以少一次
+'''

@@ -23,5 +23,8 @@ while True:
         print origin_list
     else:
         break
-        
-        
+
+
+'''
+功能ok，如果是一个已有的list会怎么排序呢
+'''

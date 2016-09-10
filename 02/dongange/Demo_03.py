@@ -18,3 +18,7 @@ for i in range(len(NameBlock)):
     NameTuple = (Name, Phone)
     NewList.append(NameTuple)
 print NewList
+
+'''
+功能ok
+'''

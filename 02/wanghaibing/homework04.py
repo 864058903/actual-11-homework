@@ -14,3 +14,9 @@ for i in arr1:
            if num == 0:
               alist.append(i)
 print alist
+
+'''
+功能
+改进:
+1. line7-line14是否可以修改为1行
+'''

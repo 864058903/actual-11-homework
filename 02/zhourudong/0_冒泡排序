@@ -9,3 +9,8 @@ for i in xrange(len(a_list)-1):
 			a_list[j],a_list[j+1] = a_list[j+1],a_list[j]
 
 print a_list
+
+
+'''
+功能ok
+'''

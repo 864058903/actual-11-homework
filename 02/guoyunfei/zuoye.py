@@ -28,6 +28,9 @@ for i in range(len(a)-1):
 print(a)
 print
 
+'''
+功能ok
+'''
 
 #数组去重(通过set集合方法)
 print("2.数组去重")
@@ -35,6 +38,9 @@ b = [1,2,3,4,2,12,3,14,3,2,12,3,14,3,21,2,2,3,4111,22,3333,4]
 print(list(set(b)))
 print
 
+'''
+功能ok, 建议使用遍历list+list操作进行比较判断
+'''
 
 #两个数组取共同的值(通过set集合方法)
 print("3.数组共同值")
@@ -45,6 +51,9 @@ print(arr2)
 print(list(set(arr1).intersection(set(arr2))))
 print
 
+'''
+功能ok, 建议使用遍历list+list操作进行比较判断
+'''
 
 #信息输出
 print("4.员工信息")
@@ -55,10 +64,13 @@ for mess in message.split(","):
 print(result)
 print
 
+'''
+功能ok
+'''
 
 #插入排序
 print("5.插入排序")
-b = [10,1,5,4,9]
+b = [10,1,5,4,9,2]
 for i in range(1, len(b)):
     tmp = b.pop(i)
     for j in range(i, 0, -1):
@@ -67,4 +79,9 @@ for i in range(1, len(b)):
             break
     else:
         b.insert(0, tmp)
+
 print(b)
+
+'''
+功能ok
+'''

@@ -8,3 +8,7 @@ for i in mylist:
         unique.append(i)
 
 print unique
+
+'''
+功能ok
+'''

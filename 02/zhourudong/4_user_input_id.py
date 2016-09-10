@@ -23,6 +23,10 @@ for x in a_list_of_tuple:
 
 print out_list
 
+'''
+功能ok
+'''
+
 
 # 方法2
 user_input = raw_input('please input username userid(examp tom:11,python:1112):')
@@ -37,4 +41,7 @@ b = [tuple(x.split(':')) for x in a]
 
 print b
 
+'''
+功能ok
+'''
 # [('nginx', '2008'), ('python', '1991')]

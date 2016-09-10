@@ -11,5 +11,8 @@ while True:
 for i in range(len(userinfo)-1):
     info.append(tuple(userinfo[i].split(':')))
 print info
-    
 
+
+'''
+功能ok
+'''

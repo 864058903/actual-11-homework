@@ -6,4 +6,7 @@ for i in range(len(num)-1):
         if num[i] > num[j]:
             num[i],num[j] = num[j],num[i]
 print num
- 
+
+'''
+排序功能ok
+'''

@@ -7,5 +7,6 @@ for j in range(1,len(num)):
             num[i],num[i+1] = num[i+1],num[i]
 print num
 
-        
-        
+'''
+功能ok, line4-5改的不错，加油
+'''

@@ -7,3 +7,10 @@ for i in (arr1 + arr2):
 	data.append(i)
 	a=data.sort()
 print (data)
+
+'''
+逻辑不正确
+问题：
+1.咱们想要arr1和arr2中都存在元素，目前实现的是对arr1和arr2组成的list进行去重
+2. line6 考虑如何判断元素是否在list中
+'''

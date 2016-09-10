@@ -11,3 +11,7 @@ for i in range(1, len(num_list)):
     print num_list
 
 print num_list
+
+'''
+功能ok
+'''

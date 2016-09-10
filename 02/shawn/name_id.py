@@ -13,7 +13,7 @@ user = []
 while True:
     value = raw_input("Enter your info here: ")
     if value != 'end':
-        value = value.split(",") 
+        value = value.split(",")
         for i in value:
             i = i.strip().split(":")
             mytup = (i[0].strip(), i[1].strip())
@@ -21,3 +21,7 @@ while True:
     else:
         print user
         break
+
+'''
+功能ok
+'''
