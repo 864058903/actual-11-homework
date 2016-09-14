@@ -1,6 +1,19 @@
 #!/usr/bin/env python
 #encoding: utf-8
 
+num_list = [6, 4, 5, 3, 1, 7]
+
+for i in range(1, len(num_list) -1):
+    for j in range(i, 0, -1):
+        if num_list[j-1] > num_list[j]:
+            num_list[j],num_list[j-1] = num_list[j-1],num_list[j]
+        else:
+            break
+
+print num_list
+
+
+'''
 origin_list = []
 
 while True:
@@ -24,7 +37,7 @@ while True:
     else:
         break
 
-
+'''
 '''
 功能ok，如果是一个已有的list会怎么排序呢
 '''
