@@ -6,7 +6,19 @@
 #思路：
 #判断拷贝的文件名是否存在，不存在进行新建
 #如果拷贝window环境文件，
-
+#encoding: utf-8
+file1 = 'access.log'
+file2 = 'access_copy.log'
+src1 = open(file1, 'r')
+dest2 = open(file2, 'w')
+size = 1024
+while True:
+    cxt = src1.read(size)
+    if not cxt:
+        break
+    dest2.write(cxt)
+src1.close()
+dest2.close()
 
 
 #作业二：实现tail 功能 tail -f 循环读取
