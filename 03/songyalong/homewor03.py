@@ -20,6 +20,7 @@
 #     content_str+=file_tail.read()
 #     if content_str.endswith('\n'):
 #         print content_str,
+'''统计日志'''
 file_log=open('song.log','r')
 data_list=[]
 while True:
