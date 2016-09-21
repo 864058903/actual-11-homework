@@ -20,10 +20,18 @@ scnt = [ line.split() for line in cnt ]
 all_dict = {}
 for line in scnt:
     ip,url,code = line[0],line[6],line[8]
-    all_dict.setdefault((ip,url,code),0)
-    all_dict[(ip,url,code)] += 0
+    all_dict.setdefault((ip,url,code), 0)
+    all_dict[(ip,url,code)] += 1
 
-# print all_dict
+all_list = sorted( all_dict.items(), key=lambda x: x[1], reverse = True ) 
+
+n = 0
+for x,y in all_list:
+    if n < 30:
+        print y,x
+    n += 1
+
+print ""
 
 # def function  
 
