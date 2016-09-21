@@ -44,7 +44,7 @@ print "Total url: %s" % len(url_dict)
 print "Total code: %s" % len(code_dict)
 print ""
 
-# print code,count 
+# print code --> count 
 code_list = sorted( code_dict.items(), key=lambda x: x[1], reverse = True )
 print "Print code vs count...."
 print ""
