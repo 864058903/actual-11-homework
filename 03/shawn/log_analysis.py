@@ -51,5 +51,18 @@ print ""
 for x,y in code_list:
 	print "{0} \t {1}".format(y,x)
 
+# Baiduspider
+
+spider_line = [ line for line in cnt if "Baiduspider" in line ]
+spider_sline = [ line.split() for line in spider_line ]
+
+print ""
+print "Baiduspider claw: %s" % len(spider_line)
+
+print ""
+for i in spider_sline:
+    if i[8] != "200":
+        print i[6],i[8]
+
 # close file
 f1.close()
