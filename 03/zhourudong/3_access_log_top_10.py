@@ -35,10 +35,8 @@ for j in sort_values:
 
 # 排序(从大到小)
 tem_sort.sort(reverse=True)
-# print tem_sort
 
 # 取出最后十个
-
 for last10 in (tem_sort[:10]):
     print str(last10[1])+ ': ' +str(last10[0])
 
