@@ -2,13 +2,15 @@
 #coding:utf-8
 # from time import sleep
 
-f = open('www_access_20140823.log','r')
-kv = {}
+filepath = '/home/share/www_access_20140823.log'
+f = open(filepath,'r')
 
+kv = {}
 for line in f:
     '''
     分隔字符串为列表
     0是ip , 6是URL ，8是状态码
+    
     判断是否在字典中
         在 value += 1
         不在 value = 1
@@ -22,6 +24,7 @@ for line in f:
         kv[k] = kv.get(k) + 1
     else:
         kv[k] = 1
+
 f.close()
 
 sort_values = kv.items()
