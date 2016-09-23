@@ -54,6 +54,30 @@ for last10 in (tem_sort[:10]):
 
 
 
+'''
+log format:
+61.159.140.123 - - [23/Aug/2014:00:01:42 +0800] "GET /favicon.ico HTTP/1.1" 404 \ "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36 LBBROWSER" "-"
+
+output format:
+('118.112.143.148', '/images/cursor_zoom.cur', '404'): 674
+('118.112.143.148', '/images/cursor_minify.cur', '404'): 662
+('221.12.76.53', '/images/cursor_zoom.cur', '404'): 220
+('221.12.76.53', '/images/cursor_minify.cur', '404'): 218
+('123.174.51.164', '/public/themes/adreambox/public.css?20110820', '200'): 116
+('123.174.51.164', '/public/themes/adreambox/menu.css', '200'): 116
+('123.174.51.164', '/public/themes/adreambox/main.css?20110820', '200'): 116
+('123.174.51.164', '/public/themes/adreambox/link.css', '200'): 116
+('123.174.51.164', '/public/themes/adreambox/layout.css?20110820', '200'): 116
+('123.174.51.164', '/public/themes/adreambox/images/btn_top.gif', '200'): 116
+'''
+
+
+
+
+
+
+
+
 
 
 
