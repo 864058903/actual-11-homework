@@ -1,6 +1,6 @@
 #!/usr/bin/evn python
 #encoding:utf-8
-
+#arg1:要处理的WEB日志文件;arg2:处理后的文件;arg3:0、False,按访问量升序排序,1、True按降序排序;agr4:名次数量
 def sorts(log_file,dst_file,y=1,n=10):
    r_file=open(log_file,'rb')
    w_file=open(dst_file,'wb')
@@ -22,7 +22,7 @@ def sorts(log_file,dst_file,y=1,n=10):
    r_file.close()
    w_file.close()
    return 'OK,Please check file: %s' %dst_file
+
 if __name__=='__main__':
-   #arg1:处理日志文件函数;arg2:处理后的文件;arg3:0、False,按访问量升序排序,1、True按降序排序;agr4:名次数量
     sorts('www_access_20140823.log','logsort.txt',1,10)
     print  open('logsort.txt','r').read()
