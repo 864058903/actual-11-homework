@@ -1,0 +1,16 @@
+10.51.2.73      test_qx_mongodb
+10.117.51.244   test_qx_nginx
+please enter a hostname: TP_qx_nginx
+Last login: Tue Sep 13 11:57:00 2016 from 10.171.239.12
+
+Welcome to aliyun Elastic Compute Service!
+
+u[root@iZ23ft62vsvZ ~]# uptime
+ 16:34:02 up 15:32,  1 user,  load average: 0.08, 0.02, 0.01
+[root@iZ23ft62vsvZ ~]# netstat -nltp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address               Foreign Address             State       PID/Program name
+tcp        0      0 0.0.0.0:80                  0.0.0.0:*                   LISTEN      956/nginx
+tcp        0      0 10.252.140.186:443          0.0.0.0:*                   LISTEN      956/nginx
+tcp        0      0 10.252.140.186:32000        0.0.0.0:*                   LISTEN      934/sshd
+tcp        0      0 0.0.0.0:10050               0.0.0.0:*                   LISTEN      976/zabbix_agentd
