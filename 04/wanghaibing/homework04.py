@@ -1,8 +1,9 @@
 #!/usr/bin/evn python
 #encoding:utf-8
 
-def sorts(log_file,y=1,n=10):
+def sorts(log_file,dst_file,y=1,n=10):
    r_file=open(log_file,'rb')
+   w_file=open(dst_file,'wb')
    r_dict={}
    tmplist=[]
    num=1
@@ -16,9 +17,12 @@ def sorts(log_file,y=1,n=10):
    tmplist=sorted(tmplist,key=lambda x:x[1],reverse=y)
    for i in tmplist:
         if num <= n:
-           print '%s_%s: \033[31;1m%s\033[0m %s' %('后'+str(n) if y==0 else '前'+str(n),num,i[1],i[0])
+           w_file.write('%s %s\n' %(i[1],i[0]))
            num += 1
+   r_file.close()
+   w_file.close()
+   return 'OK,Please check file: %s' %dst_file
 if __name__=='__main__':
-   #arg1:处理日志文件函数，arg2:0、False，按访问量升序排序;1、True按降序排序。agr3:名次数量
-    sorts('www_access_20140823.log',1,10)
-
+   #arg1:处理日志文件函数;arg2:处理后的文件;arg3:0、False,按访问量升序排序,1、True按降序排序;agr4:名次数量
+    sorts('www_access_20140823.log','logsort.txt',1,10)
+    print  open('logsort.txt','r').read()
