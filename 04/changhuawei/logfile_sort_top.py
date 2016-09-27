@@ -1,4 +1,7 @@
 #encoding:utf-8
+#统计日志，IP，URL，codes，top10
+
+
 log1 = '/home/chw/python/03/access.log'
 log2 = '/home/chw/python/04/logsort.log'
 def openfile(log_srcpath,log_dstpath,topn=10):
@@ -20,6 +23,6 @@ def openfile(log_srcpath,log_dstpath,topn=10):
         fhandler_dst.write('ip {} url {} tatus {} cnt {}\n' .format(x[0][0],x[0][1],x[0][2],x[1]))
 
     fhandler_dst.close()
+    print open(log2,'r').read(),
 if __name__=='__main__':
     openfile(log1,log2,8)
-    print open(log2,'r').read()
