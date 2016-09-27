@@ -5,7 +5,6 @@ def sorts(log_file,dst_file,y=1,n=10):
    r_file=open(log_file,'rb')
    w_file=open(dst_file,'wb')
    r_dict={}
-   tmplist=[]
    num=1
    for line in r_file:
        key=line.split()
