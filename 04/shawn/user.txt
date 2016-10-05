@@ -1,3 +1,2 @@
 shawn:123:
-text:huangdonghui:
 test:222:
