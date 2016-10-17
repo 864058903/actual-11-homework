@@ -6,6 +6,9 @@
 </head>
 <body>
 <form action="/users/add" method="POST">
+        {% if  error %}
+        <span  style="color: red">{{error}} </span>
+        {% endif%}
        用户名<input id="name" type="text" name="name" value="{{name}}"/>
        密码<input id="password" type="password" name="password" value="{{password}}"/>
        <input type="submit"  value="添加用户"/>

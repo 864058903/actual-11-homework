@@ -1,7 +1,7 @@
 #coding=utf8
 from  flask  import   Flask,render_template,request,redirect
 from .   import  app
-from rwfile  import  readfile,writefile,onedata
+from rwfile  import  readfile,writefile,onedata,checkuser
 
 @app.route('/')
 @app.route('/login/',methods=["GET","POST"])
@@ -26,14 +26,18 @@ def  useradd():
         return   render_template('user_create.html')
     else:
         readresult=readfile()
-        LEN=len(readresult)
+        LEN=max([i['id'] for  i in readresult])
         userinfo=request.form
         result={k:v[0] for k,v in dict(userinfo).items()}
-        result['id']=LEN+1
-        readresult.append(result)
-        print readresult
-        writefile(readresult)
-        return redirect('/users/')
+        value=checkuser(result['name'])
+        if value==1:
+            return   render_template('user_create.html',error='user existence')
+        else:
+            result['id']=LEN+1
+            readresult.append(result)
+            print readresult
+            writefile(readresult)
+            return redirect('/users/')
 
 
 
