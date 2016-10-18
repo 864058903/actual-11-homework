@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>用户信息</title>
+</head>
+<body>
+    <button><a href="/users/create/">添加用户</a></button>
+    <table border="2">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%for user in users%}
+            <tr>
+                <td>{{user['username']}}</td>
+                <td>******</td>
+                <td>
+                    <a href="/users/update/?id={{user['id']}}">修改密码</a>
+                    <a href="/users/delete/?id={{user['id']}}">删除用户</a>
+                </td>
+            </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+</body>
+</html>

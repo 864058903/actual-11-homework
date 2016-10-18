@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+    <head lang="en">
+        <meta charset="utf-8" />
+        <title>CMDB</title>
+    </head>
+
+    <body>
+        <form action="/login/" method="post" >
+            {% if error %}
+                <span style="color:red">{{ error }}</span>
+            {% endif %}
+            <div>
+                用户：<input type="text" name="username" value="{{ username }}" />
+            </div>
+            <div>
+                密码：<input type="password" name="password" value="{{ password }}" />
+            </div>
+            <div>
+                <input type="submit" value="Login" />
+            </div>
+        </form>
+    </body>
+</html>

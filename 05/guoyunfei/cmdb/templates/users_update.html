@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+    <head lang="en">
+        <meta charset="utf-8" />
+        <title>修改密码</title>
+    </head>
+
+    <body>
+        <form action="/users/modify/" method="post" >
+            {% if error %}
+                <span style="color:red">{{ error }}</span>
+            {% endif %}
+            <div>
+                 <input type="hidden" name="id" value="{{ id }}" />
+            </div>
+            <div>
+                密码：<input type="password" name="password" value="{{ password }}" />
+            </div>
+            <div>
+                <input type="submit" value="提交" />
+            </div>
+        </form>
+    </body>
+</html>
