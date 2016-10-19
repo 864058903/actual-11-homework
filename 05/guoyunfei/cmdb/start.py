@@ -1,7 +1,7 @@
 #coding: utf-8
 #
 
-from cmdb import app
+from user import app
 
 
 if __name__ == '__main__':

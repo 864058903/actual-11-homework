@@ -2,7 +2,7 @@
 #
 
 from flask import Flask, render_template, redirect, request
-from cmdb import app
+from . import app
 from .utils import validate_login, validate_password, get_read_users, add_users, validate_user, delete_users, get_id_users, modify_password
 
 
