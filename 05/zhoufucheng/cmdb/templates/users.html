@@ -12,6 +12,7 @@
                     <th>ID</th>
                     <th>用户名</th>
                     <th>密码</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,10 @@
                         <td>{{user['id']}}</td>
                         <td>{{user['name']}}</td>
                         <td>{{user['password']}}</td>
+                        <td>
+                            <a href="/user/delete/?username={{user['name']}}">删除</a>
+                            <a href="/user/modify/?username={{user['name']}}">更新</a>
+                        </td>
                     </tr>
                {% endfor %}
             </tbody>

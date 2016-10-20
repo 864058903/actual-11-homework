@@ -2,16 +2,16 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>添加</title>
+        <title>修改</title>
     </head>
     <body>
-        <form action="/user/add/" method="post">
+        <form action="/user/update/" method="post">
             {% if error %}
                 <span style='color:red;'>{{error}}</span>
             {% endif %}
             <label>用户名:</label><input type="text" name="username" value="{{username}}"/>
             <label>密码:</label><input type="password" name="password" value="{{password}}"/>
-            <input type="submit" value="添加">
+            <input type="submit" value="更新">
         </form>
     </body>
 </html>

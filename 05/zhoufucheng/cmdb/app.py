@@ -33,7 +33,7 @@ def login():
 
 @app.route('/users/')
 def users():
-    users = models.get_user()
+    users = models.get_users()
     return render_template('users.html',users=users)
 
 @app.route('/user/create/')
@@ -51,6 +51,36 @@ def user_add():
     else:
         return render_template('user_create.html',username=username,password=password,error=error)
 
+@app.route('/user/delete/')
+def user_delete():
+    username = request.args.get('username', '')
+    models.delete_user(username)
+    return redirect('/users/')
+
+@app.route('/user/modify/')
+def modify_user():
+    username = request.args.get('username', '')
+    user = models.get_user(username)
+    error = ''
+    username = ''
+    password = ''
+    if user is None:
+        error = 'username is not exists'
+    else:
+        username = user['name']
+        password = user['password']
+    return render_template('user_modify.html',username=username,password=password,error=error)
+
+@app.route('/user/update/', methods=['post'])
+def user_update():
+    username = request.form.get('username', '')
+    password = request.form.get('password', '')
+    ok,error = models.validate_update_user(username,password)
+    if ok:
+        models.update_user(username,password)
+        return redirect('/users/')
+    else:
+        return render_template('user_modify.html',username=username,password=password,error=error)
 
 @app.route('/log/')
 def log():
