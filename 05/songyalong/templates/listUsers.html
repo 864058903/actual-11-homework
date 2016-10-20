@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>密码</th>
+        </tr>
+    </thead>
+    <tbody>
+     {% for user in users_list %}
+        <tr>
+            <td>{{ user.get('id') }}</td>
+            <td>{{ user.get('username') }}</td>
+            <td>{{ user.get('password') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
