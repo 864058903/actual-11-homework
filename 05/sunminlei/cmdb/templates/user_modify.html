@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+            <span style="color: red ">{{ message }}</span>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    <form action="/users/update/", method="post">
+        <label>ID:</label><input type="text", name="id", value="{{ id }}", readonly="readonly"/>
+        <label>用户名:</label><input type="text", name="username", value="{{ username }}"/>
+        <label>密码:</label><input type="password", name="password", value="{{ password }}"/>
+        <input type="submit" value="提交"/>
+    </form>
+</body>
+</html>
