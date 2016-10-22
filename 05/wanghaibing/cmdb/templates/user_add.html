@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新增用户</title>
+</head>
+
+<body>
+   {% if error  %}
+   <span style="color:red">{{error}}</span>
+   {% endif %}
+<form action="/add_users/" method="get"> 
+   <table>
+    <tr>
+         <td>用户名：</td>
+         <td><input type="text" name="username" value="{{username}}"   /></td>
+    </tr>
+    <tr>
+        <td>密 码：</td>
+        <td><input type="password" name="password" value="{{password}}"   /> </td>  
+    </tr>
+    <!--tr>
+        <td>所属组：</td>
+        <td><input type="text" name="group" value="{{group}}"   /></td>
+    </tr-->
+    <tr>
+        <td>所属组：</td>
+           <td>
+             <select name="group"> 
+                <option value="user" selected="selected">user</option>
+                <option value="supper" >supper</option>
+             </select>
+           </td>
+    </tr>
+    <tr>
+        <td>TEL：</td>
+        <td><input type="text" name="tel" value="{{tel}}"   /></td>
+   </tr>
+   <tr>
+        <td><input type="submit"  value="提交" /></td>
+        <td><input type="button"  value="取消" onClick="javascript:history.back(-2)"/></td>
+   </tr>
+  </table>
+</form>
+</body>
+</html>

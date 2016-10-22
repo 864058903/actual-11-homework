@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑用户</title>
+</head>
+
+<body>
+{% if error  %}
+ <span style="color:red">{{error}}</span>
+{% endif %}
+<form action="/user_modify/" method="post"> 
+   <table>
+    <tr  style="display:none;">
+         <td>UID：</td>
+         <td><input type="text" name="id" value="{{id}}" /></td>
+    </tr>
+    <tr>
+         <td>用户名：</td>
+         <td><input type="text" name="username" value="{{username}}" /></td>
+    </tr>
+    <tr>
+        <td>密 码：</td>
+        <td><input type="password" name="password" value="{{password}}"   /> </td>  
+    </tr>
+    <tr>
+        <td>TEL：</td>
+        <td><input type="text" name="tel" value="{{tel}}"   /></td>
+   </tr>
+    <tr>
+        <td>所属组：</td>
+        <td>
+          <select name="group" >
+            {% if group == "user" %}
+              <option value="user" selected="selected">user</option>
+              <option value="supper" >supper</option>
+            {% else %}
+              <option value="supper" selected="selected">supper</option>
+              <option value="user" >user</option>
+            {% endif %}
+          </select>
+        </td>
+    </tr>
+    <tr>
+        <td>状态：</td>
+        <td>
+             <select  name="status" >
+                 {% if status == "valid" %}
+                 <option value="valid" selected="selected">有效</option>
+                 <option value="invalid">无效</option>
+                 {% else %}
+                 <option value="valid" >有效</option>
+                 <option value="invalid" selected="selected">无效</option>
+                 {% endif %} 
+             </select>
+        </td>
+   </tr>
+   <tr>
+        <td><input type="submit"  value="提交" /></td>
+        <td><input type="button"  value="取消" onClick="javascript:history.back(-2)"/></td>
+   </tr>
+  </table>
+</form>
+</body>
+</html>

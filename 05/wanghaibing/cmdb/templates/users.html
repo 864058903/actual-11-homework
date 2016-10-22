@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<table id="mytab">
+<caption><h2>用户管理</h2></caption>
+<tr>
+   <form action="/search/" method="get">
+   <td>状态:</td>
+   <td>
+      <select name="u_valid" >
+       {% if u_valid == "valid" %}
+         <option value="valid" selected="selected" >有效</option>
+         <option value="invalid">无效</option>
+         <option value="all" >所有</option>
+       {% elif u_valid == "invalid" %}
+         <option value="valid"  >有效</option>
+         <option value="invalid" selected="selected">无效</option>
+         <option value="all" >所有</option>
+       {% else %}
+         <option value="valid"  >有效</option>
+         <option value="invalid">无效</option>
+         <option value="all" selected="selected" >所有</option>
+       {% endif %}
+      </select>
+   </td>
+   <td>关键字:</td>
+   <td><input type="text" name="txtkey" id="txtkey" value="{{txtkey}}"/></td>
+   <td><input type="submit"  value="查询" /></td>
+   </form>
+   <form action="/view_adduser/" method="get">
+   <td><input type="submit"  value="增加" /></td>
+   </form>
+</tr>
+</table>
+<table id="mytable" border='1'>
+<thead>
+<tr>
+<th>用户ID</th>
+<th>姓名</th>
+<th>所属组</th>
+<th>手 机</th>
+<th>状 态</th>
+<th>操 作</th>
+</tr>
+</thead>
+<tbody>
+{% for user in users %}
+<tr>
+ <td>{{user['id']}}</td>
+ <td>{{user['username']}}</td>
+ <td>{{user['group']}}</td>
+ <td>{{user['tel']}}</td>
+ {% if user['status'] == 'valid' %}
+   <td>有效</td>
+ {% else %}
+   <td>无效</td>
+ {% endif %}
+ <td><a  href="/view_usermodify/?username={{user['username']}}">编辑</a>&nbsp&nbsp<a  href="/view_userdel/?username={{user['username']}}" >删除</a> </td>
+<tr>
+{% endfor %}
+<tbody>
+</table>
+</body>
+</html>
