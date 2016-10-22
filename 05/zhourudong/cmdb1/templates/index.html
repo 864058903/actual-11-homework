@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html lang="en"> 
+  <head> 
+    <meta charset="UTF-8"/>  
+    <title>CMDB</title>
+  </head>  
+  <body> 
+    <form action="/login/" method="POST">
+    {% if error %}
+        <span style="color:red">{{error}}</span>
+    {% endif %}
+      <label>用户名</label><input type="text" name="username" value="{{username}}"/>
+      <label>密码:</label><input type="password" name="password" value="{{password}}">
+      <input type="submit" name="登录">
+    </form>
+  </body> 
+</html>
