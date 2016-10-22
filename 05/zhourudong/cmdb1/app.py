@@ -45,7 +45,7 @@ def login():
 def users():
     user_list = userinfo.get_user_info()
     return render_template('users.html',user_list=user_list)
-    pass
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=2000,debug=True)
