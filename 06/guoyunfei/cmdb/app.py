@@ -179,6 +179,5 @@ def machine_delete():
     models.machine_delete(uid)
     return redirect(url_for('machine'))
 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9000, debug=True)
