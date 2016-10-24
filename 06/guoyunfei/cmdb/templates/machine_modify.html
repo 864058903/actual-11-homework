@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>修改机房信息</title>
+    </head>
+    <body>
+        <form action="/machine/change/" method="post">
+            {% if error %}
+                <span style="color:red">{{error}}</span>
+            {% endif %}
+            <br /><br />
+            <div>
+                <input type="hidden" name="id" value="{{ id }}"/>
+            </div>
+            <div>
+                <label>机房名称:</label><input type="text" name="name" value="{{ name }}"/>
+            </div>
+            <div>
+                <label>机房地址:</label><input type="text" name="addr" value="{{ addr }}"/>
+            </div>
+            <div>
+                <label>机房IP:</label><br />
+                <textarea name="ips" rows="10" cols="40">{{ ips }}</textarea>
+            </div>
+            <input type="submit" value="修改"/>
+        </form>
+    </body>
+</html>
