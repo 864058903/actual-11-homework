@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>用户管理</title>
+    </head>
+    <body>
+        <div>
+            <a href="/user/create/" >添加用户</a>
+        </div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>年龄</th>
+                    <th>密码</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user['username'] }}</td>
+                        <td>{{ user['age'] }}</td>
+                        <td>******</td>
+                        <td>
+                            <a href="/user/modify/?id={{ user['id'] }}">修改信息</a>
+                            <a href="/modify/password/?id={{ user['id'] }}">修改密码</a>
+                            <a href="/user/delete/?id={{ user['id'] }}">删除用户</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <p><a href="{{ url_for('index') }}">首页</a></p>
+        </div>
+    </body>
+</html>
