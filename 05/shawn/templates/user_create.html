@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+	<meta charset="UTF-8">
+	<title>CREATE USERS</title>
+    <style>
+        .cnt li {
+            line-height: 22px;
+            list-style: none;
+        }
+
+        .cnt li span {
+            margin-left: 20px;
+        }
+
+        .cnt li span.st {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="cnt">
+        <h3>CREATE USERS</h3>
+        <p>
+            {% if info %}
+                {{ info }}
+            {% endif %}
+        </p>
+        <ul>
+            <div class="form">
+                <form action="/users/add/" method="post">
+                    <label for="username">用户名：</label><input type="text" name="username" value="{{ username }}">
+                    <label for="passwd">密码：</label><input type="text" name="passwd" value="{{ passwd }}">
+                    <input type="submit" name="create" value="新建">
+                </form>
+            </div>
+        </ul>
+    </div>
+</body>
+</html>
