@@ -61,5 +61,5 @@ def show_logs():
 
 
 if __name__ == "__main__":
-    #指定绑定到所有的ip，设置端口号为8686
+    #指定绑定到所有的ip，设置端口号为8687
     app.run(host="0.0.0.0", port=8687, debug=True)
