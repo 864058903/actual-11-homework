@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>机房删除</title>
+</head>
+
+<body>
+<div align="center">
+{% if error  %}
+  <span style="color:red">{{error}}</span>
+{% endif %}
+<form action="/rooms/room_del/" method="post">
+  <table>
+     <tr style="display:none">
+       <td><input type="text" name="roomid" value="{{roomid}}" /></td>
+     </tr>
+     <tr>
+       <td style="color:red">您确定要删除该机房吗？</td>
+     </tr>
+     <tr>
+       <td align="center"><input type="submit" value="确定" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消"  onclick="javascript:history.back(-1)"  /></td>
+     </tr>
+  </table>
+</form>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+更新机房
+<form action="/idc/update" method="POST">
+       <input id="id" type="hidden" name="id" value="{{info.id}}" />
+       机房名<input id="name" type="text" name="name" value="{{info.name}}" readonly/>
+       地址<input id="addr" type="text" name="addr" value="{{info.addr}}"/>
+       IP段<input id="ip_ranges" type="text" name="ip_ranges" value="{{info.ip_ranges}}"/>
+       <input type="submit"  value="更新机房"/>
+</form>
+
+
+</body>
+</html>

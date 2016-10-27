@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>机房编辑</title>
+</head>
+
+<body>
+<div align="center">
+{% if error  %}
+ <span style="color:red">{{error}}</span>
+{% endif %}
+<form action="/room_modify/" method="post">
+<table  border="1">
+  <!--tr style="display:none" -->
+  <tr style="display:none">
+    <td>ID</td>
+     <td><input type="text"  name="roomid"  value="{{rooms[0]}}"/></td>
+  </tr>
+  <tr>
+    <td>机房名称：</td>
+    <td><input type="text"  name="roomname"  value="{{rooms[1]}}"/></td>
+  </tr>
+  <tr>  
+    <td>地址：</td>
+    <td>  <input type="text"  name="addr"  value="{{rooms[2]}}"/></td>
+  </tr>
+  <tr>  
+    <td>IP范围</td>
+    <td><input type="text"  name="ip_ranges"  value="{{rooms[3]}}"/></td></tr>
+   <tr align="center">
+      <td></td>
+      <td><input type="submit" value="提交"  />&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 取消"  onclick="javascript:history.back(-1)" /> </td>
+   
+   </tr>
+</table>
+</form>
+</div>
+</body>
+</html>
