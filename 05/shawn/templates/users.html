@@ -10,8 +10,15 @@
         }
 
         .cnt li span {
-            margin-left: 20px;
+            display: inline-block;
+            width: 75px;
+            margin-left: 10px;
         }
+
+        .cnt li span.id {
+            width: 20px;
+        }
+
 
         .cnt li span.st {
             color: red;
@@ -23,12 +30,17 @@
         <h3>SHOW USERS</h3>
         <p>
             <a href="/users/add/">ADD</a>
-            <a href="/logs/?topn=50">TOP 50</a>
-            <a href="/logs/?topn=100">TOP 100</a>
+            <a href="/logs/">LOGS</a>
+        </p>
+        <p>
+            {% if info %}
+                {{ info }}
+            {% endif %}
         </p>
         <ul>
             {% for user in users %}
-            <li><span>{{user['id']}}</span><span>{{user["name"]}}</span><span>{{user["password"]}}</span></li>
+            <li><span class="id">{{user['id']}}</span><span>{{user["name"]}}</span><span>{{user["password"]}}</span>
+                <span><a href="/users/view/?id={{user['id']}}">编辑</a></span><span><a href="/users/remove/?id={{user['id']}}">删除</a></span></li>
             {% endfor %}
         </ul>
     </div>

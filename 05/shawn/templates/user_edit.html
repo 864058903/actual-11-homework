@@ -20,18 +20,19 @@
 </head>
 <body>
     <div class="cnt">
-        <h3>CREATE USERS</h3>
-		<p>
-			{% if info %}
-				{{ info }}
-			{% endif %}
-		</p>
+        <h3>USERS EDIT</h3>
+        <p>
+            {% if info %}
+                {{ info }}
+            {% endif %}
+        </p>
         <ul>
             <div class="form">
-                <form action="/users/save/" method="post">
-                    <label for="username">用户名：</label><input type="text" name="username" value="{{ username }}">
+                <form action="/users/edit/" method="post">
+                    <label for="id">ID:</label><input type="text" name="id" value="{{ user_id }}", readonly="readonly"/>
+                    <label for="username">用户名：</label><input type="text" name="username" value="{{ name }}">
                     <label for="passwd">密码：</label><input type="text" name="passwd" value="{{ passwd }}">
-                    <input type="submit" name="create" value="新建">
+                    <input type="submit" name="edit" value="编辑">
                 </form>
             </div>
         </ul>

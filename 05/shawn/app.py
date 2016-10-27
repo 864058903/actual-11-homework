@@ -42,15 +42,50 @@ def login():
 def show_users():
     return render_template("users.html", users = models.get_users())
 
-@app.route("/users/add/", methods = ["GET", "POST"])
+@app.route("/users/add/")
 def add_users():
-    if 'GET' == request.method:
-        return render_template("user_create.html")
+    return render_template("user_create.html")
+
+@app.route("/users/save/", methods = ['POST'])
+def save_users():
+    name = request.form.get("username", "")
+    password = request.form.get("passwd", "")
+    ok, error = models.validate_user_save(name, password)
+    if ok:
+        models.user_save(name, password)
+        return redirect("/users/")
     else:
-        username =  request.form.get("username", '')
-        passwd = request.form.get("passwd", '')
-        info = models.create_users(username, passwd)
-        return render_template("user_create.html", info = info)
+        return render_template("user_create.html", name = name, passwd = password, info = error)
+
+@app.route("/users/view/")
+def users_view():
+    user_id = request.args.get("id")
+    name = models.get_user(user_id).get('name')
+    passwd = models.get_user(user_id).get('password')
+    return render_template("user_edit.html", user_id = user_id, name = name , passwd = passwd)
+
+@app.route("/users/edit/", methods = ['POST'])
+def edit_users():
+    user_id = request.form.get("id")
+    name = request.form.get("username")
+    passwd = request.form.get("passwd")
+    ok, error = models.validate_user_save(name, passwd)
+    if ok:
+        info = models.user_update(user_id, name , passwd)
+        return redirect('/users/')
+    else:
+        info = error
+        return render_template('user_edit.html', user_id = user_id, name = name , passwd = passwd, info = info)
+
+@app.route("/users/remove/")
+def user_remove():
+    user_id = request.args.get("id", "")
+    result = models.user_delete(user_id)
+    if result:
+        return redirect('/users/')
+    else:
+        return render_template("users.html", info = "something wrong here.")
+
 
 @app.route("/logs/")
 def show_logs():
@@ -61,5 +96,5 @@ def show_logs():
 
 
 if __name__ == "__main__":
-    #指定绑定到所有的ip，设置端口号为8687
+    #指定绑定到所有的ip，设置端口号为8686
     app.run(host="0.0.0.0", port=8687, debug=True)
