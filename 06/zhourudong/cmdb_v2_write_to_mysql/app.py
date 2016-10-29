@@ -94,5 +94,14 @@ def delete_room():
     models.delete_room(name)
     return redirect('/rooms/')
 
+'''
+登出页面清除sessin
+'''
+@app.route('/logout/')
+def logout():
+    session.clear()
+    print session
+    return redirect('/')
+
 if __name__ == '__main__':
         app.run(debug=True)
