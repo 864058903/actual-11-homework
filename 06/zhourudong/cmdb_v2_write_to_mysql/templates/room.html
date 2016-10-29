@@ -5,7 +5,8 @@
         <title>机房信息列表</title>
     </head>
     <body>
-        <a href="/room/create/">添加机房信息</a>
+        <a href="/room/create/">添加机房信息</a> </br>
+       欢迎{{ session.get('user',{}).get('username','') }}</br>
         <a href="/logout/">退出登入</a>
         <table border="1">
             <thead>
