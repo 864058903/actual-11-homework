@@ -1,13 +1,14 @@
 #coding:utf8
 
-
 from flask import Flask
 from flask import render_template
 import models
 from flask import request
 from flask import redirect
+from flask import session
+import os
 app = Flask(__name__)
-
+app.secret_key=os.urandom(32)
 # 登入界面  输入用户名密码后提交到login
 @app.route('/')
 def index():
@@ -23,6 +24,7 @@ def login():
     user = models.validate_login(username, password)
     if user:
         # 如果验证用户成功直接跳转到机房列表
+        session['user'] = { 'username': username }
         return redirect('/rooms/')
     # 否则再转回登入界面
     return render_template('index.html', username=username, password=password, error='username or password is error')
@@ -30,6 +32,9 @@ def login():
 # 机房列表页面
 @app.route('/rooms/')
 def room_list():
+    print session.get('user')
+    if session.get('user') is None:
+        return  redirect('/')
     rooms = models.get_rooms()
     return render_template('room.html', rooms=rooms)
 

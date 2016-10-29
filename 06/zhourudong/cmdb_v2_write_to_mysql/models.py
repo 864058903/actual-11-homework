@@ -165,4 +165,4 @@ def delete_room(name):
 
 if __name__ == "__main__":
     print validate_login('zrd','123456')
-    print get_rooms()
+    # print get_rooms()
