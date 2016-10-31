@@ -76,3 +76,66 @@ def user_change(uid, email, telephone):
 def user_delete(uid):
     sql = 'delete from user where id=%s'
     MysqlConnection.execute_sql(sql, (uid, ))
+
+
+def get_idcs_list():
+    columns = ("id", "name", "address", "ips", "status")
+    sql = "select * from idcs where status=0"
+    cnt, rt_list = MysqlConnection.execute_sql(sql)
+    rt = []
+    for line in rt_list:
+        rt.append(dict(zip(columns, line)))
+    return rt
+
+
+def validate_idcs_add(name, address, ips):
+    if name.strip() == '':
+        return False, u'机房名称不能为空'
+    if len(name) > 32:
+        return False, u'机房名称长度不能大于32'
+    idcs = get_idcs_list()
+    for idc in idcs:
+        if idc['name'] == name:
+            return False, u'机房名称已存在'
+    if len(address) > 32:
+        return False, u'机房地址长度不能大于32'
+    if ips.strip() == '':
+        return False, u'机房IP网段不能为空'
+    try:
+        for ips in ips.split(','):
+            for ip in ips.split('.'):
+                if not ip.isdigit():
+                    return False, u'IP输入非数字类型'
+                else:
+                    if int(ip) < 0 or int(ip) > 256:
+                        return False, u'IP输入范围1-255'    
+    except:
+        return False, u'机房IP输入错误'
+    return True, ''
+ 
+
+def idcs_add(name, address, ips):
+    columns = ("name", "address", "ips")
+    sql = 'insert into idcs({}) values(%s, %s, %s)'.format(','.join(columns))
+    args = (name, address, ips)
+    print(sql)
+    print(args)
+    MysqlConnection.execute_sql(sql, args)
+
+
+def get_idcs_id(uid):
+    rt = get_idcs_list()
+    for idc in rt:
+        if idc['id'] == int(uid):
+            return idc
+
+
+def idcs_change(uid, name, address, ips):
+    sql = 'update idcs set name=%s,address=%s,ips=%s where id=%s'
+    args = (name, address, ips, uid)
+    MysqlConnection.execute_sql(sql, args) 
+
+
+def idcs_delete(uid):
+    sql = 'update idcs set status=1 where id=%s'
+    MysqlConnection.execute_sql(sql, (uid, ))
