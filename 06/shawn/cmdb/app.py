@@ -45,12 +45,12 @@ def save_users():
     name = request.form.get("username", "")
     password = request.form.get("passwd", "")
     age = request.form.get("age", "")
-    ok, error = models.validate_user_save(name, password)
+    ok, error = models.validate_user_save(name, password,age)
     if ok:
-        models.user_save(name, password)
+        models.user_save(name, password, age)
         return redirect("/users/")
     else:
-        return render_template("user_create.html", name = name, passwd = password, info = error)
+        return render_template("user_create.html", name = name, passwd = password, age = age, info = error)
 
 @app.route("/users/view/")
 def users_view():
@@ -64,7 +64,7 @@ def edit_users():
     user_id = request.form.get("id")
     name = request.form.get("username")
     age = request.form.get("age")
-    ok, error = models.validate_user_save(user_id, name, age)
+    ok, error = models.validate_edit_save(user_id,name, age)
     if ok:
         info = models.user_update(user_id, name , age)
         return redirect('/users/')

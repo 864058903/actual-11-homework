@@ -29,9 +29,9 @@
         <ul>
             <div class="form">
                 <form action="/users/save/" method="post">
-                    <label for="username">用户名：</label><input type="text" name="username" value="">
-                    <label for="passwd">密码：</label><input type="text" name="passwd" value="">
-					<label for="age">年龄：</label><input type="text" name="age" value="">
+                    <label for="username">用户名：</label><input type="text" name="username" value="{{ name }}">
+                    <label for="passwd">密码：</label><input type="text" name="passwd" value="{{ passwd }}">
+					<label for="age">年龄：</label><input type="text" name="age" value="{{ age }}">
                     <input type="submit" name="create" value="新建">
                 </form>
             </div>

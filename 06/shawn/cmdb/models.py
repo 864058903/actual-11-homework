@@ -6,11 +6,12 @@ import gconfig
 import MySQLdb
 
 SQL_LOGIN = 'select id, name from user where name=%s and password=md5(%s)'
-SQL_USER_SAVE = 'insert into user(name,password) values(%s, md5(%s))'
+SQL_USER_SAVE = 'insert into user(name,password,age) values(%s, md5(%s),%s)'
 SQL_USER_LIST = 'select id,name,password,age from user'
 SQL_USER_GET = 'select id,name,age from user where id=%s'
 SQL_USER_UPDATE = 'update user set name=%s, age=%s where id=%s'
 SQL_USER_DEL = 'delete from user where id=%s'
+SQL_EDIT_CHECK = 'select id from user where id != %s and name = %s'
 
 def get_users():
     conn = MySQLdb.connect(host=gconfig.MYSQL_HOST, \
@@ -43,19 +44,54 @@ def get_user(user_id):
     return {} if record is None else dict(zip(columns, record))
 
 
-def validate_user_save(uid, username, password):
-    # if username.strip() == '' or password.strip() == '':
-    #     return False, "username/password is empty"
-    # elif len(username.strip()) <= 6:
-    #     return False, 'username must dayu 6'
-    # elif len(username.strip()) >= 20:
-    #     return False, 'username must xiaoyu 20'
-    # elif len([ i for i in get_users() if i['name'] == username ]) != 0:
-    #     return False, 'username already be used'
+def validate_user_save(username, password, age):
+    if username.strip() == '' or password.strip() == '':
+        return False, "username/password is empty"
+    if len(username.strip()) < 6 or len(username.strip()) > 20 :
+        return False, 'username must between 6 and 20'
+    if not str(age).isdigit() or int(age) < 1 or int(age) > 100:
+        return False, 'age is not a between 1 and 100 integer'
+    if len([ line for line in get_users() if line['name'] == username ]) != 0:
+        return False, 'username is already be used.'
     return True , ''
 
-def user_save(uid, username, age):
-    
+def validate_edit_save(user_id, username, age):
+    if not get_user(user_id):
+        return False, "user_id is error."
+    if len(username.strip()) < 6 or len(username.strip()) > 20 :
+        return False, 'username must between 6 and 20'
+    if not str(age).isdigit() or int(age) < 1 or int(age) > 100:
+        return False, 'age is not a between 1 and 100 integer'
+    conn = MySQLdb.connect(host=gconfig.MYSQL_HOST, \
+                           port=gconfig.MYSQL_PORT,\
+                           user=gconfig.MYSQL_USER,\
+                           passwd=gconfig.MYSQL_PASSWD,\
+                           db=gconfig.MYSQL_DB,\
+                           charset=gconfig.MYSQL_CHARSET)
+    cursor = conn.cursor()
+    cursor.execute(SQL_EDIT_CHECK, (user_id,username.strip()))
+    record = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if record != None:
+        return False, "username is already be used."
+    else:
+        return True , ''
+
+
+
+def user_save(username, password, age):
+    conn = MySQLdb.connect(host=gconfig.MYSQL_HOST, \
+                           port=gconfig.MYSQL_PORT,\
+                           user=gconfig.MYSQL_USER,\
+                           passwd=gconfig.MYSQL_PASSWD,\
+                           db=gconfig.MYSQL_DB,\
+                           charset=gconfig.MYSQL_CHARSET)
+    cursor = conn.cursor()
+    cursor.execute(SQL_USER_SAVE, (username,password,age))
+    conn.commit()
+    cursor.close()
+    conn.close()
     return True
 
 def user_update(user_id, username, age):
@@ -84,22 +120,6 @@ def user_delete(user_id):
     cursor.close()
     conn.close()
     return True
-
-
-def create_users(username,passwd):
-    users = get_users()
-    max_id = max([ int(i['id']) for i in users ]) + 1
-    if len([ i for i in users if i['name'] != username ]) == 0:
-        users.append({'id':max_id,'name':username, 'password': passwd})
-        f2 = open(gconfig.DB_PATH, 'w')
-        users_cnt = json.dumps(users)
-        f2.write(users_cnt)
-        f2.flush()
-        f2.close()
-        info = "create success!"
-    else:
-        info = "username is already be used!"
-    return info
 
 
 def validate_login(username, passwd):
