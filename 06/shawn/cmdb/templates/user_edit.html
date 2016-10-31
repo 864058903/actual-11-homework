@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+	<meta charset="UTF-8">
+	<title>CREATE USERS</title>
+    <style>
+        .cnt li {
+            line-height: 22px;
+            list-style: none;
+        }
+
+        .cnt li span {
+            margin-left: 20px;
+        }
+
+        .cnt li span.st {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="cnt">
+        <h3>USERS EDIT</h3>
+        <p>
+            {% if info %}
+                {{ info }}
+            {% endif %}
+        </p>
+        <ul>
+            <div class="form">
+                <form action="/users/edit/" method="post">
+                    <label for="id">ID:</label><input type="text" name="id" value="{{ user_id }}", readonly="readonly"/>
+                    <label for="username">用户名：</label><input type="text" name="username" value="{{ name }}">
+                    <label for="age">年龄：</label><input type="text" name="age" value="{{ age }}">
+                    <input type="submit" name="edit" value="编辑">
+                </form>
+            </div>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+	<meta charset="UTF-8">
+	<title>USERS</title>
+    <style>
+        .cnt li {
+            line-height: 22px;
+            list-style: none;
+        }
+
+        .cnt li span {
+            display: inline-block;
+            width: 350px;
+            margin-left: 10px;
+        }
+
+		.cnt li span.name {
+			width: 80px;
+		}
+
+        .cnt li span.id {
+            width: 20px;
+        }
+
+		.cnt li span.link {
+			width: 50px;
+		}
+
+        .cnt li span.st {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="cnt">
+        <h3>SHOW USERS</h3>
+        <p>
+            <a href="/users/add/">ADD</a>
+            <a href="/logs/">LOGS</a>
+        </p>
+        <p>
+            {% if info %}
+                {{ info }}
+            {% endif %}
+        </p>
+        <ul>
+            {% for user in users %}
+            <li><span class="id">{{user['id']}}</span><span class="name">{{user["name"]}}</span><span>{{user["password"]}}</span>
+				<span class="link">{{ user['age'] }}</span>
+                <span class="link"><a href="/users/view/?id={{user['id']}}">编辑</a></span><span  class="link"><a href="/users/remove/?id={{user['id']}}">删除</a></span></li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
