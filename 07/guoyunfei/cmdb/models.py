@@ -13,6 +13,29 @@ def validate_login(username, password):
         return False, u'用户名或密码错误'
 
 
+def validate_password(username, password_old, password_new, password_repeat_new):
+    if password_old.strip() == '':
+        return False, u'原密码不能为空'
+    ret, error = validate_login(username, password_old)
+    if not ret:
+        return False, u'原密码错误'
+    if password_new.strip() == '':
+        return False, u'新密码不能为空'
+    if password_old == password_new:
+        return False, u'新密码不能与原密码相同'
+    if password_repeat_new.strip() == '':
+        return False, u'确认新密码不能为空'
+    if password_new != password_repeat_new:
+        return False, u'新密码前后输入不匹配'
+    return True, ''
+
+
+def change_password(username, password):
+    sql = 'update user set password=md5(%s) where username=%s'
+    args = (password, username)
+    MysqlConnection.execute_sql(sql, args)
+
+
 def get_user_list():
     columns = ("id", "username", "password", "email", "telephone")
     sql = "select * from user"
@@ -43,8 +66,8 @@ def validate_add(username, password, email, telephone):
             return False, u'用户名存在'
     if password.strip() == '':
         return False, u'密码不能为空'
-    if len(password) < 6 or len(password) > 32:
-        return False, u'密码长度6-32位'
+    if len(password) < 6: 
+        return False, u'密码长度大于6位'
     if len(email) > 32:
         return False, u'邮箱长度不能大于32位'
     if len(telephone) > 11:
@@ -88,6 +111,13 @@ def get_idcs_list():
     return rt
 
 
+def get_idcs_id(uid):
+    rt = get_idcs_list()
+    for user in rt:
+        if user['id'] == int(uid):
+            return user
+
+
 def validate_idcs_add(name, address, ips):
     if name.strip() == '':
         return False, u'机房名称不能为空'
@@ -113,6 +143,34 @@ def validate_idcs_add(name, address, ips):
         return False, u'机房IP输入错误'
     return True, ''
  
+
+def validate_idcs_modify(uid, name, address, ips):
+    if name.strip() == '':
+        return False, u'机房名称不能为空'
+    if len(name) > 32:
+        return False, u'机房名称长度不能大于32'
+    if len(address) > 32:
+        return False, u'机房地址长度不能大于32'
+    if ips.strip() == '':
+        return False, u'机房IP网段不能为空'
+    try:
+        for ips in ips.split(','):
+            for ip in ips.split('.'):
+                if not ip.isdigit():
+                    return False, u'IP输入非数字类型'
+                else:
+                    if int(ip) < 0 or int(ip) > 256:
+                        return False, u'IP输入范围1-255'    
+    except:
+        return False, u'机房IP输入错误'
+    idc = get_idcs_id(uid)
+    if idc['name'] != name:
+        idcs = get_idcs_list()
+        for sid in idcs:
+            if sid['name'] == name:
+                return False, u'机房名称已存在'
+    return True, ''
+    
 
 def idcs_add(name, address, ips):
     columns = ("name", "address", "ips")
