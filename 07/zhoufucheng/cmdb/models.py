@@ -168,7 +168,7 @@ def validate_user_modify(uid,username,age,department,hobby,email,detail):
     conn.close()
     '''
     count,cnt = dbutil.execute_sql(SQL_VALIDATE_USER_MODIFY,(uid,username.strip()))
-    if cnt != 0:
+    if len(cnt) != 0:
         return False, 'username cannot be repeated'
 
     return True, ''
