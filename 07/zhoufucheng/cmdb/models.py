@@ -66,7 +66,7 @@ def validate_login(username, password):
     '''
     count, record = dbutil.execute_sql(SQL_VALIDATE_LOGIN,(username,password))
     rt = None
-    if record is not None:
+    if len(record) != 0:
         rt = {'id':record[0][0], 'name':record[0][1]}
     return rt    
 
