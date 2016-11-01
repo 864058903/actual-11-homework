@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>机房管理</title>
+    </head>
+    <body>
+        <a href="/idc/create/">添加</a>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>机房名</th>
+                    <th>机房地址</th>
+                    <th>IP地址段</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for idc in idcs %}
+                    <tr>
+                        <td>{{idc['id']}}</td>
+                        <td>{{idc['name']}}</td>
+                        <td>{{idc['addr']}}</td>
+                        <td>{{idc['ip_ranges']}}</td>
+                        <td>
+                            <a href="/idc/view/?id={{idc['id']}}">编辑</a>
+                            <a href="/idc/delete/?id={{idc['id']}}">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

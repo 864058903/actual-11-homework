@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 我是一个注释 -->
+        <!-- 给浏览器说明编码方式、title等信息-->
+        <meta charset="utf-8" />
+        <title>登陆</title>
+        <!-- 新 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            container
+        </div>
+        <div class="container-fluid">
+            container-fluid
+        </div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="gun"></div>
+        <div class="gun"></div>
+        <div class="gun"></div>
+        <span>我是 span1</span>
+        <span>我是 span2</span>
+        <div id="myid" class="mydiv">我是 div1</div>
+        <div>我是 div2</div>
+        <p id="myid">我是 p1</p>
+        <p>我是 p2</p>
+        <form action="/login/" method="post">
+            <label>用户名:</label><input type="text" name="username" value="{{username}}"/>
+            <label>密码:</label><input type="password" name="password" value="{{password}}"/>
+            <label>部门:</label><select name="deparment">
+                <option value="1">研发部门</option>
+                <option value="2">测试部门</option>
+                <option value="3" selected="selected">运维部门</option>
+            </select><br/>
+            <label>性别:</label><input type="radio" name="sex" value="1" checked="checked" />男
+                        <input type="radio" name="sex" value="0" />女<br/>
+            <label>爱好:</label>
+            <input type="checkbox" name="hobby" value="football">足球
+            <input type="checkbox" name="hobby" value="basketball">蓝球
+            <input type="checkbox" name="hobby" value="pingpang" checked="checked">乒乓球
+            <br/>
+            <label>备注:</label>
+            <textarea name="detil">xxx</textarea>
+            <br/>
+            <label>头像:</label>
+            <input type="file" name="icon" />
+            <br/>
+
+            <input type="submit" value="登陆"/>
+        </form>
+        <img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1477809096&di=a251b455c6b0749ecbb2edd3876cdaae&src=http://tu.southcn.com/data/pics/preview_img/441/MqbmcjDgmfFeZjoXiLgyvBpQ.jpg" />
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <ol>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ol>
+        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    </body>
+</html>
