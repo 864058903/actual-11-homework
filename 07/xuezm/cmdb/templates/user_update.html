@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+更新用户信息
+{% endblock %}
+{% block main %}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+	<div class="col-sm-10">
+	    <div class="ibox float-e-margins">
+		<div class="ibox-title">
+		    <h5>填写基本信息</h5>
+		<div class="ibox-tools">
+			<a class="collapse-link">
+			    <i class="fa fa-chevron-up"></i>
+			</a>
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			    <i class="fa fa-wrench"></i>
+			</a>
+			<a class="close-link">
+			    <i class="fa fa-times"></i>
+			</a>
+        </div>
+       </div>
+	<div class="ibox-content">
+    <form  id="updateForm" class="form-horizontal" action="/users/update" method="post">
+		<input id='id' type='hidden' name='id' value= {{info.id}} readonly='true'><!--ID-->
+
+	    <div class='form-group'>
+                <label for="username" class="col-sm-3 control-label">用户名<span class="red-fonts">*</span></label>
+                <div class="col-sm-8">
+                    <input id="username" name="username" value={{info.username}} type="text" class="form-control" >
+                </div>
+	    </div>
+        <!--username-->
+
+	    <div class="hr-line-dashed"></div>
+	    <div class="form-group">
+			    <label for="age" class="col-sm-3 control-label">年龄</label>
+			    <div class="col-sm-8">
+				<input id="age" name="age" value="{{info.age}}" type="text" class="form-control" >
+			    </div>
+		</div>
+        <!--age-->
+
+		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			    <label for="power" class="col-sm-3 control-label">电话</label>
+			    <div class="col-sm-8">
+				<input id="telephone" name="telephone" value="{{info.telephone}}" type="text" class="form-control" >
+			    </div>
+		</div> <!--telephone-->
+
+		<div class="hr-line-dashed"></div>
+        <div class="form-group">
+                <label class="col-sm-3 control-label">性别</label>
+                <div class="col-sm-2">
+                    <label><input type="radio" value=0 name="sex" checked="">男</label>
+                </div>
+                <div class="col-sm-2">
+                    <label><input type="radio" value=1 name="sex">女</label>
+                </div>
+        </div><!--sex-->
+
+
+		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			    <label for="department" class="col-sm-3 control-label">部门</label>
+			    <div class="col-sm-8">
+				<input id="department" name="department" value="{{info.department}}" type="text" class="form-control" >
+			    </div>
+		</div> <!--department-->
+
+		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			    <label for="title" class="col-sm-3 control-label">职位</label>
+			    <div class="col-sm-8">
+				<input id="title" name="title" value="{{info.title}}" type="text" class="form-control" >
+			    </div>
+		</div> <!--title-->
+
+
+		<div class="hr-line-dashed"></div>
+        <div class="form-group">
+                <label class="col-sm-3 control-label">角色</label>
+                <div class="col-sm-2">
+                    <label><input type="radio" value='admin' name="role" checked="">管理员</label>
+                </div>
+                <div class="col-sm-2">
+                    <label><input type="radio" value='user' name="role">普通用户</label>
+                </div>
+        </div><!--role-->
+
+ 		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			    <label for="birthday" class="col-sm-3 control-label">生日</label>
+			    <div class="col-sm-8">
+				<input id="birthday" name="birthday" value="{{info.birthday}}" type="text" class="form-control" >
+			    </div>
+		</div> <!--birthday-->
+
+ 		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			    <label for="email" class="col-sm-3 control-label">邮箱</label>
+			    <div class="col-sm-8">
+				<input id="email" name="email" value="{{info.email}}" type="text" class="form-control" >
+			    </div>
+		</div> <!--birthday-->
+		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			    <div class="col-sm-6 col-sm-offset-2">
+				<button id="submit_button" class="btn btn-primary">确认更新</button>
+				<button class="btn btn-white" type="reset">重置</button>
+			    </div>
+		</div>
+	</form> <!--form-->
+ </div> <!--ibox-content-->
+</div>  <!---->
+</div><!---->
+
+{% endblock %}

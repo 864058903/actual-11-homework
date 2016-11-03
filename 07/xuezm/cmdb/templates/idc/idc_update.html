@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+机房更新
+{% endblock %}
+{% block main %}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+	<div class="col-sm-10">
+	    <div class="ibox float-e-margins">
+		<div class="ibox-title">
+		    <h5>填写基本信息</h5>
+		<div class="ibox-tools">
+			<a class="collapse-link">
+			    <i class="fa fa-chevron-up"></i>
+			</a>
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			    <i class="fa fa-wrench"></i>
+			</a>
+			<a class="close-link">
+			    <i class="fa fa-times"></i>
+			</a>
+        </div>
+       </div>
+	<div class="ibox-content">
+    <form  id="updateForm" class="form-horizontal" action="/idc/update" method="post">
+		<input id='id' type='hidden' name='id' value= {{info.id}} readonly='true'><!--ID-->
+
+        <div class="hr-line-dashed"></div>
+	    <div class='form-group'>
+                <label for="name" class="col-sm-3 control-label">机房名<span class="red-fonts">*</span></label>
+                <div class="col-sm-8">
+                    <input id="name" name="name" value={{info.name}} type="text" class="form-control" readonly >
+                </div>
+	    </div>
+        <!--name-->
+		<div class="hr-line-dashed"></div>
+	    <div class='form-group'>
+                <label for="addr" class="col-sm-3 control-label">地址<span class="red-fonts">*</span></label>
+                <div class="col-sm-8">
+                    <input id="addr" name="addr" value={{info.addr}} type="text" class="form-control"  >
+                </div>
+	    </div>
+        <!--addr-->
+		<div class="hr-line-dashed"></div>
+	    <div class='form-group'>
+                <label for="ip_ranges" class="col-sm-3 control-label">IP段<span class="red-fonts">*</span></label>
+                <div class="col-sm-8">
+                    <input id="ip_ranges" name="ip_ranges" value={{info.ip_ranges}} type="text" class="form-control"  >
+                </div>
+	    </div>
+        <!--ip_ranges-->
+
+		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			    <div class="col-sm-6 col-sm-offset-2">
+				<button id="submit_button" class="btn btn-primary">确认更新</button>
+				<button class="btn btn-white" type="reset">重置</button>
+			    </div>
+		</div>
+
+
+    </form> <!--form-->
+ </div> <!--ibox-content-->
+</div>  <!---->
+</div><!---->
+
+{% endblock %}

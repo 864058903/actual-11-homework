@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+用户列表
+{% endblock %}
+{% block main %}
+
+
+<body>
+    <a href="/users/add" class="btn btn-sm btn-primary "> 添加用户</a>
+<table class="table table-striped table-bordered table-hover " id="editable">
+
+<thead>
+    <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">username</th>
+                <th class="text-center">age</th>
+                <th class="text-center">telephone</th>
+                <th class="text-center">sex</th>
+                <!--<th class="text-center">department</th>-->
+                <th class="text-center">title</th>
+                <th class="text-center">role</th>
+                <th class="text-center">birthday</th>
+                <th class="text-center">email</th>
+                <th class="text-center">操作</th>
+    </tr>
+</thead>
+<tbody>
+   {% for result in users %}
+        <tr class="gradeX">
+                <td class="text-center">{{result['id']}}</td>
+                <td class="text-center">{{result['username']}}</td>
+                <td class="text-center">{{result['age']}}</td>
+                <td class="text-center">{{result['telephone']}}</td>
+                {% if result['sex']==0 %}
+                <td class="text-center">男</td>
+                {%else%}
+                <td class="text-center">女</td>
+                {%endif%}
+                <!--<td class="text-center">{{result['department']}}</td>-->
+                <td class="text-center">{{result['title']}}</td>
+                {% if result['role']=='admin' %}
+                <td class="text-center">管理员</td>
+                {%else%}
+                <td class="text-center">普通用户</td>
+                {%endif%}
+                <td class="text-center">{{result['birthday']}}</td>
+                <td class="text-center">{{result['email']}}</td>
+
+                <td>
+                    <a href="/users/delete?id={{result['id']}}" class="btn btn-xs btn-danger ">删除</a>
+                    <a href="/users/update?id={{result['id']}}" class="btn btn-xs btn-info ">更新</a>
+                    <a href="/users/uppass?id={{result['id']}}" class="btn btn-xs btn-primary ">修改密码</a>
+
+                </td>
+            </td>
+         </tr>
+    {% endfor %}
+ </tbody>
+</table>
+
+
+</body>
+{% endblock %}
