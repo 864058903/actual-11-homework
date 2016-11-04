@@ -1,0 +1,31 @@
+span {
+    border: 5px solid red;
+}
+.mydiv {
+    border: 5px solid green;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    height: 100px
+}
+#myid {
+    background-color: gray;
+    position: absolute;
+    top: 200px;
+    right: 100px
+}
+.circle {
+    width: 50px;
+    height: 50px;
+    padding: 0px;
+    margin: 0px;
+    border: 1px solid red;
+    background-color: red;
+    border-radius: 25px
+}
+.gun {
+    background-color: black;
+    width: 10px;
+    height: 100px;
+    margin: 0px 0px 0px 20px ;
+}

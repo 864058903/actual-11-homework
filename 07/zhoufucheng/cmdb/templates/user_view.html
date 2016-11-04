@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>用户修改</title>
+
+    <link href="/static/inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/inspinia/css/animate.css" rel="stylesheet">
+    <link href="/static/inspinia/css/style.css" rel="stylesheet">
+
+    <link href="/static/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="/static/inspinia/img/profile_small.jpg" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{session['user']['name']}}</strong>
+                             </span> </span> </a>
+                    </div>
+                    <div class="logo-element">
+                        CMDB
+                    </div>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="index.html">Dashboard v.1</a></li>
+                    
+                    </ul>
+                </li>
+                <li>
+                    <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="fa fa-th-large"></i> <span class="nav-label">用户</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li class="active"><a href="/users/">用户管理</a></li>
+                    
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+           
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+
+
+                <li>
+                    <a href="/logout/">
+                        <i class="fa fa-sign-out"></i> 退出
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <br/>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="javascript:void(0)">用户</a>
+                        </li>
+                        <li>
+                            <a>用户管理</a>
+                        </li>
+                        <li class="active">
+                            <strong>用户修改</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+            <div class="col-lg-7">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal" action="/user/modify/" method="post">
+                                <div class="form-group">
+                                    <div class="col-lg-10"><input type="hidden" name="id" value="{{id}}" class="form-control"></div>
+                                </div>
+                                <div class="form-group"><label class="col-lg-2 control-label">用户名</label>
+                                    <div class="col-lg-10"><input type="text" name="username" value="{{username}}" placeholder="Username" class="form-control"></div>
+                                </div>
+                                <div class="form-group"><label class="col-lg-2 control-label">年龄</label>
+                                    <div class="col-lg-10"><input type="text" name="age" value="{{age}}" placeholder="Age" class="form-control"></div>
+                                </div>
+                                <div class="form-group"><label class="col-lg-2 control-label">部门</label>
+                                    <div class="col-lg-10">
+                                        <select multiple class="form-control" name="department" value={{department}}>
+                                            <option value="1">研发部门</option>
+                                            <option value="2">测试部门</option>
+                                            <option value="3" selected="selected">运维部门</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-lg-2 control-label">爱好</label>
+                                    <div class="col-lg-10">
+                                        <label class="checkbox-inline">
+                                          <input type="checkbox" id="inlineCheckbox1" name="hobby" value="basketball" {% if 'basketball' in hobby %}checked="checked"{% endif%}> 篮球
+                                        </label>
+                                        <label class="checkbox-inline">
+                                          <input type="checkbox" id="inlineCheckbox2" name="hobby" value="football" {% if 'football' in hobby %}checked="checked"{% endif%}> 足球
+                                        </label>
+                                        <label class="checkbox-inline">
+                                          <input type="checkbox" id="inlineCheckbox3" name="hobby" value="pingpang" {% if 'pingpang' in hobby %}checked="checked"{% endif%}> 乒乓球
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-lg-2 control-label">邮箱</label>
+                                    <div class="col-lg-10">
+                                          <div class="form-group">
+                                            <input type="email" name="email" value="{{email}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                          </div>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-lg-2 control-label">简介</label>
+                                    <div class="col-lg-10">
+                                         <textarea name="detail" class="form-control" rows="3">{{detail}}</textarea>
+                                    </div>
+                                </div>
+                                {% if error %}
+                                    <div>
+                                        <div class="alert alert-danger" role="alert">{{error}}</div>
+                                    </div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button type="submit" class="btn btn-primary">修改</button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+            
+                
+            
+            
+        <div class="footer">
+            
+            <div>
+                <strong>CMDB</strong> Product By ZZ; 2016-2018
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="/static/inspinia/js/jquery-2.1.1.js"></script>
+    <script src="/static/inspinia/js/bootstrap.min.js"></script>
+    <script src="/static/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/static/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/static/inspinia/js/inspinia.js"></script>
+    <script src="/static/inspinia/js/plugins/pace/pace.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="/static/inspinia/js/plugins/iCheck/icheck.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div align="center">
+<table id="mytab">
+<caption><h2>用户管理</h2></caption>
+<tr>
+   <form action="/users/search/" method="get">
+   <td>状态:</td>
+   <td>
+      <select name="u_valid" >
+       {% if u_valid == "valid" %}
+         <option value="valid" selected="selected" >有效</option>
+         <option value="invalid">无效</option>
+         <option value="all" >所有</option>
+       {% elif u_valid == "invalid" %}
+         <option value="valid"  >有效</option>
+         <option value="invalid" selected="selected">无效</option>
+         <option value="all" >所有</option>
+       {% else %}
+         <option value="valid"  >有效</option>
+         <option value="invalid">无效</option>
+         <option value="all" selected="selected" >所有</option>
+       {% endif %}
+      </select>
+   </td>
+   <td>关键字:</td>
+   <td><input type="text" name="key" id="key" value="{{key}}"/></td>
+   <td><input type="submit"  value="查询" /></td>
+   </form>
+   <form action="/view_adduser/" method="get">
+   <td><input type="submit"  value="增加" /></td>
+   </form>
+</tr>
+</table>
+<table id="mytable" border='1'>
+<thead>
+<tr>
+<th>用户ID</th>
+<th>姓名</th>
+<th>部门</th>
+<th>性别</th>
+<th>年龄</th>
+<th>生日</th>
+<th>手机</th>
+<th>邮箱</th>
+<th>爱好</th>
+<th>简介</th>
+<th>所属组</th>
+<th>状态</th>
+<th>操 作</th>
+</tr>
+</thead>
+<tbody>
+{% for user in users %}
+<tr>
+ <td>{{user[0]}}</td>
+ <td>{{user[1]}}</td>
+ <td>{{user[2]}}</td>
+ <td>{{user[3]}}</td>
+ <td>{{user[4]}}</td>
+ <td>{{user[5]}}</td>
+ <td>{{user[6]}}</td>
+ <td>{{user[7]}}</td>
+<td>{{user[8]}}</td>
+ <td>{{user[9]}}</td>
+ <td>{{user[10]}}</td>
+ <td>{{user[11]}}</td>
+ <td><a  href="/view_usermodify/?userid={{user[0]}}">编辑</a>&nbsp&nbsp<a  href="/view_userdel/?userid={{user[0]}}" >删除</a> </td>
+<tr>
+{% endfor %}
+<tbody>
+</table>
+</div>
+</body>
+</html>

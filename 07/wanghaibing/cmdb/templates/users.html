@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CMDB</title>
+
+    <link href="/static/sfv/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/sfv/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/static/sfv/css/animate.css" rel="stylesheet">
+    <link href="/static/sfv/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="/static/sfv/img/profile_small.jpg" />
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold text-enter">{{session['user']}}</strong></span></span></a>
+                </div>
+                <div class="logo-element">
+                    CMDB
+                </div>
+            </li>
+            <li>
+                <a href="#"><i class="glyphicon glyphicon-user"></i> <span class="nav-label">用户</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="/users/">用户管理</a></li>
+                 
+                </ul>
+            </li>
+          
+
+        </ul>
+
+    </div>
+</nav>
+
+
+
+<div id="page-wrapper" class="gray-bg">
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <span class="m-r-sm text-muted welcome-message">Welcome to CMDB Admin Theme.</span>
+            </li>
+          
+            <li>
+                <a href="/logout/">
+                    <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+</div>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>CMDB</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">用户</a>
+            </li>
+            <li class="active">
+                <strong>用户管理</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  
+<form class="form-inline" action="/users/search/" method="get"  role="form">
+     <div class="input-group">
+      <div class="input-group-addon">状态</div>
+  <!--div class="form-group"-->
+
+    <select name="u_valid"  class="form-control" id="exampleInputEmail2">
+       {% if u_valid == "valid" %}
+         <option value="valid" selected="selected" >有效</option>
+         <option value="invalid">无效</option>
+         <option value="all" >所有</option>
+       {% elif u_valid == "invalid" %}
+         <option value="valid"  >有效</option>
+         <option value="invalid" selected="selected">无效</option>
+         <option value="all" >所有</option>
+       {% else %}
+         <option value="valid"  >有效</option>
+         <option value="invalid">无效</option>
+         <option value="all" selected="selected" >所有</option>
+       {% endif %}
+      </select>
+    
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon">关键字</div>
+      <input class="form-control" type="text"  name="key"  value="{{key}}"/>
+
+    </div>
+  </div>
+ <input type="submit"   class="btn btn-primary" value="查询" />
+<a href="/view_adduser/"  class="btn btn btn-danger" role="button">增加</a>
+</form>
+
+<table  class="table text-center  table-striped table-bordered table-hover">
+<thead >
+<tr >
+<th>用户ID</th>
+<th>姓名</th>
+<th>部门</th>
+<th>性别</th>
+<th>年龄</th>
+<th>生日</th>
+<th>手机</th>
+<th>邮箱</th>
+<th>爱好</th>
+<th>简介</th>
+<th>所属组</th>
+<th>状态</th>
+<th>操 作</th>
+</tr>
+</thead>
+<tbody>
+{% for user in users %}
+<tr>
+ <td>{{user[0]}}</td>
+ <td>{{user[1]}}</td>
+ <td>{{user[2]}}</td>
+ <td>{{user[3]}}</td>
+ <td>{{user[4]}}</td>
+ <td>{{user[5]}}</td>
+ <td>{{user[6]}}</td>
+ <td>{{user[7]}}</td>
+<td>{{user[8]}}</td>
+ <td>{{user[9]}}</td>
+ <td>{{user[10]}}</td>
+ <td>{{user[11]}}</td>
+ <td><a  href="/view_usermodify/?userid={{user[0]}}">编辑</a>&nbsp&nbsp<a  href="/view_userdel/?userid={{user[0]}}" >删除</a> </td>
+<tr>
+{% endfor %}
+<tbody>
+</table>
+
+
+
+</div>
+<div class="footer" >
+    <div class="pull-right">
+      <!--
+        10GB of <strong>250GB</strong> Free. -->
+    </div>
+    <div>
+        <strong>Copyright</strong> Wanghaibing &copy; 2016-2017
+    </div>
+</div>
+
+</div>
+</div>
+
+
+
+<!-- Mainly scripts -->
+<script src="/static/sfv/js/jquery-2.1.1.js"></script>
+<script src="/static/sfv/js/bootstrap.min.js"></script>
+<script src="/static/sfv/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/static/sfv/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="/static/sfv/js/inspinia.js"></script>
+<script src="/static/sfv/js/plugins/pace/pace.min.js"></script>
+
+<script src="/static/sfv/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+<script>
+    $(document).ready(function(){
+
+
+    });
+</script>
+
+
+</body>
+
+</html>
+

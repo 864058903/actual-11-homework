@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>机房管理</title>
+</head>
+
+<body>
+<div align="center">
+<table>
+ <tr>
+    <td>关键字：</td>
+    <form action="/rooms/search/">
+      <td> <input type="text" name="key" value="{{key}}" /> </td>
+      <td> <input type="submit" value="查询" /><td> 
+    </form>
+    <form action="/view_room_add/">
+       <td> <input type="submit" value="添加"  /> </td>
+    </form>
+</tr>
+</table>
+<table  border="1">
+  <tr>
+    <th >机房ID</th>
+    <th >机房名称</th>
+    <th >地址</th>
+    <th >IP范围</th>
+    <th >操作</th>
+  </tr>
+  {% for room in rooms %}
+  <tr>
+    <td>{{room[0]}}</td>
+    <td>{{room[1]}}</td>
+    <td>{{room[2]}}</td>
+    <td>{{room[3]}}</td>
+    <td ><a href="/view_room_modify/?roomid={{room[0]}}">编辑</a>&nbsp;&nbsp;<a href="/rooms/view_room_del/?roomid={{room[0]}}">删除</a></td>
+  </tr>
+  {% endfor %} 
+</table>
+</div>
+</body>
+</html>

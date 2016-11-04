@@ -28,8 +28,15 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/login/')
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form.get('username', '')
+        password = request.form.get('password', '')
+        ret, error = models.validate_login(username, password)
+        if ret:
+            session['user'] = username
+            return redirect(url_for('index'))
     return render_template('login.html')
 
 
@@ -40,25 +47,21 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/check_login/', methods=['GET', 'POST'])
-def check_login():
-    if request.method == 'POST':
-        username = request.form.get('username', '')
-        password = request.form.get('password', '')
-        ret, error = models.validate_login(username, password)
-        if ret:
-            session['user'] = username
-            return redirect(url_for('index'))
-        else:
-            return render_template('login.html', error=error, username=username)
-    return redirect(url_for('login'))
-
-
-@app.route('/change/password/')
+@app.route('/account/passwd/', methods=['GET', 'POST'])
 @login_required
 def change_password():
-    username = session.get('user')
-    return render_template('change_password.html', username=username)
+    if request.method == 'POST':
+        password_old = request.form.get('password_old')
+        password_new = request.form.get('password_new')
+        password_repeat_new = request.form.get('password_repeat_new')
+        username = session['user']
+        ret, error = models.validate_password(username, password_old, password_new, password_repeat_new)
+        if ret:
+            models.change_password(username, password_repeat_new)
+            return redirect(url_for('user'))
+        else:
+            return render_template('change_password.html', error=error, password_old=password_old, password_new=password_new, password_repeat_new=password_repeat_new)
+    return render_template('change_password.html')
 
 
 @app.route('/user/')
@@ -170,7 +173,6 @@ def idcs_modify():
 def idcs_change():
     uid = request.form.get('id', '')
     idcs = models.get_idcs_id(uid)
-    print(idcs)
     return render_template('idcs_change.html', id=uid, name=idcs['name'], address=idcs['address'], ips=idcs['ips'])
 
 
@@ -181,7 +183,7 @@ def idcs_save():
     name = request.form.get('name', '')
     address = request.form.get('address', '')
     ips = request.form.get('ips', '') 
-    ret, error = models.validate_idcs_add(name, address, ips)
+    ret, error = models.validate_idcs_modify(uid, name, address, ips)
     if ret:
         models.idcs_change(uid, name, address, ips)
         return redirect(url_for('idcs'))
