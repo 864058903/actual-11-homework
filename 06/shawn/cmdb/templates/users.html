@@ -2,35 +2,7 @@
 <html lang="zh_CN">
 <head>
 	<meta charset="UTF-8">
-	<title>USERS</title>
-    <style>
-        .cnt li {
-            line-height: 22px;
-            list-style: none;
-        }
-
-        .cnt li span {
-            display: inline-block;
-            width: 350px;
-            margin-left: 10px;
-        }
-
-		.cnt li span.name {
-			width: 80px;
-		}
-
-        .cnt li span.id {
-            width: 20px;
-        }
-
-		.cnt li span.link {
-			width: 50px;
-		}
-
-        .cnt li span.st {
-            color: red;
-        }
-    </style>
+	<title>用户信息</title>
 </head>
 <body>
     <div class="cnt">
@@ -38,19 +10,37 @@
         <p>
             <a href="/users/add/">ADD</a>
             <a href="/logs/">LOGS</a>
+            <a href="/machine/">机房</a>
         </p>
         <p>
             {% if info %}
                 {{ info }}
             {% endif %}
         </p>
-        <ul>
-            {% for user in users %}
-            <li><span class="id">{{user['id']}}</span><span class="name">{{user["name"]}}</span><span>{{user["password"]}}</span>
-				<span class="link">{{ user['age'] }}</span>
-                <span class="link"><a href="/users/view/?id={{user['id']}}">编辑</a></span><span  class="link"><a href="/users/remove/?id={{user['id']}}">删除</a></span></li>
-            {% endfor %}
-        </ul>
+
+		<table border="1">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>用户名</th>
+					<th>密码</th>
+					<th>年龄</th>
+					<th>编辑</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{user['id']}}</td>
+						<td>{{user["name"]}}</td>
+						<td>{{user["password"]}}</td>
+						<td>{{ user['age'] }}</td>
+						<td><a href="/users/view/?id={{user['id']}}">编辑</a>
+							<a href="/users/remove/?id={{user['id']}}">删除</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
     </div>
 </body>
 </html>
