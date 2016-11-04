@@ -44,9 +44,9 @@ def get_users():
     return [ dict(zip(columns, line)) for line in rt_list]
 
 def get_user(user_id):
-    record = mysql_get_value(SQL_USER_GET,(user_id,),True)[1][0]
+    rt_list = mysql_get_value(SQL_USER_GET,(user_id,),True)[1]
     columns = ("id", "name", "age")
-    return {} if record is None else dict(zip(columns, record))
+    return None if len(rt_list) == 0 else dict(zip(columns, rt_list[0]))
 
 
 def validate_user_save(username, password, age):
