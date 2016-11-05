@@ -28,6 +28,13 @@
             <h3>Welcome to CMDB</h3>
             <p>Login in. To see it in action.</p>
             <form class="m-t" role="form" action="/login/" method="post">
+
+            {% if error  %}
+            <div class="form-group">
+                 <label class="control-label"  style="color:red">{{error}}</label>
+            </div>
+           {% endif %}
+
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Username" name="username" value="{{username}}"  required>
                 </div>
@@ -48,14 +55,5 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
 
 

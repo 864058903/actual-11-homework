@@ -20,17 +20,11 @@ def login():
     username=request.form.get('username','')
     password=request.form.get('password','')
     result=models.auth_user(username,password)
-    """
-    if result:
-       return redirect('/rooms/')
-    else:
-       return render_template('index.html',username=username,password=password,error='name or password errror. or your name was locked.')
-    """    
     if result:
        session['user']=username
        return redirect('/users/')
     else:
-       return render_template('index.html',username=username,password=password,error='name or password errror. or your name was locked.')
+       return render_template('index.html',username=username,password=password,error='Name or password errror, or  name was locked.')
 
 @app.route('/logout/')
 def logout():
@@ -41,8 +35,7 @@ def logout():
 
 @app.route('/users/')
 def view_user():
-    if not session.get('user'):
-       return redirect('/')
+    if not session.get('user'): return redirect('/')
     u_valid=request.args.get('u_valid')
     result=models.get_user()
     hobbys={'swim':'游泳','climb':'爬山','basketball':'篮球'}
@@ -50,15 +43,13 @@ def view_user():
 
 @app.route('/view_adduser/')
 def view_adduser():
-    if not session.get('user'):
-       return redirect('/')
+    if not session.get('user'): return redirect('/')
     return render_template('user_add.html')
 
 
 @app.route('/add_users/',methods=['post','get'])
 def add_user():
-     if not session.get('user'):
-         return redirect('/')
+     if not session.get('user'): return redirect('/')
      param = request.args if  request.method == 'GET' else request.form
      username=param.get('username','').strip()
      password=param.get('password','').strip()
@@ -70,6 +61,7 @@ def add_user():
      sex= param.get('sex','').strip()
      dept=param.get('dept','').strip()
      hobby_l=' | '.join(param.getlist('hobby'))
+     #hobby_l=str(param.getlist('hobby'))
      bz=param.get('bz','').strip()
      
      OK,error=models.same_user(username,password,age,sex)
@@ -83,8 +75,7 @@ def add_user():
 
 @app.route('/users/search/')
 def search_user():
-     if not session.get('user'):
-         return redirect('/')
+     if not session.get('user'): return redirect('/')
      u_valid=request.args.get('u_valid')
      key=request.args.get('key','').strip()
      result=models.search_user(u_valid,key)
@@ -93,8 +84,7 @@ def search_user():
 
 @app.route('/view_usermodify/' )
 def view_usermodify():
-    if not session.get('user'):
-         return redirect('/')
+    if not session.get('user'): return redirect('/')
     userid=request.args.get('userid','')
     result=models.get_user_one(userid)
     return render_template('/user_modify.html/',id=result[0][0],username=result[0][1],password=result[0][2],dept=result[0][3],sex=result[0][4],age=result[0][5],birthday=result[0][6],tel=result[0][7],email=result[0][8],hobby=result[0][9],bz=result[0][10], groups=result[0][11],status=result[0][12])
@@ -103,8 +93,7 @@ def view_usermodify():
 
 @app.route('/user_modify/', methods=['post'])
 def user_modify():
-    if not session.get('user'):
-         return redirect('/')
+    if not session.get('user'): return redirect('/')
     userid=request.form.get('id','').strip()
     username=request.form.get('username','').strip()
     password=request.form.get('password','').strip()
@@ -128,15 +117,13 @@ def user_modify():
 
 @app.route('/view_userdel/')
 def view_userdel():
-    if not session.get('user'):
-         return redirect('/')
+    if not session.get('user'):  return redirect('/')
     userid=request.args.get('userid','')
     return render_template('user_del.html',id=userid)
 
 @app.route('/users/user_del/',methods=['post'])
 def user_del():
-    if not session.get('user'):
-         return redirect('/')
+    if not session.get('user'): return redirect('/')
     userid=request.form.get('id','')
     models.save_user_del(userid)
     return redirect('/users/')
@@ -149,18 +136,21 @@ def user_del():
 
 @app.route('/rooms/')
 def rooms():
+    if not session.get('user'): return redirect('/')
     rooms=models.get_room_all()  
     #return str(result)
     return render_template('rooms.html',rooms=rooms)  
 
 @app.route('/view_room_modify/')
 def view_room_modify():
+    if not session.get('user'): return redirect('/')
     roomid=int(request.args.get('roomid',''))
     result=models.get_room_one(roomid)
     return render_template('room_modify.html',rooms=result)
 
 @app.route('/room_modify/',methods=['POST'])
 def room_modify():
+    if not session.get('user'): return redirect('/')
     roomid=request.form.get('roomid','').strip()
     roomname=request.form.get('roomname','').strip()
     addr=request.form.get('addr','').strip()
@@ -177,11 +167,13 @@ def room_modify():
 
 @app.route('/view_room_add/')
 def view_room_add():
+    if not session.get('user'): return redirect('/')
     return render_template('room_add.html')
 
 
 @app.route('/room_add/',methods=['POST'])
 def room_add():
+    if not session.get('user'): return redirect('/')
     roomname=request.form.get('roomname','')
     addr=request.form.get('addr','')
     ip_ranges=request.form.get('ip_ranges','')
@@ -195,11 +187,13 @@ def room_add():
 
 @app.route('/rooms/view_room_del/')
 def view_room_del():
+     if not session.get('user'): return redirect('/')
      roomid=request.args.get('roomid','')
      return render_template('room_del.html',roomid=roomid)
 
 @app.route('/rooms/room_del/',methods=['post'])
 def room_del():
+     if not session.get('user'): return redirect('/')
      result=models.save_room_del(request.form.get('roomid',''))
      if result:
         return redirect('/rooms/')
@@ -208,14 +202,12 @@ def room_del():
 
 @app.route('/rooms/search/')
 def rooms_search():
+     if not session.get('user'): return redirect('/')
      key=request.args.get('key','')
      result=models.search_room_key(key)
      #return str(result)
      return render_template('rooms.html',rooms=result,key=key)
 
-@app.route('/test/')
-def test():
-   return render_template('test.html')
 
 if __name__=='__main__':
     app.run(host='0.0.0.0',port=8089,debug=True)

@@ -125,33 +125,11 @@ def save_user_del(userid):
 
 
 def get_room_all():
-    conn=MySQLdb.connect(host=gconf.MYSQL_HOST,\
-                         port=gconf.MYSQL_PORT,\
-                         user=gconf.MYSQL_USER,\
-                         passwd=gconf.MYSQL_PASSWD,\
-                         db=gconf.MYSQL_DB,\
-                         charset=gconf.MYSQL_CHARSET)
-    cursor=conn.cursor()
-    cursor.execute(MYSQL_get_room_all)
-    result=cursor.fetchall()
-    cursor.close()
-    conn.close()
-    #room_col='id,name,addr,ip_ranges'
+    result=mysql_exe(MYSQL_get_room_all)
     return result    
 
 def get_room_one(roomid):
-    conn=MySQLdb.connect(host=gconf.MYSQL_HOST,\
-                         port=gconf.MYSQL_PORT,\
-                         user=gconf.MYSQL_USER,\
-                         passwd=gconf.MYSQL_PASSWD,\
-                         db=gconf.MYSQL_DB,\
-                         charset=gconf.MYSQL_CHARSET)
-    cursor=conn.cursor()
-    cursor.execute(MYSQL_get_room_one,(roomid,))
-    result=cursor.fetchone()
-    cursor.close()
-    conn.close()
-    #room_col='id,name,addr,ip_ranges'
+    result=mysql_exe(MYSQL_get_room_one,(roomid,))
     return result
 
 def same_room_name(roomname,addr,ip_ranges,roomid=None):
@@ -161,21 +139,12 @@ def same_room_name(roomname,addr,ip_ranges,roomid=None):
        return False,"machine's addr can't null."
     if not ip_ranges.strip(): 
        return False,"machine's ip_ranges can't null."
-    conn=MySQLdb.connect(host=gconf.MYSQL_HOST,\
-                         port=gconf.MYSQL_PORT,\
-                         user=gconf.MYSQL_USER,\
-                         passwd=gconf.MYSQL_PASSWD,\
-                         db=gconf.MYSQL_DB,\
-                         charset=gconf.MYSQL_CHARSET)
-    cursor=conn.cursor()
     #room_add
     if roomid is None:
-         cnt=cursor.execute(MYSQL_same_room_name,(roomname,))
+         cnt=mysql_exe(MYSQL_same_room_name,(roomname,),True)
     #room_modify
     else:
-         cnt=cursor.execute(MYSQL_same_room_name2,(roomname,roomid))
-    cursor.close()
-    conn.close()
+         cnt=mysql_exe(MYSQL_same_room_name2,(roomname,roomid),True)
     #room_col='id,name,addr,ip_ranges'
     if cnt != 0:
         return False,'same name error.'
@@ -183,67 +152,28 @@ def same_room_name(roomname,addr,ip_ranges,roomid=None):
         return True,''
  
 def save_room_modify(names,addr,ip_ranges,id):
-    conn=MySQLdb.connect(host=gconf.MYSQL_HOST,\
-                         port=gconf.MYSQL_PORT,\
-                         user=gconf.MYSQL_USER,\
-                         passwd=gconf.MYSQL_PASSWD,\
-                         db=gconf.MYSQL_DB,\
-                         charset=gconf.MYSQL_CHARSET)
-    cursor=conn.cursor()
-    cnt=cursor.execute(MYSQL_save_room_modify,(names,addr,ip_ranges,id))
-    conn.commit()
-    cursor.close()
-    conn.close()
+    #room_modify
+    mysql_exe(MYSQL_save_room_modify,(names,addr,ip_ranges,id))
     return True
 
 def save_room_add(roomname,addr,ip_ranges):
-    conn=MySQLdb.connect(host=gconf.MYSQL_HOST,\
-                         port=gconf.MYSQL_PORT,\
-                         user=gconf.MYSQL_USER,\
-                         passwd=gconf.MYSQL_PASSWD,\
-                         db=gconf.MYSQL_DB,\
-                         charset=gconf.MYSQL_CHARSET)
-    cursor=conn.cursor()
-    cursor.execute(MYSQL_save_room_add,(roomname,addr,ip_ranges))
-    conn.commit()
-    cursor.close()
-    conn.close()
+    mysql_exe(MYSQL_save_room_add,(roomname,addr,ip_ranges))
     #room_col='id,name,addr,ip_ranges'
     return True
 
 
 def save_room_del(roomid):
-    conn=MySQLdb.connect(host=gconf.MYSQL_HOST,\
-                         port=gconf.MYSQL_PORT,\
-                         user=gconf.MYSQL_USER,\
-                         passwd=gconf.MYSQL_PASSWD,\
-                         db=gconf.MYSQL_DB,\
-                         charset=gconf.MYSQL_CHARSET)
-    cursor=conn.cursor()
-    cursor.execute(MYSQL_save_room_del,(roomid,))
-    conn.commit()
-    cursor.close()
-    conn.close()
+    mysql_exe(MYSQL_save_room_del,(roomid,))
     return  True
 
 def search_room_key(key=None):
-    conn=MySQLdb.connect(host=gconf.MYSQL_HOST,\
-                         port=gconf.MYSQL_PORT,\
-                         user=gconf.MYSQL_USER,\
-                         passwd=gconf.MYSQL_PASSWD,\
-                         db=gconf.MYSQL_DB,\
-                         charset=gconf.MYSQL_CHARSET)
-    cursor=conn.cursor()
     #key is None
     if not key:
-        cursor.execute(MYSQL_get_room_all)
+        result=mysql_exe(MYSQL_get_room_all)
     #key 
     else:
         key='%'+key+'%'
-        cursor.execute(MYSQL_search_room_key,(key,key,key))
-    result=cursor.fetchall()
-    cursor.close()
-    conn.close()
+        result=mysql_exe(MYSQL_search_room_key,(key,key,key))
     return  result
 
 
