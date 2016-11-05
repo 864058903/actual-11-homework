@@ -32,6 +32,56 @@ def login():
     else:
         return render_template("index.html", username = username, passwd = passwd, error = "username or passwd is error")
 
+@app.route("/machine/")
+def show_machine():
+    machine_list = models.get_machine_list()
+    return render_template("machine_list.html", machines = machine_list)
+
+@app.route("/machine/add/")
+def machine_add():
+    return render_template("machine_add.html")
+
+@app.route("/machine/save/", methods = ['POST'])
+def machine_save():
+    name = request.form.get("machine_name")
+    addr = request.form.get("machine_addr")
+    ip_ranges = request.form.get("ip_ranges")
+    ok,error = models.validate_machine(name, addr, ip_ranges)
+    if ok:
+        models.save_machine(name, addr, ip_ranges)
+        return redirect("/machine/")
+    else:
+        return render_template("machine_add.html", name = name, addr = addr, ip_ranges = ip_ranges, info = error)
+
+@app.route("/machine/view/")
+def machine_view():
+    machine_id = request.args.get("id")
+    name = models.get_machine_info(machine_id).get('name')
+    addr = models.get_machine_info(machine_id).get('addr')
+    ip_ranges = models.get_machine_info(machine_id).get('ip_ranges')
+    return render_template("machine_edit.html", name = name, addr = addr, ip_ranges = ip_ranges, machine_id = machine_id)
+
+
+@app.route("/machine/edit/", methods = ['POST'])
+def machine_edit():
+    machine_id = request.form.get("machine_id")
+    name = request.form.get("machine_name")
+    addr = request.form.get("machine_addr")
+    ip_ranges = request.form.get("ip_ranges")
+    ok, error = models.validate_machine_edit(name, addr, ip_ranges, machine_id)
+    if ok:
+        models.update_machine(name, addr, ip_ranges, machine_id)
+        return redirect("/machine/")
+    else:
+        return render_template("machine_edit.html", machine_id = machine_id, name = name, addr = addr, ip_ranges = ip_ranges, info = error)
+
+
+@app.route("/machine/remove/", methods = ['GET'])
+def machine_remove():
+    machine_id = request.args.get("id")
+    models.remove_machine(machine_id)
+    return redirect("/machine/")
+
 @app.route("/users/")
 def show_users():
     return render_template("users.html", users = models.get_users())
@@ -85,7 +135,7 @@ def user_remove():
 def show_logs():
     topn = request.args.get("topn", 10)
     topn = int(topn) if str(topn).isdigit() else 10
-    content = models.log_dict("apache.log",topn)
+    content = models.log_dict("/home/shawn/Desktop/apache.log",topn)
     return render_template("logs.html", content=content)
 
 
