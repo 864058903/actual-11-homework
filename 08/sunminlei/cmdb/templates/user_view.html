@@ -1,0 +1,115 @@
+{% extends "layouts.html" %}
+{% block title %}CMDB | 用户管理{% endblock %}
+{% block nav_users %}class="active"{% endblock %}
+{% block nav_users_list %}class="active"{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="javascript:void(0)">用户</a>
+    </li>
+    <li class="active">
+        <strong>用户管理 / 用户修改</strong>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="ibox-content">
+        <form action="/user/modify/" method="post" class="form-horizontal">
+            <input type="hidden", name="id", value="{{ id }}"/>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                    <input type="text" name="username" value="{{ username }}" placeholder="Enter username" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">年龄</label>
+                <div class="col-sm-10">
+                    <input type="text" name="age" value="{{ age }}" placeholder="Enter age" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">电话</label>
+                <div class="col-sm-10">
+                    <input type="text" name="telephone" value="{{ telephone }}" placeholder="Enter telephone number" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">部门</label>
+                <div class="col-sm-10">
+                    <select class="form-control m-b" name="department">
+                        <option value="1" {% if department == 1 %} selected="selected" {% endif %}>研发部门</option>
+                        <option value="2" {% if department == 2 %} selected="selected" {% endif %}>测试部门</option>
+                        <option value="3" {% if department == 3 %} selected="selected" {% endif %}>运维部门</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">性别</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                            <input type="radio"  name="sex" value="0" {% if sex == 0 %} checked="checked" {% endif %} />男
+                    </label>
+                    <label class="radio-inline">
+                            <input type="radio"  name="sex" value="1" {% if sex == 1 %} checked="checked" {% endif %} />女
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">爱好</label>
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="football" {% if "football" in hobby  %} checked="checked" {% endif %}>足球
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="basketball" {% if "basketball" in hobby %} checked="checked" {% endif %}>篮球
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="pingpang" {% if "pingpang" in hobby %} checked="checked" {% endif %}>乒乓球
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">头像</label>
+                <div class="col-sm-10">
+                    <input type="file" name="icon"  class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">主页</label>
+                <div class="col-sm-10">
+                    <input type="url" name="homepage" value="{{ homepage }}" placeholder="Enter homepage" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-10">
+                    <input type="email" name="email" value="{{ email }}" placeholder="Enter email" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">生日</label>
+                <div class="col-sm-10">
+                    <input type="date" name="birthday" value="{{ birthday }}" placeholder="Enter birthday" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">简介</label>
+                <div class="col-sm-10">
+                    <textarea name="detail">{{ detail }}</textarea>
+                </div>
+            </div>
+            {% if error %}
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2 alert alert-danger" role="alert" >
+                    {{ error }}
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <!--<button class="btn btn-white" type="submit">取消</button>-->
+                    <button class="btn btn-primary" type="submit">修改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
