@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <head>
+        <meta charset="UTF-8">
+        <title>机房列表</title>
+    </head>
+    <body>
+
+        <h3>机房操作</h3>
+        <p>
+            <a href="/machine/add/">新增</a>
+        </p>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>机房名称</th>
+                    <th>机房地址</th>
+                    <th>机房IP</th>
+                    <th>编辑</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in machines %}
+                    <tr>
+                        <td>{{ i.get("id") }}</td>
+                        <td>{{ i.get("name") }}</td>
+                        <td>{{ i.get("addr") }}</td>
+                        <td>{{ i.get("ip_ranges") }}</td>
+                        <td><a href="/machine/view/?id={{ i.get("id") }}">编辑</a>
+                            <a href="/machine/remove/?id={{ i.get("id") }}">删除</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

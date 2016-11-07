@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+	<meta charset="UTF-8">
+	<title>编辑机房</title>
+
+</head>
+<body>
+    <div class="cnt">
+        <h3>编辑机房</h3>
+		<p>
+			{% if info %}
+				{{ info }}
+			{% endif %}
+		</p>
+        <ul>
+            <div class="form">
+                <form action="/machine/edit/" method="post">
+					<label for="id">机房ID:</label><input type="text" name="machine_id" value="{{ machine_id }}", readonly="readonly"/>
+                    <label for="machine_name">机房名：</label><input type="text" name="machine_name" value="{{ name }}">
+                    <label for="machine_addr">机房地址：</label><input type="text" name="machine_addr" value="{{ addr }}">
+					<label for="ip_ranges">IP地址：</label><input type="text" name="ip_ranges" value="{{ ip_ranges }}">
+                    <input type="submit" name="edit" value="编辑">
+                </form>
+            </div>
+        </ul>
+    </div>
+</body>
+</html>
