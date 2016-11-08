@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}机房修改{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="javascript:void(0)">机房</a>
+    </li>
+    <li>
+        <a>机房管理</a>
+    </li>
+    <li class="active">
+        <strong>机房修改</strong>
+    </li>  
+{% endblock %}
+{% block content %}
+    <form class="form-horizontal" action="/idc/modify/" method="post">
+        <div class="form-group">
+            <div class="col-lg-10"><input type="hidden" name="id" value="{{id}}" class="form-control"></div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">机房名</label>
+            <div class="col-lg-10"><input type="text" name="name" value="{{name}}" placeholder="name" class="form-control"></div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">机房地址</label>
+            <div class="col-lg-10"><input type="text" name="addr" value="{{addr}}" placeholder="addr" class="form-control"></div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">IP地址段</label>
+            <div class="col-lg-10"><input type="text" name="ip_ranges" value="{{ip_ranges}}" placeholder="ip_ranges" class="form-control"></div>
+        </div>
+        {% if error %}
+            <div>
+                <div class="alert alert-danger" role="alert">{{error}}</div>
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-primary">修改</button>
+            </div>
+        </div>
+    </form>    
+{% endblock %}

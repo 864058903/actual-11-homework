@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>机房添加</title>
+    </head>
+    <body>
+        <form action="/idc/save/", method="POST">
+            {% if error %}
+                <span style="color:red">{{error}}</span>
+            {% endif %}
+            <label>机房名:</label><input type="text" name="name" value="{{name}}"/>
+            <label>机房地址:</label><input type="text" name="addr" value="{{addr}}"/>
+            <label>IP地址段:</label><input type="text" name="ip_ranges" value="{{ip_ranges}}"/>
+            <input type="submit" value="添加"/>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block title %}用户修改{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="javascript:void(0)">用户</a>
+    </li>
+    <li>
+        <a>用户管理</a>
+    </li>
+    <li class="active">
+        <strong>用户修改</strong>
+    </li>  
+{% endblock %}
+{% block content %}
+    <form class="form-horizontal" action="/user/modify/" method="post">
+        <div class="form-group">
+            <div class="col-lg-10"><input type="hidden" name="id" value="{{id}}" class="form-control"></div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">用户名</label>
+            <div class="col-lg-10"><input type="text" name="username" value="{{username}}" placeholder="Username" class="form-control"></div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">年龄</label>
+            <div class="col-lg-10"><input type="text" name="age" value="{{age}}" placeholder="Age" class="form-control"></div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">部门</label>
+            <div class="col-lg-10">
+                <select multiple class="form-control" name="department" value={{department}}>
+                    <option value="1" {% if '1' == department %} selected="selected" {% endif %}>研发部门</option>
+                    <option value="2" {% if '2' == department %} selected="selected" {% endif %}>测试部门</option>
+                    <option value="3" {% if '3' == department %} selected="selected" {% endif %}>运维部门</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">爱好</label>
+            <div class="col-lg-10">
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox1" name="hobby" value="basketball" {% if 'basketball' in hobby %}checked="checked"{% endif%}> 篮球
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox2" name="hobby" value="football" {% if 'football' in hobby %}checked="checked"{% endif%}> 足球
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox3" name="hobby" value="pingpang" {% if 'pingpang' in hobby %}checked="checked"{% endif%}> 乒乓球
+                </label>
+            </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">邮箱</label>
+            <div class="col-lg-10">
+                  <div class="form-group">
+                    <input type="email" name="email" value="{{email}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  </div>
+            </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">简介</label>
+            <div class="col-lg-10">
+                 <textarea name="detail" class="form-control" rows="3">{{detail}}</textarea>
+            </div>
+        </div>
+        {% if error %}
+            <div>
+                <div class="alert alert-danger" role="alert">{{error}}</div>
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-primary">修改</button>
+            </div>
+        </div>
+    </form>    
+{% endblock %}

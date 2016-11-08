@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block title %}用户添加{% endblock %}
+{% block nav_user %}class="active"{% endblock %}
+{% block nav_user_list %}class="active"{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="javascript:void(0)">用户</a>
+    </li>
+    <li>
+        <a>用户管理</a>
+    </li>
+    <li class="active">
+        <strong>用户添加</strong>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" action="/user/save/" method="post">
+                        <div class="form-group"><label class="col-lg-2 control-label">用户名</label>
+                            <div class="col-lg-10"><input type="text" name="username" value="{{username}}" placeholder="Username" class="form-control"></div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">年龄</label>
+                            <div class="col-lg-10"><input type="text" name="age" value="{{age}}" placeholder="Age" class="form-control"></div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">密码</label>
+                            <div class="col-lg-10"><input type="password" name="password" value="{{password}}" placeholder="Password" class="form-control"></div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">部门</label>
+                            <div class="col-lg-10">
+                                <select multiple class="form-control" name="department">
+                                    <option value="1">研发部门</option>
+                                    <option value="2">测试部门</option>
+                                    <option value="3" selected="selected">运维部门</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">性别</label>
+                            <div class="col-lg-10">
+                                <label class="radio-inline">
+                                  <input type="radio" name="sex" id="inlineRadio1" value="1" checked="checked"> 男
+                                </label>
+                                <label class="radio-inline">
+                                  <input type="radio" name="sex" id="inlineRadio2" value="0"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">爱好</label>
+                            <div class="col-lg-10">
+                                <label class="checkbox-inline">
+                                  <input type="checkbox" id="inlineCheckbox1" name="hobby" value="basketball"> 篮球
+                                </label>
+                                <label class="checkbox-inline">
+                                  <input type="checkbox" id="inlineCheckbox2" name="hobby" value="football"> 足球
+                                </label>
+                                <label class="checkbox-inline">
+                                  <input type="checkbox" id="inlineCheckbox3" name="hobby" value="pingpang"> 乒乓球
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">邮箱</label>
+                            <div class="col-lg-10">
+                                  <div class="form-group">
+                                    <input type="email" name="email" value="" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">生日</label>
+                            <div class="col-lg-10">
+                                  <div class="form-group">
+                                    <input type="date" name="birthday" class="form-control" value="">
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">简介</label>
+                            <div class="col-lg-10">
+                                 <textarea name="detail" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                        {% if error %}
+                            <div>
+                                <div class="alert alert-danger" role="alert">{{error}}</div>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button type="submit" class="btn btn-primary">添加</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+            
+    </div>   
+{% endblock %}

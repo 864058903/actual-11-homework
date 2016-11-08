@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block title %}CMDB | 机房管理{% endblock %}
+{% block link %}
+    <link href="/static/inspinia/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/inspinia/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/inspinia/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+
+    <link href="/static/inspinia/css/animate.css" rel="stylesheet">
+    <link href="/static/inspinia/css/style.css" rel="stylesheet">
+{% endblock %}
+{% block nav_idc %}class="active"{% endblock %}
+{% block nav_idc_list %}class="active"{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="javascript:void(0)">机房</a>
+    </li>
+    <li class="active">
+        <strong>机房管理</strong>
+    </li>
+{% endblock %}
+{% block content %}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  机房添加(dialog)
+</button>
+<br/>
+<br/>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">创建机房</h4>
+      </div>
+      <div class="modal-body">
+        <form class="create_form form-horizontal">
+            <div class="form-group"><label class="col-lg-2 control-label">机房名</label>
+                <div class="col-lg-10"><input type="text" name="name" value="{{name}}" placeholder="name" class="form-control"></div>
+            </div>
+            <div class="form-group"><label class="col-lg-2 control-label">机房地址</label>
+                <div class="col-lg-10"><input type="text" name="addr" value="{{addr}}" placeholder="addr" class="form-control"></div>
+            </div>
+            <div class="form-group"><label class="col-lg-2 control-label">IP地址段</label>
+                <div class="col-lg-10"><input type="text" name="ip_ranges" value="{{ip_ranges}}" placeholder="ip_ranges" class="form-control"></div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="create_btn btn btn-primary">创建</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <table class="idcs table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>机房名</th>
+                    <th>机房地址</th>
+                    <th>IP地址段</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for idc in idcs %}
+                    <tr>
+                        <td>{{idc['id']}}</td>
+                        <td>{{idc['name']}}</td>
+                        <td>{{idc['addr']}}</td>
+                        <td>{{idc['ip_ranges']}}</td>
+                        <td>
+                            <a href="/idc/view/?id={{idc['id']}}" class="btn btn-primary" role="button">编辑</a>
+                            <a href="javascript:void(0)" data-id={{idc['id']}} class="btn_delete btn btn-primary" role="button">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>   
+    
+{% endblock %}
+{% block script %}
+    <script src="/static/inspinia/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/inspinia/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/inspinia/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/inspinia/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+{% endblock %}
+
+{% block js %}
+    jQuery(document).ready(function() {
+        jQuery('.users').dataTable({
+            responsive: true,
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "sSwfPath": "/static/inspinia/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+    });
+    jQuery('.create_btn').on('click', function() {
+        jQuery.post('/idc/save/',
+                    jQuery('.create_form').serializeArray(),
+                    function(data) {
+                        if(data['code'] === 200) {
+                            window.location.reload();
+                    } else if(data['code'] === 400) {
+                            alert(data['error']);
+                    }
+                }, 'json');
+    });
+    jQuery('.btn_delete').on('click', function() {
+        var url = '/idc/delete/?id=' + jQuery(this).data('id');
+        if(confirm('确定删除吗?')) {
+            window.location.replace(url);
+    }
+    });
+    
+{% endblock %}
