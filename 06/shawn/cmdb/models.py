@@ -6,10 +6,10 @@ import gconfig
 import MySQLdb
 
 SQL_LOGIN = 'select id, name from user where name=%s and password=md5(%s)'
-SQL_USER_SAVE = 'insert into user(name,password,age) values(%s, md5(%s),%s)'
-SQL_USER_LIST = 'select id,name,password,age from user'
-SQL_USER_GET = 'select id,name,age from user where id=%s'
-SQL_USER_UPDATE = 'update user set name=%s, age=%s where id=%s'
+SQL_USER_SAVE = 'insert into user(name,password,age,department,inro,hobby) values(%s, md5(%s),%s,%s,%s,%s)'
+SQL_USER_LIST = 'select id,name,password,age,department,inro,hobby from user'
+SQL_USER_GET = 'select id,name,age,department,inro,hobby from user where id=%s'
+SQL_USER_UPDATE = 'update user set name=%s, age=%s, department = %s, inro = %s , hobby = %s where id=%s'
 SQL_USER_DEL = 'delete from user where id=%s'
 SQL_EDIT_CHECK = 'select id from user where id != %s and name = %s'
 SQL_MACHINE_LIST = 'select id,name,addr,ip_ranges from machine_room'
@@ -40,13 +40,13 @@ def mysql_get_value(sql, args, is_fetch):
 
 def get_users():
     rt_list = mysql_get_value(SQL_USER_LIST,(),True)[1]
-    columns = ("id", "name", "password", "age")
+    columns = ("id", "name", "password", "age", "department", "inro","hobby")
     return [ dict(zip(columns, line)) for line in rt_list]
 
 def get_user(user_id):
-    rt_list = mysql_get_value(SQL_USER_GET,(user_id,),True)[1]
-    columns = ("id", "name", "age")
-    return None if len(rt_list) == 0 else dict(zip(columns, rt_list[0]))
+    record = mysql_get_value(SQL_USER_GET,(user_id,),True)[1][0]
+    columns = ("id", "name", "age", "department", "inro", "hobby")
+    return {} if record is None else dict(zip(columns, record))
 
 
 def validate_user_save(username, password, age):
@@ -92,12 +92,12 @@ def validate_machine_edit(name, addr, ip_ranges, machine_id):
         return True, ""
 
 
-def user_save(username, password, age):
-    rt_cnt = mysql_get_value(SQL_USER_SAVE,(username,password,age),False)[0]
+def user_save(username, password, age, department, inro, hobby):
+    rt_cnt = mysql_get_value(SQL_USER_SAVE,(username,password,age,department, inro, hobby),False)[0]
     return rt_cnt
 
-def user_update(user_id, username, age):
-    rt_cnt = mysql_get_value(SQL_USER_UPDATE,(username, age, user_id),False)[0]
+def user_update(user_id, username, age, department, inro, hobby):
+    rt_cnt = mysql_get_value(SQL_USER_UPDATE,(username, age, department, inro, hobby, user_id),False)[0]
     return rt_cnt
 
 def user_delete(user_id):
