@@ -117,18 +117,20 @@ def add_users():
 def save_users():
     if session.get("username") is None:
         return redirect("/login/")
-
     name = request.form.get("username", "")
     password = request.form.get("passwd", "")
     age = request.form.get("age", "")
     department = request.form.get("department", "")
     inro = request.form.get("inro", "")
+    hobby_list = request.form.getlist("hobby")
+    hobby = ",".join(hobby_list)
     ok, error = models.validate_user_save(name, password,age)
     if ok:
-        models.user_save(name, password, age, department, inro)
+        models.user_save(name, password, age, department, inro, hobby)
         return redirect("/users/")
     else:
-        return render_template("user_create.html", name = name, passwd = password, age = age, department = department, inro = inro, info = error)
+        return render_template("user_create.html", name = name, passwd = password, \
+        age = age, department = department, inro = inro, hobby = hobby , info = error)
 
 @app.route("/users/view/")
 def users_view():
@@ -139,7 +141,10 @@ def users_view():
     age = models.get_user(user_id).get('age')
     department = models.get_user(user_id).get("department")
     inro = models.get_user(user_id).get("inro")
-    return render_template("user_edit.html", user_id = user_id, name = name, age = age, department = department, inro = inro, username =session.get("username"))
+    hobby_list = models.get_user(user_id).get("hobby")
+    hobby = (hobby_list).split(",")
+    return render_template("user_edit.html", user_id = user_id, name = name, age = age, \
+    hobby = hobby_list, department = department, inro = inro, username =session.get("username"))
 
 @app.route("/users/edit/", methods = ['POST'])
 def edit_users():
@@ -150,14 +155,17 @@ def edit_users():
     age = request.form.get("age")
     department = request.form.get("department")
     inro = request.form.get("inro")
+    hobby_list = request.form.getlist("hobby")
+    hobby = ",".join(hobby_list)
 
     ok, error = models.validate_edit_save(user_id,name,age)
     if ok:
-        info = models.user_update(user_id, name , age, department, inro)
+        info = models.user_update(user_id, name , age, department, inro, hobby)
         return redirect('/users/')
     else:
         info = error
-        return render_template('user_edit.html', user_id = user_id, name = name , age = age, info = info, username =session.get("username"))
+        return render_template('user_edit.html', user_id = user_id, name = name , age = age, \
+        info = info, inro = inro, hobby = hobby_list, username =session.get("username"))
 
 @app.route("/users/remove/")
 def user_remove():

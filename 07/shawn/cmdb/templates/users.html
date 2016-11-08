@@ -99,6 +99,7 @@
 						<th>年龄</th>
 						<th>部门</th>
 						<th>简介</th>
+						<th>爱好</th>
 						<th>编辑</th>
 					</tr>
 				</thead>
@@ -111,6 +112,7 @@
 							<td>{{ user['age'] }}</td>
                             <td>{{ user['department'] }}</td>
                             <td>{{ user['inro'] }}</td>
+                            <td>{{ user['hobby'] }}</td>
 							<td><a href="/users/view/?id={{user['id']}}">编辑</a>
 								<a href="/users/remove/?id={{user['id']}}">删除</a></td>
 						</tr>
