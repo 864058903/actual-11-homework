@@ -132,7 +132,7 @@
         $('.dataTables-example').dataTable();
         
         
-        //添加用户功能
+        //添加功能
         $('#create-idc').on('show.bs.modal', function (event) {
             if(!event.relatedTarget) {return;}
             var button = $(event.relatedTarget);
@@ -190,7 +190,7 @@
         });
         
         
-        //修改用户功能
+        //修改功能
         $('#modify-idc').on('show.bs.modal', function (event) {
             if(!event.relatedTarget) {return;}
             var button = $(event.relatedTarget);
@@ -249,7 +249,7 @@
         
         
         
-        //删除用户功能
+        //删除功能
         $('.btn-delete').on('click', function() {
             var that = this,
             text = $(that).data('text'),
