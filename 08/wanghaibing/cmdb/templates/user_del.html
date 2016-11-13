@@ -1,0 +1,26 @@
+{% extends "layout.html"%}
+{% block nav_menu %}
+            <li>
+                <a href="/users/">用户</a>
+            </li>
+            <li >
+                <a href="/users/">用户管理</a>
+            </li>
+            <li class="active">
+                <strong>用户删除</strong>
+            </li>
+{% endblock  %}
+{% block contens  %}
+<div class="wrapper wrapper-content animated fadeInRight">
+  <form action="/users/user_del/" method="post">  
+     <div class=" col-md-offset-5 col-md-3 ">
+       <input type="text" name="id" value="{{id}}" class="sr-only"  />
+       <div class="alert alert-danger text-center" role="alert">您确定要删除该用户吗？
+         <br/><br/>
+         <input type="submit" class="btn btn-warning" value="确定" />&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="button" value="取消" class="btn btn-default" onclick="javascript:history.back(-1)"  />
+       </div>
+  </form>
+ </div>
+
+{% endblock%}

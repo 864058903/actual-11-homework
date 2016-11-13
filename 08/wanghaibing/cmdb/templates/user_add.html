@@ -1,0 +1,135 @@
+{% extends "layout.html"%}
+{% block nav_menu%}
+            <li>
+                <a href="/users/">用户</a>
+            </li>
+            <li >
+              <a href="/users/">用户管理</a>
+            </li>
+           <li class="active">
+           <strong>用户添加</strong>
+            </li>
+{% endblock %}
+{% block contens %}
+<div class="wrapper wrapper-content animated fadeInRight">
+<form action="/add_users/" method="get" class="form-horizontal" role="form"> 
+   {% if error  %}
+    <div class="form-group">
+        <label for="inputerror" class="col-sm-2 control-label" style="color:red" >提示：</label>
+        <div class="col-sm-3">
+         <label class="control-label" id="inputerror" style="color:red">{{error}}</label>
+        </div> 
+    </div>
+   {% endif %}
+
+  <div class="form-group">
+    <label for="inputtext3" class="col-sm-2 control-label">用户名</label>
+    <div class="col-sm-3">
+      <input type="text"  name="username"   value="{{username}}" class="form-control" id="inputtextl3" placeholder="name">
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputpassword3" class="col-sm-2 control-label">密码</label>
+    <div class="col-sm-3">
+      <input type="password"  name="password"   value="{{password}}" class="form-control" id="inputpassword3" placeholder="password">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputdept3" class="col-sm-2 control-label">部门</label>
+    <div class="col-sm-3">    
+      <select name="dept"  class="form-control" id="inputdept3" >   
+               <option value="product">研发部</option>
+               <option value="test">测试部</option>
+               <option value="operations">运维部</option>
+       </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputsex" class="col-sm-2 control-label">性别</label>
+    <div class="col-sm-3">   
+     <div class="radio" > 
+            <label><input type="radio" name="sex"   id="inputsex" value="1"/>男</label>
+            <label><input type="radio" name="sex"   value="0"/>女</label>
+    </div>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <label for="inputage" class="col-sm-2 control-label">年龄</label>
+    <div class="col-sm-3">
+    <input type="text" name="age" value="{{age}}"  class="form-control" id="inputage" placeholder="age"  />
+  
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputbirthday" class="col-sm-2 control-label">生日</label>
+    <div class="col-sm-3">  
+    <input type="date" name="birthday" value="{{birthday}}"  class="form-control" id="inputbirthday" placeholder="birthday"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputtel" class="col-sm-2 control-label">电话</label>
+    <div class="col-sm-3">  
+    <input type="text" name="tel" value="{{tel}}"  class="form-control" id="inputtel" placeholder="tel"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputemail" class="col-sm-2 control-label">EMAIL</label>
+    <div class="col-sm-3">  
+    <input type="email" name="email" value="{{email}}"  class="form-control" id="inputemail" placeholder="email"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label  for="inputbobby" class="col-sm-2 control-label">爱好</label>
+    <div class=" col-sm-3" id="inputbobby">
+      <div class="checkbox" >
+        <label>
+          <input type="checkbox" name="hobby"  value="swim"  />
+          游泳</label>
+        <label>
+          <input type="checkbox" name="hobby"  value="climb"  />
+          爬山</label>
+        <label>
+          <input type="checkbox" name="hobby"  value="basketball" />
+          篮球</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputbz" class="col-sm-2 control-label">简介</label>
+    <div class="col-sm-3">  
+    <textarea    name="bz"  class="form-control" id="inputbz" >{{bz}} </textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputgroups" class="col-sm-2 control-label">所属组</label>
+    <div class="col-sm-3">    
+      <select name="groups"  class="form-control" id="inputgroups" >   
+                <option value="user" selected="selected" >user</option>
+                <option value="supper" >supper</option>
+       </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <input type="submit"  value="提交" class="btn btn-success"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="button"  value="取消" class="btn btn-default" onClick="javascript:history.back(-1)"/>
+    </div>
+  </div>
+
+</form>
+
+
+{% endblock%}
