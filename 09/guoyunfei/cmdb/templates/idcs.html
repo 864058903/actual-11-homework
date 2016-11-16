@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block link %}
+    <link href="{{ url_for('static', filename='css/plugins/dataTables/dataTables.bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/plugins/dataTables/dataTables.responsive.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/plugins/dataTables/dataTables.tableTools.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='bootstrapvalidator-0.4.5/dist/css/bootstrapValidator.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='sweetalert-1.1.1/dist/sweetalert.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <h2>机房管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                <a>资产中心</a>
+            </li>
+            <li class="active">
+                <strong>机房管理</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+         
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-idc">添加</button>
+                    <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#create-idc" data-title="添加机房" data-text="添加" data-url='/idc/create/'>添加机房</button> -->
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-idcs" >
+                            <thead>
+                                <tr>
+                                    <th>机房名称</th>
+                                    <th>机房地址</th>
+                                    <th>IP列表</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- {% for idc in idcs %} -->
+                                <!-- <tr> -->
+                                    <!-- <td>{{idc['name']}}</td> -->
+                                    <!-- <td>{{idc['address']}}</td> -->
+                                    <!-- <td>{{idc['ip']}}</td> -->
+                                    <!-- <td> -->
+                                <!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modify-idc" data-title="修改机房" data-text="修改" data-url="/idc/modify/?id={{idc['id']}}">修改机房</button> -->
+                                <!-- <button type="button" class="btn btn-primary btn-sm btn-danger btn-delete" data-text="{{idc['name']}}"  -->
+                                <!-- data-url="/idc/delete/?id={{idc['id']}}">删除机房</button> -->
+                                    <!-- </td> -->
+                                <!-- </tr> -->
+                                <!-- {% endfor %} -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block feature %}
+<div class="modal fade" id="create-idc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">机房创建</h4>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary btn-idc-create">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modify-idc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">机房修改</h4>
+			</div>
+			<div class="modal-body">
+				<form method="post" class="form-horizontal" id="modify-form">
+					<input type="hidden" class="form-control" name="id" value=""/>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">机房名称:</label>
+						<div class="col-sm-10">
+						<input type="text" class="form-control" name="name" value=""/>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">机房地址:</label>
+						<div class="col-sm-10">
+						<input type="text" class="form-control" name="address" value=""/>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">IP列表:</label>
+						<div class="col-sm-10">
+						<input type="text" class="form-control" name="ip" value=""/>
+						</div>
+					</div>	
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary btn-idc-modify">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins/dataTables/dataTables.responsive.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins/dataTables/dataTables.tableTools.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrapvalidator-0.4.5/dist/js/bootstrapValidator.min.js') }}"></script>
+<script src="{{ url_for('static', filename='sweetalert-1.1.1/dist/sweetalert.min.js') }}"></script>
+{% endblock %}  
+
+{% block js %}
+<script>
+$(document).ready(function() {	
+    var table = $('.table-idcs').dataTable({
+		"ajax": "/idcs/list/",
+		"columns": [
+			{"data": "name"},
+			{"data": "address"},
+			{"data": "ip"},
+			{"data": function(row) {
+				var elements = [];
+				elements.push('<a class="btn-modify" data-id="'+row['id']+'" href="javascript:void(0)"><i class="fa fa-edit"></i></a>');
+				elements.push('<a class="btn-delete" data-id="'+row['id']+'" href="javascript:void(0)"><i class="fa fa-trash"></i></a>');
+				return elements.join(' ');}
+			}
+		]
+	});
+	
+	$('#modify-form').bootstrapValidator({
+		message: '值不能为空',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
+		},
+		fields: {
+			name: {
+				message: 'The name is not valid',
+				validators: {
+					notEmpty: {
+						message: '机房名不能为空'
+					},
+					stringLength: {
+						max: 32,
+						message: '机房名长度必须小于32位'
+					}
+				}
+			},
+			address: {
+				message:'The address is not valid',
+				validators: {
+					notEmpty: {
+						message: '机房地址不能为空'
+					}
+				}
+			},
+			ip: {
+				message:'The IP is not valid',
+				validators: {
+					notEmpty: {
+						message: 'IP列表不能为空'
+					}
+				}
+			}   
+		}
+	});
+	
+	$('#create-idc').on('show.bs.modal', function (event) {
+		if(!event.relatedTarget) {return;}
+		$(this).find('.modal-body').load('/idcs/add/');
+	});
+	
+	$('.btn-idc-create').on('click', function() {
+		var params = $('.create-form').serializeArray();
+		$.post('/idcs/create/', params, function(data) {
+			if(data['error'] == '') {
+				swal({
+					title: '添加成功',
+					text: '',
+					type: "success",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+						$('#create-idc').modal('hide');
+						table.api().ajax.reload();
+					}
+				);
+			}
+			else {
+				swal({
+					title: "错误信息",
+					text: data['error'],
+					type: "error",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+					}
+				);
+			}
+		}, 'json');
+	});
+
+	$('.table-idcs').on('click', '.btn-modify', function() {
+		var id = $(this).data('id');
+		$.get('/idcs/view/',{'id': id},function(data) {
+			for (var key in data) {
+					$('input[name=' + key + ']').val(data[key]);
+				}
+			$('#modify-idc').modal('show');
+			}, 'json');
+	});
+	
+	$('.btn-idc-modify').on('click', function() {
+		var params = $('.modify-form').serializeArray();
+		$.post('/idcs/update/', params, function(data) {
+			if(data['error'] == '') {
+				swal({
+					title: '修改成功',
+					text: '',
+					type: "success",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+						$('#modify-idc').modal('hide');
+						table.api().ajax.reload();
+					}
+				);
+			}
+			else {
+				swal({
+					title: "错误信息",
+					text: data['error'],
+					type: "error",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+					}
+				);
+			}
+		}, 'json');
+	});
+
+	$('.table-idcs').on('click','.btn-delete',function() {
+		var id = $(this).data('id');
+		swal({
+			title: "确定删除资产?",
+			text: '',
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "确定",
+			cancelButtonText: "关闭",
+			closeOnConfirm: true,
+			closeOnCancel: true
+			},
+			function(isConfirm){
+				if(isConfirm) {
+					$.get('/idcs/delete/', {'id': id}, function() {
+						table.api().ajax.reload();
+					});
+				}
+			}
+		);
+	});	
+       
+});
+</script>
+{% endblock %}
+
