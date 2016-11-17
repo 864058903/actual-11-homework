@@ -13,42 +13,42 @@
     <div class="hr-line-dashed"></div>
 </form>
 <script>
-$('#create-form').bootstrapValidator({
-	message: '值不能为空',
-	feedbackIcons: {
-		valid: 'glyphicon glyphicon-ok',
-		invalid: 'glyphicon glyphicon-remove',
-		validating: 'glyphicon glyphicon-refresh'
-	},
-	fields: {
-		name: {
-			message: 'The name is not valid',
-			validators: {
-				notEmpty: {
-					message: '机房名不能为空'
-				},
-				stringLength: {
-					max: 32,
-					message: '机房名长度必须小于32位'
-				}
-			}
+	$('#create-form').bootstrapValidator({
+		message: '值不能为空',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
 		},
-		address: {
-			message:'The address is not valid',
-			validators: {
-				notEmpty: {
-					message: '机房地址不能为空'
+		fields: {
+			name: {
+				message: 'The name is not valid',
+				validators: {
+					notEmpty: {
+						message: '机房名不能为空'
+					},
+					stringLength: {
+						max: 32,
+						message: '机房名长度必须小于32位'
+					}
 				}
-			}
-		},
-		ip: {
-			message:'The IP is not valid',
-			validators: {
-				notEmpty: {
-					message: 'IP列表不能为空'
+			},
+			address: {
+				message:'The address is not valid',
+				validators: {
+					notEmpty: {
+						message: '机房地址不能为空'
+					}
 				}
-			}
-		}   
-	}
-});
+			},
+			ip: {
+				message:'The IP is not valid',
+				validators: {
+					notEmpty: {
+						message: 'IP列表不能为空'
+					}
+				}
+			}   
+		}
+	});
 </script>

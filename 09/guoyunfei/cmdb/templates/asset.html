@@ -102,7 +102,7 @@
 				<h4 class="modal-title" id="myModalLabel">资产修改</h4>
 			</div>
 			<div class="modal-body">
-				<form method="post" class="modify-form form-horizontal">
+				<form method="post" class="modify-form form-horizontal" id="asset-modify">
 					<input type="hidden" class="form-control" name="id" value=""/>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">SN:</label>
@@ -235,7 +235,6 @@
 <script src="{{ url_for('static', filename='bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js') }}"></script>
 <script src="{{ url_for('static', filename='sweetalert-1.1.1/dist/sweetalert.min.js') }}"></script>
 <script src="{{ url_for('static', filename='slider/js/bootstrap-slider.js') }}"></script>
-
 {% endblock %}
 
 {% block js %}
@@ -306,6 +305,65 @@ $(document).ready(function() {
 		language: 'zh-CN',
 		format: 'yyyy-mm-dd',
 		minView:2
+	});
+	
+	$('#asset-modify').bootstrapValidator({
+		message: '值不能为空',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
+		},
+		fields: {
+			sn: {
+				message: 'SN is not valid',
+				validators: {
+					notEmpty: {
+						message: 'SN不能为空'
+					}
+				}
+			},
+			hostname: {
+				message: 'hostname is not valid',
+				validators: {
+					notEmpty: {
+						message: '主机名不能为空'
+					}
+				}
+			},
+			ip: {
+				message: 'ip is not valid',
+				validators: {
+					notEmpty: {
+						message: 'ip不能为空'
+					}
+				}
+			},
+			os: {
+				message: 'os is not valid',
+				validators: {
+					notEmpty: {
+						message: 'os不能为空'
+					}
+				}
+			},	
+			time_on_shelves: {
+				message: 'time_on_shelves is not valid',
+				validators: {
+					notEmpty: {
+						message: '上架时间不能为空'
+					}
+				}
+			},
+			over_guaranteed_date: {
+				message: 'over_guaranteed_date is not valid',
+				validators: {
+					notEmpty: {
+						message: '过保时间不能为空'
+					}
+				}
+			}		
+		}
 	});
 	
 	$('#create-asset').on('show.bs.modal', function (event) {
