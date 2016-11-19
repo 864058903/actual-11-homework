@@ -1,0 +1,131 @@
+{% extends "layouts.html" %}
+{% block title %}CMDB | 资产{% endblock %}
+{% block link %}
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+{% endblock %}
+{#{% block nav_users %}#}
+{#        class="active"#}
+{#{% block nav_users_list %}class="active"{% endblock %}#}
+{% set active_page = "assets" %}
+{% set active_page_son = "room" %}
+{% block breadcrumb %}
+    <li>
+        <a href="javascript:void(0)">资产</a>
+    </li>
+    <li class="active">
+        <strong>机房管理</strong>
+    </li>
+{% endblock %}
+{% block content %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_room">
+        添加机房(dialog)
+    </button>
+    <!-- Modal -->
+<div class="modal fade" id="create_room" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">机房创建</h4>
+      </div>
+      <div class="modal-body">
+          <form action="/room/save/" method="post" class="form-horizontal create_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">机房名称</label>
+                <div class="col-sm-10">
+                    <input type="text" name="roomname" value="{{ roomname }}" placeholder="请输入机房名称" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">机房地址</label>
+                <div class="col-sm-10">
+                    <input type="text" name="addr" value="{{ addr }}" placeholder="请输入机房地址" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">IP地址</label>
+                <div class="col-sm-10">
+                    <input type="text" name="ip_ranges" value="{{ ip_ranges }}" placeholder="请输入IP地址" class="form-control" />
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary create_btn">创建</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <br/><br/>
+    <table class="room table table-bordered table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>机房名</th>
+                <th>机房地址</th>
+                <th>IP地址</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+                <tr>
+                    <td>{{ room['rid'] }}</td>
+                    <td>{{ room['roomname'] }}</td>
+                    <td>{{ room['addr'] }}</td>
+                    <td>{{ room['ip_ranges'] }}</td>
+                    <td>
+                        <a href="/room/view/?id={{ room['rid'] }}">编辑</a>
+                        <button type="button" data-id="{{ room['rid'] }}" class="btn_delete btn btn-xs btn-danger">删除</button>
+{#                        <a href="javascript:void(0)" data-id="{{ room['rid'] }}" class="btn_delete">删除</a>#}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block script %}
+    <!-- Data Tables -->
+    <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function() {
+
+            $('.create_btn').on('click', function () {
+                $.post('/room/save/json/', $('.create_form').serializeArray(),
+                function (data) {
+                    if(data['code'] === 200) {
+                        window.location.reload();
+                    }
+                    else if(data['code'] === 400) {
+                        alert(data['error']);
+                    }
+                }, 'json')
+
+            });
+            $('.btn_delete').on('click', function () {
+                //发起请求
+                console.log($(this).data('id'))
+                var url= '/room/delete/?id=' + $(this).data('id');//data-id选择器取到要删除的id号
+                if(confirm('确定删除吗？')) {
+                    window.location.replace(url);
+                }
+            })
+            $('.room').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+        })
+    </script>
+{% endblock %}

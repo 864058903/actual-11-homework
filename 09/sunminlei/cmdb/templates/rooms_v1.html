@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机房列表</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+            <span style="color: green">{{ message }}</span>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    <a href="/room/create/">添加机房</a>
+    <a href="/user/">用户管理</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>机房名</th>
+                <th>机房地址</th>
+                <th>IP地址</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+                <tr>
+                    <td>{{ room['rid'] }}</td>
+                    <td>{{ room['roomname'] }}</td>
+                    <td>{{ room['addr'] }}</td>
+                    <td>{{ room['ip_ranges'] }}</td>
+                    <td>
+                        <a href="/room/view/?id={{ room['rid'] }}">编辑</a>
+                        <a href="/room/delete/?id={{ room['rid'] }}">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机房添加</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+            <span style="color: red ">{{ message }}</span>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    <form action="/room/save/", method="post">
+        <label>机房名:</label><input type="text", name="roomname", value="{{ roomname }}"/>
+        <label>机房地址:</label><input type="text", name="addr", value="{{ addr }}"/>
+        <label>IP地址:</label><input type="text", name="ip_ranges", value="{{ ip_ranges }}"/>
+        <input type="submit" value="提交"/>
+    </form>
+</body>
+</html>

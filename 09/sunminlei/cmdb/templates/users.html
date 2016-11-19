@@ -1,0 +1,229 @@
+{% extends "layouts.html" %}
+{% block title %}CMDB | 用户管理{% endblock %}
+{% block link %}
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+{% endblock %}
+{% set active_page = "user" %}
+{% set active_page_son = "user" %}
+{#{% block nav_users %}class="active"{% endblock %}#}
+{#{% block nav_users_list %}class="active"{% endblock %}#}
+{% block breadcrumb %}
+    <li>
+        <a href="javascript:void(0)">用户</a>
+    </li>
+    <li class="active">
+        <strong>用户管理</strong>
+    </li>
+{% endblock %}
+{% block content %}
+    <a href="/user/create/" class="btn btn-primary active" role="button">添加用户</a>
+   <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_dialog">
+添加用户(dialog)
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="create_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">用户创建</h4>
+      </div>
+      <div class="modal-body">
+          <form action="/user/save/" method="post" class="form-horizontal create_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                    <input type="text" name="username" value="{{ username }}" placeholder="Enter username" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" name="password" value="{{ password }}" placeholder="Enter password" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">年龄</label>
+                <div class="col-sm-10">
+                    <input type="text" name="age" value="{{ age }}" placeholder="Enter age" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">电话</label>
+                <div class="col-sm-10">
+                    <input type="text" name="telephone" value="{{ telephone }}" placeholder="Enter telephone" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">部门</label>
+                <div class="col-sm-10">
+                    <select class="form-control m-b" name="department">
+                        <option value="1">研发部门</option>
+                        <option value="2">测试部门</option>
+                        <option value="3" selected="selected">运维部门</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">性别</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" checked="checked" name="sex" value="0" />男
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio"  name="sex" value="1" />女
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">爱好</label>
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="football" >足球
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="basketball" >篮球
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="pingpang" >乒乓球
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">头像</label>
+                <div class="col-sm-10">
+                    <input type="file" name="icon"  class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">主页</label>
+                <div class="col-sm-10">
+                    <input type="url" name="homepage" value="{{ homepage }}" placeholder="Enter homepage" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-10">
+                    <input type="email" name="email" value="{{ email }}" placeholder="Enter email" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">出生日期</label>
+                <div class="col-sm-10">
+                    <input type="date" name="birthday" value="{{ birthday }}" placeholder="Enter birthday" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">简介</label>
+                <div class="col-sm-10">
+                    <textarea name="detail"></textarea>
+                </div>
+            </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary create_btn">创建</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <br/><br/>
+    <table class="user table table-bordered table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>年龄</th>
+                <th>电话</th>
+                <th>性别</th>
+                <th>部门</th>
+                <th>生日</th>
+                <th>爱好</th>
+                <th>邮箱</th>
+                <th>简介</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user['username'] }}</td>
+                    <td>{{ user['age'] }}</td>
+                    <td>{{ user['telephone'] }}</td>
+
+                    <td>
+                    {% if user['sex'] == 0 %}
+                        男
+                    {% elif user['sex'] == 1 %}
+                        女
+                    {% else %}
+                        None
+                    {% endif %}
+                    </td>
+                    <td>
+                        {% if user['department'] == 1 %}
+                        研发部门
+                        {% elif user['department'] == 2 %}
+                        测试部门
+                        {% else %}
+                        运维部门
+                        {% endif %}
+                    </td>
+                    <td>{{ user['birthday'] }}</td>
+                    <td>{{ user['hobby'] }}</td>
+                    <td>{{ user['email'] }}</td>
+                    <td>{{ user['detail'] }}</td>
+                    <td>
+                        <a href="/user/view/?id={{ user['id'] }}">编辑</a>
+                        <a href="javascript:void(0)" data-id="{{ user['id'] }}" class="btn_delete">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block script %}
+    <!-- Data Tables -->
+    <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function() {
+            $('.create_btn').on('click', function () {
+                $.post('/user/save/json', $('.create_form').serializeArray(),
+                function (data) {
+                    if(data['code'] === 200) {
+                        window.location.reload();
+                    }
+                    else if(data['code'] === 400) {
+                        alert(data['error']);
+                    }
+                }, 'json')
+
+            })
+            $('.btn_delete').on('click', function () {
+                //发起请求
+                console.log($(this).data('id'))
+                var url= '/user/delete/?id=' + $(this).data('id');//data-id选择器取到要删除的id号
+                if(confirm('确定删除吗？')) {
+                    window.location.replace(url);
+                }
+            })
+            $('.user').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+        })
+    </script>
+{% endblock %}
