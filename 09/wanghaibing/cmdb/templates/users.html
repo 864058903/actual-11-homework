@@ -1,0 +1,241 @@
+{% extends "layout.html"  %}
+{% block link  %}
+    <!-- Data Tables -->
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+{% endblock  %}
+
+{% block nav_menu %}
+            <li>
+                <a href="/users/">用户</a>
+            </li>
+            <li class="active">
+                <strong>用户管理</strong>
+            </li>
+{% endblock %}
+{% block contens %}
+
+
+
+
+<button  class="btn btn btn-danger" role="button" data-toggle="modal" data-target="#add_user_myModal">添加用户</button>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="add_user_myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+            </div>
+            <div class="modal-body">
+
+  <form method="post"  class="add_user_form form-horizontal " > 
+   {% if error  %}
+    <div class="form-group">
+        <label for="inputerror" class="col-sm-2 control-label" style="color:red" >提示：</label>
+        <div class="col-sm-3">
+         <label class="control-label" id="inputerror" style="color:red">{{error}}</label>
+        </div> 
+    </div>
+   {% endif %}
+
+  <div class="form-group">
+    <label for="inputtext3" class="col-sm-2 control-label">用户名</label>
+    <div class="col-sm-3">
+      <input type="text"  name="username"   value="{{username}}" class="form-control" id="inputtextl3" placeholder="name">
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputpassword3" class="col-sm-2 control-label">密码</label>
+    <div class="col-sm-3">
+      <input type="password"  name="password"   value="{{password}}" class="form-control" id="inputpassword3" placeholder="password">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputdept3" class="col-sm-2 control-label">部门</label>
+    <div class="col-sm-3">    
+      <select name="dept"  class="form-control" id="inputdept3" >   
+               <option value="product">研发部</option>
+               <option value="test">测试部</option>
+               <option value="operations">运维部</option>
+       </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputsex" class="col-sm-2 control-label">性别</label>
+    <div class="col-sm-3">   
+     <div class="radio" > 
+            <label><input type="radio" name="sex"   id="inputsex" value="1"/>男</label>
+            <label><input type="radio" name="sex"   value="0"/>女</label>
+    </div>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <label for="inputage" class="col-sm-2 control-label">年龄</label>
+    <div class="col-sm-3">
+    <input type="text" name="age" value="{{age}}"  class="form-control" id="inputage" placeholder="age"  />
+  
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputbirthday" class="col-sm-2 control-label">生日</label>
+    <div class="col-sm-3">  
+    <input type="date" name="birthday" value="{{birthday}}"  class="form-control" id="inputbirthday" placeholder="birthday"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputtel" class="col-sm-2 control-label">电话</label>
+    <div class="col-sm-3">  
+    <input type="text" name="tel" value="{{tel}}"  class="form-control" id="inputtel" placeholder="tel"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputemail" class="col-sm-2 control-label">EMAIL</label>
+    <div class="col-sm-3">  
+    <input type="email" name="email" value="{{email}}"  class="form-control" id="inputemail" placeholder="email"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label  for="inputbobby" class="col-sm-2 control-label">爱好</label>
+    <div class=" col-sm-3" id="inputbobby">
+      <div class="checkbox" >
+        <label>
+          <input type="checkbox" name="hobby"  value="swim"  />
+          游泳</label>
+        <label>
+         <input id="mycheckbox5" type="checkbox" class="checkbix" data-color="blue" data-text="Blue" value="football">
+          足球</label>
+        <label>
+          <input type="checkbox" name="hobby"  value="climb"  />
+          爬山</label>
+        <label>
+          <input type="checkbox" name="hobby"  value="basketball" />
+          篮球</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputbz" class="col-sm-2 control-label">简介</label>
+    <div class="col-sm-3">  
+    <textarea    name="bz"  class="form-control" id="inputbz" >{{bz}} </textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputgroups" class="col-sm-2 control-label">所属组</label>
+    <div class="col-sm-3">    
+      <select name="groups"  class="form-control" id="inputgroups" >   
+                <option value="user" selected="selected" >user</option>
+                <option value="supper" >supper</option>
+       </select>
+    </div>
+  </div>
+
+</form>
+
+
+            </div>
+             
+            <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="add_user_btn btn btn-primary ">提交</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<!--modal-->
+
+<table   class="usertable table text-center  table-striped table-bordered table-hover">
+<thead >
+<tr >
+<th>用户ID</th>
+<th>姓名</th>
+<th>部门</th>
+<th>性别</th>
+<th>年龄</th>
+<th>生日</th>
+<th>手机</th>
+<th>邮箱</th>
+<th>爱好</th>
+<th>简介</th>
+<th>所属组</th>
+<th>状态</th>
+<th>操 作</th>
+</tr>
+</thead>
+<tbody>
+{% for user in users %}
+<tr>
+ <td>{{user[0]}}</td>
+ <td>{{user[1]}}</td>
+ <td>{{user[2]}}</td>
+ <td>{{user[3]}}</td>
+ <td>{{user[4]}}</td>
+ <td>{{user[5]}}</td>
+ <td>{{user[6]}}</td>
+ <td>{{user[7]}}</td>
+<td>
+{{user[8]}}
+</td>
+ <td>{{user[9]}}</td>
+ <td>{{user[10]}}</td>
+ <td>{{user[11]}}</td>
+ <td><a  href="/view_usermodify/?userid={{user[0]}}">编辑</a>&nbsp&nbsp<a  href="javascript:void(0);" data-id="{{user[0]}}" class="del_user_btn" >删除</a> </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
+
+{% block script  %} 
+    <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+{% endblock  %}
+{% block js  %}
+        jQuery(document).ready(function() {
+            jQuery('.usertable').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+
+        jQuery('.add_user_btn').on('click',function() {
+                jQuery.post('/add_users/json/',
+                    jQuery('.add_user_form').serializeArray(),
+                    function(data) {
+                        if (data['code'] === 200)
+                           {
+                          window.location.reload(); }
+                        else 
+                          {
+                          alert (data['error']); }
+                    },'json');
+         });
+
+         jQuery('.del_user_btn').on('click',function(){
+                   var url='/users/user_del2/?id=' + jQuery(this).data('id');
+                   if ( confirm('您确定要删除该用户吗？'))
+                      { 
+                          window.location.replace(url);}
+
+                   });
+
+ });
+{% endblock   %}

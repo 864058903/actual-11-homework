@@ -1,0 +1,444 @@
+{% extends "layout.html"  %}
+{% block link  %}
+    <!-- Data Tables -->
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="/static/jQuery_home_slider/css/bootstrap-slider.css" rel="stylesheet">
+    <link href="/static/jQuery_home_formValidation/dist/css/formValidation.css" rel="stylesheet">
+{% endblock  %}
+
+{% block nav_menu %}
+            <li class="active">
+                <a href="/assets/">IT资产</a>
+            </li>
+            <li class="active">
+                <strong>资产管理</strong>
+            </li>
+
+{% endblock %}
+{% block contens %}
+
+<button class="create_asset_btn btn btn-danger btn-lg" data-toggle="modal"  data-target="#create_asset_myModal"  role="button">添加资产</button>
+
+<!-- 模态框（Modal）(create) -->
+<div class="modal fade" id="create_asset_myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel_c">添加资产</h4>
+            </div>
+            <div class="modal-body">
+
+  <form method="post"  class="create_asset_form form-horizontal " > 
+   <div class="form-group">
+    <label for="inputsn" class="col-sm-2 control-label">SN:</label>
+    <div class="col-sm-8">
+      <input type="text"  name="sn_c"   value="" class="form-control"  >
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputhostname" class="col-sm-2 control-label">主机名：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="hostname_c"   value="" class="form-control" id="inputhostname" >
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label for="inputip" class="col-sm-2 control-label">IP：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="ip_c"   value="" class="form-control" id="inputip_c">
+    </div>
+
+  </div>
+      <div class="form-group">
+    <label for="inputos" class="col-sm-2 control-label">OS：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="os_c"   value="" class="form-control" id="inputos_c" >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputcpu_create" class="col-sm-2 control-label">CPU：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="cpu_c"  class="form-control"  data-slider-id="cpuSliderc"  data-slider-min="0" data-slider-max="64" data-slider-step="1" data-slider-value="2"   id="inputcpuc" >
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label for="inputram" class="col-sm-2 control-label">RAM：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="ram_c"  class="form-control"  data-slider-id="cpuSliderc"  data-slider-min="0" data-slider-max="256" data-slider-step="1" data-slider-value="14"   id="inputramc" >
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label for="inputdisk" class="col-sm-2 control-label">DISK：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="disk_c"  class="form-control"  data-slider-id="cpuSliderc"  data-slider-min="0" data-slider-max="10000" data-slider-step="1" data-slider-value="14"   id="inputdiskc">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputbuiness" class="col-sm-2 control-label">Buiness：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="buiness_c"   value="" class="form-control" id="inputbuiness_c" >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputadmin" class="col-sm-2 control-label">Admin：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="admin_c"   value="" class="form-control" id="inputadmin_c" >
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputmachine_room" class="col-sm-2 control-label">Machine_room:</label>
+    <div class="col-sm-8">    
+      <select name="machine_room_id_c"  class="form-control" id="inputmachine_room_c" >   
+               <option value="1">深圳龙华</option>
+               <option value="2">深圳科技园</option>
+       </select>
+    </div>
+  </div>
+
+   
+  <div class="form-group">
+    <label for="inputsjdate" class="col-sm-2 control-label">上架时间：</label>
+    <div class="col-sm-8">  
+    <input type="date" name="time_on_shelves_c" value=""  class="form-control" id="inputsjdate_c"   />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputoverdate" class="col-sm-2 control-label">过保时间：</label>
+    <div class="col-sm-8">  
+    <input type="date" name="over_guaranteed_date_c" value=""  class="form-control" id="inputoverdate_c"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputvender" class="col-sm-2 control-label">厂商：</label>
+    <div class="col-sm-8">  
+    <input type="text" name="vendor_c" value=""  class="form-control" id="inputvender_c"   />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputmodel" class="col-sm-2 control-label">型号：</label>
+    <div class="col-sm-8">  
+    <input type="text" name="model_c" value=""  class="form-control" id="inputmodel_c"   />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputstatus" class="col-sm-2 control-label">状态：</label>
+    <div class="col-sm-8">    
+      <select name="status_c"  class="form-control" id="inputstatus_c" >   
+                <option value="0" selected="selected" >上线</option>
+                <option value="1" >维护</option>
+       </select>
+    </div>
+  </div>
+
+</form>
+
+  </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="create_asset_save btn btn-primary ">提交</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<!--modal_create_end-->
+
+
+
+
+<table   class="assets_table table text-center  table-striped table-bordered table-hover">
+<thead >
+ <tr>
+            <th>SN</th>
+            <th>主机名/IP</th>
+            <th>OS</th>
+            <th>资源</th>
+            <th>业务</th>
+            <th>机房</th>
+            <th>上架/过保时间</th>
+            <th>厂商/型号</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+
+<!-- 模态框（Modal）(edit) -->
+<div class="modal fade" id="edit_asset_myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">编辑资产</h4>
+            </div>
+            <div class="modal-body">
+
+  <form method="post"  class="edit_asset_form form-horizontal " > 
+   <input type="hidden" name="id" value="" />
+   <div class="form-group">
+    <label for="inputsn" class="col-sm-2 control-label">SN:</label>
+    <div class="col-sm-8">
+      <input type="text"  name="sn"   value="" class="form-control"  >
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputhostname" class="col-sm-2 control-label">主机名：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="hostname"   value="" class="form-control" id="inputhostname" >
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label for="inputip" class="col-sm-2 control-label">IP：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="ip"   value="" class="form-control" id="inputip">
+    </div>
+
+  </div>
+      <div class="form-group">
+    <label for="inputos" class="col-sm-2 control-label">OS：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="os"   value="" class="form-control" id="inputos" >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputcpu" class="col-sm-2 control-label">CPU：</label>
+    <div class="col-sm-8">
+      <input id="inputcpu"   class="form-control"  data-slider-id='cpuSlider' type="text" data-slider-min="0" data-slider-max="64" data-slider-step="1" data-slider-value="14"  name="cpu"  >
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label for="inputram" class="col-sm-2 control-label">RAM：</label>
+    <div class="col-sm-8">
+      <input  data-slider-id='ramSlider'class="form-control"  type="text" data-slider-min="0" data-slider-max="256" data-slider-step="1" data-slider-value="14"  name="ram"   id="inputram" >
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label for="inputdisk" class="col-sm-2 control-label">DISK：</label>
+    <div class="col-sm-8">
+      <input type="text"  data-slider-id='diskSlider'  data-slider-min="0" data-slider-max="10000" data-slider-step="1" data-slider-value="14"  name="disk"    id="inputdisk">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputbuiness" class="col-sm-2 control-label">Buiness：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="buiness"   value="" class="form-control" id="inputbuiness" >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputadmin" class="col-sm-2 control-label">Admin：</label>
+    <div class="col-sm-8">
+      <input type="text"  name="admin"   value="" class="form-control" id="inputadmin" >
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="inputmachine_room" class="col-sm-2 control-label">Machine_room:</label>
+    <div class="col-sm-8">    
+      <select name="machine_room_id"  class="form-control" id="inputmachine_room" >   
+               <option value="1">深圳龙华</option>
+               <option value="2">深圳科技园</option>
+       </select>
+    </div>
+  </div>
+
+   
+  <div class="form-group">
+    <label for="inputsjdate" class="col-sm-2 control-label">上架时间：</label>
+    <div class="col-sm-8">  
+    <input type="date" name="time_on_shelves" value=""  class="form-control" id="inputsjdate"   />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputoverdate" class="col-sm-2 control-label">过保时间：</label>
+    <div class="col-sm-8">  
+    <input type="date" name="over_guaranteed_date" value=""  class="form-control" id="inputoverdate"  />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputvender" class="col-sm-2 control-label">厂商：</label>
+    <div class="col-sm-8">  
+    <input type="text" name="vendor" value=""  class="form-control" id="inputvender"   />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputmodel" class="col-sm-2 control-label">型号：</label>
+    <div class="col-sm-8">  
+    <input type="text" name="model" value=""  class="form-control" id="inputmodel"   />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputstatus" class="col-sm-2 control-label">状态：</label>
+    <div class="col-sm-8">    
+      <select name="status"  class="form-control" id="inputstatus" >   
+                <option value="0" selected="selected" >上线</option>
+                <option value="1" >维护</option>
+       </select>
+    </div>
+  </div>
+
+</form>
+
+  </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="edit_asset_save btn btn-primary ">提交</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<!--modal-->
+
+
+
+{% endblock %}
+
+{% block script  %} 
+    <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+    <script src="/static/jQuery_home_slider/js/bootstrap-slider.js"></script>
+    <script src="/static/jQuery_home_formValidation/dist/js/formValidation.js"></script>
+    <script src="/static/jQuery_home_formValidation/dist/js/language/zh_CN.js"></script>
+{% endblock  %}
+{% block js  %}
+
+        jQuery('#inputcpuc').slider({value:0});
+        jQuery('#inputdiskc').slider({value:0});
+        jQuery('#inputramc').slider({value:0});
+        jQuery(document).ready(function() {
+           var table= jQuery('.assets_table').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                },
+            "ajax" : "/assets/assets_list/",
+            "columns" : [
+                { "data": "sn" },
+                { "data": function(row){
+                        var str=row['hostname']+'('+row['ip']+')';
+                        return str;
+                    } },
+                { "data": "os" },
+                { "data": function(row){
+                         var str=row['cpu']+'核/'+row['ram']+'G/'+row['disk']+'G';
+                         return str;
+                     }},
+                { "data": "buiness" },
+                { "data": "machine_room" },
+                { "data": function(row){
+                     var str=row['time_on_shelves']+'/'+row['over_guaranteed_date'];
+                     return str;
+                    } },
+                { "data": function(row){
+                     var str=row['vendor']+'/'+row['model'];
+                     return str;
+                       } },
+                { "data": "status" },
+                { "data": function(row){
+                        var str=[];
+                        str.push('<a href="javascript:void(0);" class="open_edit_btn" data-id="'+row['id']+'" ><i class="fa fa-edit"></i></a>');
+                        str.push('<a href="javascript:void(0);" class="del_btn" data-id="'+row['id']+'" ><i class="fa fa-trash"></i></a>');
+                        return str.join('&nbsp;&nbsp; ')
+
+                    } }
+               ]
+            });
+
+        jQuery('.create_asset_save').on('click',function() {
+                jQuery.post('/create_asset/json/',
+                    jQuery('.create_asset_form').serializeArray(),
+                    function(data) {
+                        if (data['code'] === 200)
+                           {
+                          table.api().ajax.reload(); }
+                        else 
+                          {
+                          alert (data['code']); }
+                    },'json');
+         });
+
+        jQuery('.assets_table').on('click','.open_edit_btn',function() {
+                jQuery.get('/edit_asset/view/',
+                    {'id':jQuery(this).data('id')},
+                    function(response) {
+                        for (var key in response)
+                           {
+                          if ( key == 'cpu' || key =='disk' || key == 'ram'){
+                     jQuery('input[name='+ key +']').slider({value:response[key]});} 
+                          else {
+                          jQuery('[ name=' + key + ']').val(response[key]); 
+                               }
+                           }
+                        jQuery('#edit_asset_myModal').modal('show');
+
+                    },'json');
+        });
+
+        jQuery('.edit_asset_save').on('click',function(){
+                     var params=jQuery('.edit_asset_form').serializeArray();
+                     jQuery.post('/edit_asset/save/',params,function(response){
+                                  if ( response['code'] === 200) { 
+                                      table.api().ajax.reload();
+                                      jQuery('#edit_asset_myModal').modal('hide');
+                                         }
+                                  else 
+                                     {
+                                      alert (response['code'] ); }
+                              } ,'json');
+
+           });
+
+         jQuery('.assets_table').on('click','.del_btn',function(){
+                   var params={'id':jQuery(this).data('id')};
+                   if ( confirm('您确定要删除该资产？'))
+                      { 
+                        jQuery.post('/asset_del/',params,function(response){
+                              if (response['code']==200){
+                                  alert ('删除成功'); 
+                                  table.api().ajax.reload();}
+                                    
+                              else {
+                                  alert (response['code']); }
+                           },'json'); }
+               });
+
+
+ });
+
+
+
+{% endblock   %}
+
