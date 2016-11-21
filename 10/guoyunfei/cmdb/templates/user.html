@@ -1,0 +1,389 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link href="{{ url_for('static', filename='css/plugins/dataTables/dataTables.bootstrap.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/plugins/dataTables/dataTables.responsive.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/plugins/dataTables/dataTables.tableTools.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='bootstrapvalidator-0.4.5/dist/css/bootstrapValidator.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <h2>用户管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                <a>用户中心</a>
+            </li>
+            <li class="active">
+                <strong>用户管理</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+         
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-user">添加</button>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-user" >
+                            <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>邮箱</th>
+                                    <th>电话</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block feature %}
+<div class="modal fade" id="create-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="exampleModalLabel">用户创建</h3>
+            </div>
+            <div class="modal-body">
+				<form class="create-form form-horizontal" id="user-create" method="post" >
+                    <div class="form-group"><label class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+							<input type="text" class="form-control" name="name">
+						</div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+							<input type="password" class="form-control" name="password">
+						</div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+							<input type="text" class="form-control" name="email">
+						</div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+					<div class="form-group"><label class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+							<input type="text" class="form-control" name="phone">
+						</div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-create-user-submit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modify-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="exampleModalLabel"></h3>
+            </div>
+            <div class="modal-body">
+				<form method="post" class="modify-form form-horizontal" id="user-modify">
+					<input type="hidden" class="form-control" name="id" value=""/>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+							<input type="text" class="form-control" name="email" value="">
+						</div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+					<div class="form-group"><label class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+							<input type="text" class="form-control" name="phone" value="">
+						</div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-modify-user-submit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins/dataTables/dataTables.responsive.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins/dataTables/dataTables.tableTools.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrapvalidator-0.4.5/dist/js/bootstrapValidator.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+{% endblock %}
+
+{% block js %}
+<script>
+$(document).ready(function() {
+    var table = $('.table-user').dataTable({
+		"ajax": "/users/list/",
+		"columns": [
+			{"data": "name"},
+			{"data": "email"},
+			{"data": "phone"},
+			{"data": function(row) {
+				var elements = [];
+				elements.push('<a class="btn-modify" data-id="'+row['id']+'" href="javascript:void(0)"><i class="fa fa-edit"></i></a>');
+				elements.push('<a class="btn-delete" data-id="'+row['id']+'" href="javascript:void(0)"><i class="fa fa-trash"></i></a>');
+				return elements.join(' ');}
+			}
+		]
+	});
+	
+	$('#user-create').bootstrapValidator({
+		message: '值不能为空',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
+		},
+		fields: {
+			name: {
+				message: 'The username is not valid',
+				validators: {
+					notEmpty: {
+						message: '用户名不能为空'
+					},
+					regexp: {
+							regexp: /^[a-zA-Z0-9_\.]+$/,
+							message: '只能是数字和字母_.'
+					},
+					stringLength: {
+						min: 6,
+						max: 32,
+						message: '用户名长度必须在6到32位之间'
+					}
+				}
+			},
+			password: {
+				message:'密码无效',
+				validators: {
+					notEmpty: {
+						message: '密码不能为空'
+					},
+					stringLength: {
+						min: 6,
+						message: '密码长度至少大于6位'
+					}
+				}
+			},
+			email: {
+				validators: {
+					emailAddress: {
+						message: '请输入正确的邮件地址如: xxx@xxx.xx'
+					}
+				}
+			},
+			phone: {
+				message: 'The phone is not valid',
+				validators: {
+					stringLength: {
+						min: 11,
+						max: 11,
+						message: '请输入11位手机号码'
+					},
+					regexp: {
+						regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+						message: '请输入正确的手机号码'
+					}
+				}
+			}   
+		}
+	});
+	
+	$('#user-modify').bootstrapValidator({
+		message: '值不能为空',
+		feedbackIcons: {
+			valid: 'glyphicon glyphicon-ok',
+			invalid: 'glyphicon glyphicon-remove',
+			validating: 'glyphicon glyphicon-refresh'
+		},
+		fields: {
+			email: {
+				validators: {
+					emailAddress: {
+						message: '请输入正确的邮件地址如: xxx@xxx.xx'
+					}
+				}
+			},
+			phone: {
+				message: 'The phone is not valid',
+				validators: {
+					stringLength: {
+						min: 11,
+						max: 11,
+						message: '请输入11位手机号码'
+					},
+					regexp: {
+						regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+						message: '请输入正确的手机号码'
+					}
+				}
+			}   
+		}
+	});
+        
+	$('#create-user').on('show.bs.modal', function (event) {
+		if(!event.relatedTarget){return;}
+		$(":input").val('');
+	});
+
+	$('.btn-create-user-submit').on('click', function() {
+		var params = $('.create-form').serializeArray();
+		$.post('/users/create/', params, function(data) {
+			if(data['error'] == '') {
+				swal({
+					title: '添加成功',
+					text: '',
+					type: "success",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+						$('#create-user').modal('hide');
+						table.api().ajax.reload();
+					}
+				);
+			}
+			else {
+				swal({
+					title: "错误信息",
+					text: data['error'],
+					type: "error",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+					}
+				);
+			}
+		}, 'json');
+	});
+
+	$('.table-user').on('click', '.btn-modify', function() {
+		var id = $(this).data('id');
+		$.get('/users/view/',{'id': id},function(data) {
+			for (var key in data) {
+					$('input[name=' + key + ']').val(data[key]);
+				}
+			$('#modify-user').modal('show');
+			}, 'json');
+	});
+	
+	$('.btn-modify-user-submit').on('click', function() {
+		var params = $('.modify-form').serializeArray();
+		$.post('/users/update/', params, function(data) {
+			if(data['error'] == '') {
+				swal({
+					title: '修改成功',
+					text: '',
+					type: "success",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+						$('#modify-user').modal('hide');
+						table.api().ajax.reload();
+					}
+				);
+			}
+			else {
+				swal({
+					title: "错误信息",
+					text: data['error'],
+					type: "error",
+					showCancelButton: false,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "确定",
+					cancelButtonText: "关闭",
+					closeOnConfirm: true,
+					closeOnCancel: false
+					},
+					function(isConfirm){
+					}
+				);
+			}
+		}, 'json');
+	});
+
+	$('.table-user').on('click','.btn-delete',function() {
+		var id = $(this).data('id');
+		swal({
+			title: "确定删除?",
+			text: '',
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "确定",
+			cancelButtonText: "关闭",
+			closeOnConfirm: true,
+			closeOnCancel: true
+			},
+			function(isConfirm){
+				if(isConfirm) {
+					$.get('/users/delete/', {'id': id}, function() {
+						table.api().ajax.reload();
+					});
+				}
+			}
+		);
+    });
+});
+</script>
+{% endblock %}
+
