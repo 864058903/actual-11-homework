@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [{000214A0-0000-0000-C000-000000000046}]
 Prop3=19,2
 [InternetShortcut]
@@ -9,3 +10,16 @@ IconIndex=220
 [InternetShortcut.A]
 [InternetShortcut.W]
 IconFile=F:+AFx/UVP2-jQuery+AFw-favicon.ico
+=======
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+URL=http://www.htmleaf.com/
+IDList=
+HotKey=0
+IconFile=C:\Windows\system32\SHELL32.dll
+IconIndex=220
+[InternetShortcut.A]
+[InternetShortcut.W]
+IconFile=F:+AFx/UVP2-jQuery+AFw-favicon.ico
+>>>>>>> 7eaa0ec6e9ef330c70594d2fdd342d4abca5cf68
