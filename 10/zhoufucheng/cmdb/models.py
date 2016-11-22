@@ -25,6 +25,8 @@ SQL_VALIDATE_USER_MODIFY = 'select id from user where id != %s and name = %s'
 
 SQL_USER_DELETE = 'delete from user where id = %s'
 
+SQL_VALIDATE_CHARGE_PASSWORD = 'select * from user where id = %s and name = %s'
+
 SQL_MACHINE_ROOM_COLUMNS = ('id', 'name', 'addr', 'ip_ranges')
 SQL_MACHINE_ROOM_LIST = 'select id, name, addr, ip_ranges from machine_room'
 
@@ -111,6 +113,10 @@ def validate_charge_password(uid, upassword, musername, mpassword):
     #检查管理员密码是否正确
     if not validate_login(musername, mpassword):
         return False, '管理员密码错误'
+
+    rt_cnt, rt_list = dbutils.execute_sql(SQL_VALIDATE_CHARGE_PASSWORD,(uid,musername),True)
+    if rt_cnt == 0:
+        return False, u'请修改当前登录用户密码'
 
     #密码要求长度必须大于等于6
     if len(upassword) < 6:
