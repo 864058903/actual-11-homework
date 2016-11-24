@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% block link %}
+<!--分页,搜索,导出等插件css-->
+<link href="/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<link href="/static/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+<link href="/static/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+<!--优雅弹框插件-->
+<link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+{% endblock %}
+{% block breadcrumb %}
+机房列表
+{% endblock %}
+{% block main %}
+<div class="col-sm-12">
+    <button  class='btn btn-sm btn-primary' data-toggle="modal" data-target="#roomaddmodal">添加机房</button>
+    <!--href="/idc/add"-->
+    <!--room列表开始-->
+    <table class="table table-striped table-bordered table-hover roomTables" id="idc_table">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">name</th>
+                <th class="text-center">addr</th>
+                <th class="text-center">ip_ranges</th>
+                <th class="text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in idcs %}
+            <tr clas s="gradeX">
+                <td class="text-center">{{result['id']}}</td>
+                <td class="text-center">{{result['name']}}</td>
+                <td class="text-center">{{result['addr']}}</td>
+                <td class="text-center">{{result['ip_ranges']}}</td>
+                <td class="text-center">
+                    <button data-id="{{result.id}}"  class="btn btn-xs btn-info roomupdatebtn">编辑</button>
+                    <button data-id="{{result.id}}" class="btn btn-xs btn-danger roomdelbtn ">删除</button>
+                </td>
+             </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!--room列表结束-->
+
+    <!--添加room模态框开始-->
+    <div class="modal fade" id='roomaddmodal'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+            	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">详情</h4>
+          </div>
+          <div class="modal-body">
+    	    <!--模态框内容开始-->
+            <form  id="roomaddmodalForm" class="form-horizontal" action="/idc/add" method="post">
+                <div class="hr-line-dashed"></div>
+	            <div class='form-group'>
+                        <label for="name" class="col-sm-3 control-label">机房名<span class="red-fonts">*</span></label>
+                        <div class="col-sm-8">
+                            <input  name="name" value="{{name}}" type="text" class="form-control"  datatype="zh|s2-12" errormsg="填写room名称,中文or英文" >
+                        </div>
+	            </div>
+                <!--name-->
+	        	<div class="hr-line-dashed"></div>
+	            <div class='form-group'>
+                        <label for="addr" class="col-sm-3 control-label">地址<span class="red-fonts">*</span></label>
+                        <div class="col-sm-8">
+                            <input  name="addr" value="{{addr}}" type="text" class="form-control"  datatype="zh|s2-12" errormsg="填写room地址,中文or英文"  >
+                        </div>
+	            </div>
+                <!--addr-->
+	        	<div class="hr-line-dashed"></div>
+	            <div class='form-group'>
+                        <label for="ip_ranges" class="col-sm-3 control-label">IP段<span class="red-fonts">*</span></label>
+                        <div class="col-sm-8">
+                            <input  name="ip_ranges" value="{{ip_ranges}}" type="text" class="form-control"   datatype="n2-12" errormsg="请填写ip地址段">
+                        </div>
+	            </div>
+                <!--ip_ranges-->
+            </form>
+    	    <!--模态框内容结束-->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary create_btn">创建</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--添加room模态框结束-->
+
+
+
+    <!--更新room模态框开始-->
+    <div class="modal fade" id='roomupdatemodal'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+            	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">详情</h4>
+          </div>
+          <div class="modal-body">
+    	    <!--模态框内容开始-->
+            <form  id="roomupdatemodalForm" class="form-horizontal">
+	        	<input id='id' type='hidden' name='id' value= {{id}} readonly='true'><!--ID-->
+
+                <div class="hr-line-dashed"></div>
+	            <div class='form-group'>
+                        <label for="name" class="col-sm-3 control-label">机房名<span class="red-fonts">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="name" name="name" value={{name}} type="text" class="form-control" readonly >
+                        </div>
+	            </div>
+                <!--name-->
+	        	<div class="hr-line-dashed"></div>
+	            <div class='form-group'>
+                        <label for="addr" class="col-sm-3 control-label">地址<span class="red-fonts">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="addr" name="addr" value={{addr}} type="text" class="form-control"  >
+                        </div>
+	            </div>
+                <!--addr-->
+	        	<div class="hr-line-dashed"></div>
+	            <div class='form-group'>
+                        <label for="ip_ranges" class="col-sm-3 control-label">IP段<span class="red-fonts">*</span></label>
+                        <div class="col-sm-8">
+                            <input id="ip_ranges" name="ip_ranges" value={{ip_ranges}} type="text" class="form-control"  >
+                        </div>
+	            </div>
+                <!--ip_ranges-->
+            </form> <!--form-->
+    	    <!--模态框内容结束-->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary update_btn">更新</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--更新room模态框结束-->
+
+</div>
+{% endblock %}
+
+{% block script %}
+<!-- 分页,搜索,导出等插件js -->
+<script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="/static/js/plugins/dataTables/dataTables.responsive.js"></script>
+<script src="/static/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+<!--优雅弹窗插件JS-->
+<script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<!--表单验证插件-->
+<script type="text/javascript" src="/static/js/plugins/Validform/Validform_v5.3.2.js"></script>
+
+<script>
+
+        //添加用户模态框的表单验证
+        $("#roomaddmodalForm").Validform({
+            tiptype:3
+        });
+
+        //添加room的模态框展示,使用的是在button中,绑定模态框id
+        //data-toggle="modal" data-target="#roomaddmodal"
+        //添加用户的post提交,以及优雅弹窗
+        jQuery('.create_btn').on('click', function() {
+            var str=jQuery('#roomaddmodalForm').serializeArray()
+            jQuery.post('/room/add',str,function(data){
+                data=JSON.parse(data);
+                if(data['code'] == 200) {
+                    swal({
+                        title:"success",
+                        text:"添加成功",
+                        type:"success",
+                        confirmButtonText:'确定'},
+                        function(){
+                            jQuery('#roomaddmodal').modal('hide')
+                            window.location.reload()
+                        })
+                }
+                else{
+                    swal("添加失败!",data['error'],'error');
+                }
+           })
+            return false
+        });
+
+        //删除用户的优雅弹窗
+        jQuery('.roomdelbtn').on('click', function() {
+            var url = '/room/delete?id=' + jQuery(this).data('id');
+            swal({
+		        title: "确定要删除?",
+		        text: "You will not be able to recover this imaginary file!",
+		        type: "warning",
+		        showCancelButton: true,
+		        confirmButtonColor: "#DD6B55",
+		        confirmButtonText: "确认删除!",
+		        closeOnConfirm: false
+            },
+            function(){
+		        swal("删除成功!", "success");
+                window.location.replace(url);
+            })
+        });
+
+        //room更新的模态框展示,以及填充数据
+        jQuery(".roomupdatebtn").click(function () {
+            var id=jQuery(this).attr("data-id")
+            jQuery.getJSON("/room/update",{'id':id},function(data){
+                jQuery("#roomupdatemodal").modal("show")
+                jQuery("#id").val(data['id'])
+                jQuery("#name").val(data['name'])
+                jQuery("#addr").val(data['addr'])
+                jQuery("#ip_ranges").val(data['ip_ranges'])
+            })
+        })
+        //room更新的post提交,以及优雅提示
+        jQuery(".update_btn").on('click',function(){
+           var str = $("#roomupdatemodalForm").serialize()
+           var url = "/room/update"
+           jQuery.post(url,str,function(data){
+                data=JSON.parse(data)
+                if(data['code'] == 200) {
+                    swal({
+                        title:"success",
+                        text:"更新成功",
+                        type:"success",
+                        confirmButtonText:'确定'},
+                        function(){
+                            jQuery('#roomupdatemodal').modal('hide')
+                            window.location.reload()
+                        })
+                }
+                else{
+                    swal("更新失败!",data['error'],'error');
+                }
+           })
+            return false
+        })
+
+        //分页,搜索,导出等JS
+        jQuery('.roomTables').dataTable({
+            responsive: true,
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "sSwfPath": "/static/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+            }
+        })
+
+</script>
+{% endblock %}

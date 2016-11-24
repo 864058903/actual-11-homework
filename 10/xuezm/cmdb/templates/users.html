@@ -1,0 +1,483 @@
+{% extends "base.html" %}
+{% block link %}
+<!--分页,搜索,导出等插件css-->
+<link href="/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<link href="/static/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+<link href="/static/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+<!--优雅弹框插件-->
+<link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+{% endblock %}
+{% block breadcrumb %}
+用户列表
+{% endblock %}
+{% block main %}
+<!--用户lists-->
+<div class="col-sm-12">
+    <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#useraddmodal"> 添加用户</button>
+    <table class="table table-striped table-bordered table-hover dataTables " id="editable">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">username</th>
+                <th class="text-center">age</th>
+                <th class="text-center">telephone</th>
+                <th class="text-center">sex</th>
+                <!--<th class="text-center">department</th>-->
+                <th class="text-center">title</th>
+                <th class="text-center">role</th>
+                <th class="text-center">birthday</th>
+                <th class="text-center">email</th>
+                <th class="text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in users %}
+                <tr class="gradeX">
+                    <td class="text-center">{{result['id']}}</td>
+                    <td class="text-center">{{result['username']}}</td>
+                    <td class="text-center">{{result['age']}}</td>
+                    <td class="text-center">{{result['telephone']}}</td>
+                    {% if result['sex']==0 %}
+                    <td class="text-center">男</td>
+                    {%else%}
+                    <td class="text-center">女</td>
+                    {%endif%}
+                    <!--<td class="text-center">{{result['department']}}</td>-->
+                    <td class="text-center">{{result['title']}}</td>
+                    {% if result['role']=='admin' %}
+                    <td class="text-center">管理员</td>
+                    {%else%}
+                    <td class="text-center">普通用户</td>
+                    {%endif%}
+                    <td class="text-center">{{result['birthday']}}</td>
+                    <td class="text-center">{{result['email']}}</td>
+
+                    <td>
+                        <button data-id="{{result['id']}}"  class="btn btn-xs btn-danger userdelbtn ">删除</button>
+                        <button data-id="{{result['id']}}"  class="btn btn-xs btn-info userupdatebtn" >更新</button>
+                        <button data-id="{{result['id']}}" class="btn btn-xs btn-primary  userpasswordbtn" >修改密码</button>
+                        <!--href="/users/uppass?id= -->
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!--用户lists-->
+
+<!--添加用户模态框开始-->
+<div class="modal fade" id='useraddmodal'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">详情</h4>
+      </div>
+      <div class="modal-body">
+
+	    <!--模态框内容开始-->
+        <form  id="useraddmodalForm" class="form-horizontal">
+	        <div class='form-group'>
+                    <label for="username" class="col-sm-3 control-label">用户名<span class="red-fonts">*</span></label>
+                    <div class="col-sm-8">
+                        <input id="username" name="username" value="{{username}}" type="text" class="form-control"  datatype="*6-16" errormsg="用户名为6~16个字符！">
+                    </div>
+	        </div>
+            <!--username-->
+	        <div class="form-group">
+	    		    <label for="age" class="col-sm-3 control-label">年龄</label>
+	    		    <div class="col-sm-8">
+	    			<input id="age" name="age" value="{{age}}" type="text" class="form-control" datatype="n1-2" errormsg="年龄为1-2位数字！" >
+	    		    </div>
+	    	</div>
+            <!--age-->
+	    	<div class="form-group">
+	    		    <label for="telephone" class="col-sm-3 control-label">电话</label>
+	    		    <div class="col-sm-8">
+	    			<input id="telephone" name="telephone" value="{{telephone}}" type="text" class="form-control" datatype="m" errormsg="手机号码格式不正确" >
+	    		    </div>
+	    	</div> <!--telephone-->
+            <div class="form-group">
+                    <label class="col-sm-3 control-label">性别</label>
+                    <div class="col-sm-2">
+                        <label><input type="radio" value=0 name="sex" checked="">男</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label><input type="radio" value=1 name="sex">女</label>
+                    </div>
+            </div><!--sex-->
+	    	<div class="form-group">
+	    		    <label for="department" class="col-sm-3 control-label">部门</label>
+	    		    <div class="col-sm-8">
+	    			<input id="department" name="department" value="{{department}}" type="text" class="form-control"  datatype="*" errormsg="请填写部门">
+	    		    </div>
+	    	</div> <!--department-->
+	    	<div class="form-group">
+	    		    <label for="title" class="col-sm-3 control-label">职位</label>
+	    		    <div class="col-sm-8">
+	    			<input id="title" name="title" value="{{title}}" type="text" class="form-control"  datatype="*" errormsg="请填写职位">
+	    		    </div>
+	    	</div> <!--title-->
+            <div class="form-group">
+                    <label class="col-sm-3 control-label">角色</label>
+                    <div class="col-sm-2">
+                        <label><input type="radio" value='admin' name="role" checked="">Admin</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label><input type="radio" value='user' name="role">User</label>
+                    </div>
+            </div><!--role-->
+	    	<div class="form-group">
+	    		    <label for="birthday" class="col-sm-3 control-label">生日</label>
+	    		    <div class="col-sm-8">
+	    			<input id="birthday" name="birthday" value="{{birthday}}" type="text" class="form-control"  datatype="n8-8" errormsg="例如:19901108">
+	    		    </div>
+	    	</div> <!--birthday-->
+	    	<div class="form-group">
+	    		    <label for="email" class="col-sm-3 control-label">邮箱</label>
+	    		    <div class="col-sm-8">
+	    			<input id="email" name="email" value="{{email}}" type="text" class="form-control" datatype="e" errormsg="邮箱格式不正确" >
+	    		    </div>
+	    	</div> <!--email-->
+	    	<div class="form-group">
+	    		    <label for="password" class="col-sm-3 control-label">密码</label>
+	    		    <div class="col-sm-8">
+	    			<input id="password" name="password" value="{{password}}" type="password" class="form-control" datatype="*6-16" errormsg="密码为6-16位任何字符" >
+	    		    </div>
+	    	</div> <!--password-->
+	    	<div class="form-group">
+	    		    <label for="repassword" class="col-sm-3 control-label">确认密码</label>
+	    		    <div class="col-sm-8">
+	    			<input id="repassword" name="repassword" value="{{repassword}}" type="password" class="form-control" datatype="*6-16" recheck="password" errormsg="密码不一致" >
+	    		    </div>
+	    	</div> <!--repassword-->
+                    {% if error%}
+                            <span  style="color: red">{{error}} </span>
+                    {%endif%}
+	    </form>
+	    <!--模态框内容结束-->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary create_btn">创建</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--添加用户模态框结束-->
+
+<!--用户更新模态框开始-->
+<div class="modal fade" id='userupdatemodal'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">详情</h4>
+      </div>
+      <div class="modal-body">
+
+	        <!--模态框内容开始-->
+            <form  id="userupdatemodalForm" class="form-horizontal" action="/users/update" method="post">
+	        	<input id='id' type='hidden' name='id' value="{{id}}" readonly='true'><!--ID-->
+
+	            <div class='form-group'>
+                        <label for="username" class="col-sm-3 control-label">用户名<span class="red-fonts">*</span></label>
+                        <div class="col-sm-8">
+                            <input  name="username" value="{{username}}" type="text" class="form-control username" readonly >
+                        </div>
+	            </div>
+                <!--username-->
+
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	        		    <label for="age" class="col-sm-3 control-label">年龄</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="age" value="{{age}}" type="text" class="form-control age" >
+	        		    </div>
+	        	</div>
+                <!--age-->
+
+	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="telephone" class="col-sm-3 control-label">电话</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="telephone" value="{{telephone}}" type="text" class="form-control telephone" >
+	        		    </div>
+	        	</div> <!--telephone-->
+
+	        	<div class="hr-line-dashed"></div>
+                <div class="form-group">
+                        <label class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-2">
+                            <label><input type="radio" value=0 name="sex" checked="">男</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label><input type="radio" value=1 name="sex">女</label>
+                        </div>
+                </div><!--sex-->
+
+
+	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="department" class="col-sm-3 control-label">部门</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="department" value="{{department}}" type="text" class="form-control department" >
+	        		    </div>
+	        	</div> <!--department-->
+
+	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="title" class="col-sm-3 control-label">职位</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="title" value="{{title}}" type="text" class="form-control title" >
+	        		    </div>
+	        	</div> <!--title-->
+
+
+	        	<div class="hr-line-dashed"></div>
+                <div class="form-group">
+                        <label class="col-sm-3 control-label">角色</label>
+                        <div class="col-sm-2">
+                            <label><input type="radio" value='admin' name="role" checked="">Admin</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label><input type="radio" value='user' name="role">User</label>
+                        </div>
+                </div><!--role-->
+
+ 	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="birthday" class="col-sm-3 control-label">生日</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="birthday" value="{{birthday}}" type="text" class="form-control birthday" >
+	        		    </div>
+	        	</div> <!--birthday-->
+
+ 	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="email" class="col-sm-3 control-label">邮箱</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="email" value="{{email}}" type="text" class="form-control email" >
+	        		    </div>
+	        	</div> <!--birthday-->
+	        </form>
+	    <!--模态框内容结束-->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary update_btn">更新</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--用户更新模态框结束-->
+
+<!--更改密码模态框开始-->
+<div class="modal fade" id='userpasswordmodal'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">详情</h4>
+      </div>
+      <div class="modal-body">
+
+	    <!--模态框内容开始-->
+            <form  id="userpasswordmodalForm" class="form-horizontal" >
+	        	<input id='pwid' type='hidden' name='id' value="{{id}}" readonly='true'><!--ID-->
+
+ 	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="adminpassword" class="col-sm-3 control-label">管理员密码</label>
+	        		    <div class="col-sm-8">
+	        			<input id="adminpassword" name="adminpassword" value="{{adminpassword}}" type="password" class="form-control" >
+	        		    </div>
+	        	</div> <!--password-->
+
+ 	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="password" class="col-sm-3 control-label">新密码</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="password" value="{{password}}" type="password" class="form-control"  datatype="*6-16"  errormsg="密码长度要求大于等于6位字符" >
+	        		    </div>
+	        	</div> <!--password-->
+ 	        	<div class="hr-line-dashed"></div>
+	        	<div class="form-group">
+	        		    <label for="repassword" class="col-sm-3 control-label">确认新密码</label>
+	        		    <div class="col-sm-8">
+	        			<input  name="repassword" value="{{repassword}}" type="password" class="form-control" datatype="*6-16" recheck="password" errormsg="密码不一致" >
+	        		    </div>
+	        	</div> <!--password-->
+	        </form>
+	    <!--模态框内容结束-->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary password_btn">更新</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--更改密码模态框结束-->
+
+{% endblock %}
+
+
+
+{% block script %}
+<!-- 分页,搜索,导出等插件js -->
+<script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="/static/js/plugins/dataTables/dataTables.responsive.js"></script>
+<script src="/static/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+<!--优雅弹窗插件JS-->
+<script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<!--表单验证插件-->
+<script type="text/javascript" src="/static/js/plugins/Validform/Validform_v5.3.2.js"></script>
+
+<script>
+        //分页,搜索,导出等JS
+        jQuery('.dataTables').dataTable({
+            responsive: true,
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "sSwfPath": "/static/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+            }
+        })
+
+        //添加用户模态框的表单验证
+        $("#useraddmodalForm").Validform({
+            tiptype:3
+        });
+
+        //添加用户的模态框展示,使用的是在button中,绑定模态框id
+        //data-toggle="modal" data-target="#useraddmodal"
+        //添加用户的post提交,以及优雅弹窗
+        jQuery('.create_btn').on('click', function() {
+            var str=jQuery('#useraddmodalForm').serializeArray()
+            jQuery.post('/users/add',str,function(data){
+                data=JSON.parse(data);
+                if(data['code'] == 200) {
+                    swal({
+                        title:"success",
+                        text:"添加成功",
+                        type:"success",
+                        confirmButtonText:'确定'},
+                        function(){
+                            jQuery('#useraddmodal').modal('hide')
+                            window.location.reload()
+                        })
+                }
+                else{
+                    swal("添加失败!",data['error'],'error');
+                }
+           })
+            return false
+        });
+
+        //删除用户的优雅弹窗
+        jQuery('.userdelbtn').on('click', function() {
+            var url = '/users/delete?id=' + jQuery(this).data('id');
+            swal({
+		        title: "确定要删除?",
+		        text: "You will not be able to recover this imaginary file!",
+		        type: "warning",
+		        showCancelButton: true,
+		        confirmButtonColor: "#DD6B55",
+		        confirmButtonText: "确认删除!",
+		        closeOnConfirm: false
+            },
+            function(){
+		        swal("删除成功!", "success");
+                window.location.replace(url);
+            })
+        });
+
+        //用户更新的模态框展示,以及填充数据
+        jQuery(".userupdatebtn").click(function () {
+            var id=jQuery(this).attr("data-id")
+            jQuery.getJSON("/users/update",{'id':id},function(data){
+                jQuery("#userupdatemodal").modal("show")
+                jQuery("#id").val(data['id'])
+                jQuery(".username").val(data['username'])
+                jQuery(".age").val(data['age'])
+                jQuery(".telephone").val(data['telephone'])
+                jQuery(".department").val(data['department'])
+                jQuery(".title").val(data['title'])
+                jQuery(".birthday").val(data['birthday'])
+                jQuery(".email").val(data['email'])
+            })
+        })
+        //用户更新的post提交,以及优雅提示
+        jQuery(".update_btn").on('click',function(){
+           var str = $("#userupdatemodalForm").serialize()
+           var url = "/users/update"
+           jQuery.post(url,str,function(data){
+                data=JSON.parse(data)
+                if(data['code'] == 200) {
+                    swal({
+                        title:"success",
+                        text:"更新成功",
+                        type:"success",
+                        confirmButtonText:'确定'},
+                        function(){
+                            jQuery('#userupdatemodal').modal('hide')
+                            window.location.reload()
+                        })
+                }
+                else{
+                    swal("更新失败!",data['error'],'error');
+                }
+           })
+            return false
+        })
+
+
+        //修改密码表单验证
+        $("#userpasswordmodalForm").Validform({
+            tiptype:3
+        })
+        //修改密码的模态框展示,并且填充数据ID
+        jQuery(".userpasswordbtn").click(function () {
+            var id=jQuery(this).attr("data-id")
+            jQuery.getJSON("/users/uppass",{'id':id},function(data){
+                jQuery("#userpasswordmodal").modal("show")
+                jQuery("#pwid").val(data['id'])
+            })
+        })
+        //修改密码的post提交,已经优雅提示
+        jQuery(".password_btn").on('click',function(){
+           var str = $("#userpasswordmodalForm").serialize()
+           var url = "/users/uppass"
+           jQuery.post(url,str,function(data){
+                data=JSON.parse(data)
+                if(data['code'] == 200) {
+                    swal({
+                        title:"success",
+                        text:"修改成功",
+                        type:"success",
+                        confirmButtonText:'确定'},
+                        function(){
+                            jQuery('#userpasswordmodal').modal('hide')
+                            window.location.reload()
+                        })
+                }
+                else{
+                    swal("修改失败!",data['error'],'error');
+                }
+           })
+            return false
+        })
+
+
+</script>
+{% endblock %}
