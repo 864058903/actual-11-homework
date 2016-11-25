@@ -61,31 +61,118 @@ def  monitor_host_get():
 
 
 
-@app.route('/zhaoyong/',methods=['GET'])
-def zhaoyong():
-    return  render_template('monitor/mem.html')
+@app.route('/mem/')
+def mem():
+    result=selectall(['ip','mem','m_time'],'monitor_host')
+    ip_list=list(set([i['ip']for  i in  result]))
+    return  render_template('monitor/mem.html',ip_list=ip_list)
 
-@app.route('/zhaoyong/map')
-def zhaoyong_map():
-        result=selectall(['logtime','module_name','availability'],'check_result')
-        DATE=[]
-        for i in result:
-            if  i['logtime'].strftime('%Y-%m-%d') not  in DATE:
-                DATE.append(i['logtime'].strftime('%Y-%m-%d'))
-        m_name=list(set([i['module_name'] for  i in  result]))
-        LL=[]
-        L=[]
-        z={}
-        for  i in m_name:
-            for  ii in result:
-                if i==ii['module_name']:
-                    L.append(ii['availability'])
-                    z['name']=i
-                    z['data']=L
-            LL.append(z)
-            L=[]
-            z={}
+@app.route('/mem/map')
+def mem_map():
+    start_time = (datetime.datetime.now() - datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+    where='where  r_time >="{}" order by m_time asc'.format(start_time)
+    result=whereselectall(['ip','mem','m_time'],'monitor_host',where)
+    ip_list=list(set([i['ip']for  i in  result]))
+    categoy_list, mem_list,data,RESULT = [], [],{},[]
+    for  i in  ip_list:
+        for ii in result:
+            if ii['ip']==i:
+                categoy_list.append(ii['m_time'].strftime('%H:%M'))
+                mem_list.append(ii['mem'])
+        data['ip']=i
+        data['categories']=categoy_list
+        data['series']=[{'name':'mem','data':mem_list}]
+        RESULT.append(data)
+        categoy_list, mem_list,data = [], [],{}
+    print RESULT
+    return json.dumps({'code':200,'data':RESULT})
 
-        result={'categories':DATE,'series':LL}
-        print result
-        return json.dumps({"code":200,'data':result})
+
+
+
+@app.route('/cpu/')
+def cpu():
+    result=selectall(['ip','mem','m_time'],'monitor_host')
+    ip_list=list(set([i['ip']for  i in  result]))
+    return  render_template('monitor/cpu.html',ip_list=ip_list)
+
+
+@app.route('/cpu/map')
+def cpu_map():
+    start_time = (datetime.datetime.now() - datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+    where='where  r_time >="{}" order by m_time asc'.format(start_time)
+    result=whereselectall(['ip','cpu','m_time'],'monitor_host',where)
+    ip_list=list(set([i['ip']for  i in  result]))
+    categoy_list, cpu_list,data,RESULT = [], [],{},[]
+    for  i in  ip_list:
+        for ii in result:
+            if ii['ip']==i:
+                categoy_list.append(ii['m_time'].strftime('%H:%M'))
+                cpu_list.append(ii['cpu'])
+        data['ip']=i
+        data['categories']=categoy_list
+        data['series']=[{'name':'cpu','data':cpu_list}]
+        RESULT.append(data)
+        categoy_list, cpu_list,data = [], [],{}
+    return json.dumps({'code':200,'data':RESULT})
+
+
+@app.route('/disk/')
+def disk():
+    result=selectall(['ip','mem','m_time'],'monitor_host')
+    ip_list=list(set([i['ip']for  i in  result]))
+    return  render_template('monitor/disk.html',ip_list=ip_list)
+
+@app.route('/disk/map')
+def disk_map():
+    start_time = (datetime.datetime.now() - datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+    where='where  r_time >="{}" order by m_time asc'.format(start_time)
+    result=whereselectall(['ip','disk','m_time'],'monitor_host',where)
+    ip_list=list(set([i['ip']for  i in  result]))
+    categoy_list, disk_list,data,RESULT = [], [],{},[]
+    for  i in  ip_list:
+        for ii in result:
+            if ii['ip']==i:
+                categoy_list.append(ii['m_time'].strftime('%H:%M'))
+                disk_list.append(ii['disk'])
+        data['ip']=i
+        data['categories']=categoy_list
+        data['series']=[{'name':'disk','data':disk_list}]
+        RESULT.append(data)
+        categoy_list, disk_list,data = [], [],{}
+    return json.dumps({'code':200,'data':RESULT})
+
+#将agent数据写入到数据库
+@app.route('/monitor/network/create',methods=["POST"])
+def monitor_network_create():
+    data=request.form.to_dict()
+    adddata('network',data.keys(),data.values())
+    return  json.dumps({'code':200,'result':''})
+
+@app.route('/network/')
+def network():
+    result=selectall(['ip',],'network')
+    ip_list=list(set([i['ip']for  i in  result]))
+    return  render_template('monitor/network.html',ip_list=ip_list)
+
+@app.route('/network/map')
+def network_map():
+    start_time = (datetime.datetime.now() - datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+    where='where  m_time >="{}" order by m_time asc'.format(start_time)
+    result=whereselectall(['ip','input','output','m_time'],'network',where)
+
+    ip_list=list(set([i['ip']for  i in  result]))
+    categoy_list, input_list,output_list,data,RESULT = [], [],[],{},[]
+    for  i in  ip_list:
+        for ii in result:
+            if ii['ip']==i:
+                categoy_list.append(ii['m_time'].strftime('%H:%M'))
+                input_list.append(ii['input'])
+                output_list.append(ii['output'])
+        data['ip']=i
+        data['categories']=categoy_list
+        data['series']=[{'name':'INPUT','data':input_list},{'name':'OUTPUT','data':output_list}]
+        RESULT.append(data)
+        categoy_list, input_list,output_list,data = [], [],[],{}
+    print RESULT
+    return json.dumps({'code':200,'data':RESULT})

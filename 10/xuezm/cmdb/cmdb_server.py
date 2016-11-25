@@ -13,7 +13,7 @@ def assets():
         return redirect("/login")
     machine_room=selectall(['id','name'],'machine_room')
     print machine_room
-    return  render_template('idc/assets1.htm',machine_room=machine_room)
+    return  render_template('idc/assets.html',machine_room=machine_room)
 
 @app.route('/assets/list/')
 def assets_list():

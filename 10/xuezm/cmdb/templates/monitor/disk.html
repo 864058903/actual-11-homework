@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block link %}
+
+{% endblock %}
+{% block breadcrumb %}
+内存
+{% endblock %}
+{% block main %}
+<div class="charts">
+
+{%for  i in  ip_list%}
+<h3>{{i}}监控详情</h3>
+<div id="{{i}}"  data-id="{{i}}" style="width: 95%;height:280px;"></div>
+{%endfor%}
+</div>
+
+{% endblock %}
+{% block script %}
+<script src="/static/js/plugins/highcharts/highcharts.js" ></script>
+<script src="/static/js/plugins/highcharts/exporting.js" ></script>
+<script>
+jQuery(document).ready(function(){
+            var url="/disk/map"
+                jQuery.getJSON(url,function(data) {
+                console.log(data)
+                                //console.log(data['series'])
+                                if (data['code'] == 200) {
+                                     for (var i = 0; i < data['data'].length; i++) {
+                                         console.log(data['data'][i]['ip'])
+                                         console.log(data['data'][i]['categories'])
+                                         console.log(data['data'][i]['series'])
+                                    Highcharts.chart(data['data'][i]['ip'], {
+                                        title: {
+                                            text: data['data'][i]['ip']+' disk  监控',
+                                            x: -20 //center
+                                        },
+                                        subtitle: {
+                                            //text: 'Source: WorldClimate.com',
+                                            x: -20
+                                        },
+                                        xAxis: {
+                                            categories: data['data'][i]['categories']
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: '使用百分比 (%)'
+                                            },
+                                            plotLines: [
+                                                {
+                                                    value: 0,
+                                                    width: 1,
+                                                    color: '#808080'
+                                                }
+                                            ]
+                                        },
+                                        tooltip: {
+                                            valueSuffix: '%'
+                                        },
+                                        legend: {
+                                            layout: 'vertical',
+                                            align: 'right',
+                                            verticalAlign: 'middle',
+                                            borderWidth: 0
+                                        },
+                                        series: data['data'][i]['series']
+                                    });
+                                        }
+                                }
+                            }
+
+                )
+
+
+});
+</script>
+{% endblock %}
