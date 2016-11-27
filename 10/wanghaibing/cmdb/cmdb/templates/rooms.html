@@ -1,0 +1,135 @@
+{% block link  %}
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+{% endblock  %}
+{% block nav_menu  %}
+            <li>
+                <a href="/rooms/">机房</a>
+            </li>
+            <li class="active">
+                <strong>机房管理</strong>
+            </li>
+{% endblock %}
+{% block contens %}
+<button   class="btn  btn-danger add_room_btn" data-toggle="modal" data-target="#add_room_myModal"  role="button"><span class="glyphicon glyphicon-plus">添加机房</span></button>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="add_room_myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加机房</h4>
+            </div>
+            <div class="modal-body">
+
+<form  method="post"  class="form-horizontal add_room_form" role="form">
+   {% if error  %}
+    <div class="form-group">
+        <label for="inputerror" class="col-sm-2 control-label" style="color:red" >提示：</label>
+        <div class="col-sm-3">
+         <label class="control-label" id="inputerror" style="color:red">{{error}}</label>
+        </div>
+    </div>
+   {% endif %}
+
+  <div class="form-group">
+    <label for="inputtext3" class="col-sm-2 control-label">机房名称</label>
+    <div class="col-sm-3">
+      <input type="text"  name="roomname"   value="{{roomname}}" class="form-control" id="inputtextl3" placeholder="name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputaddr" class="col-sm-2 control-label">地址</label>
+    <div class="col-sm-3">
+      <input type="text"  name="addr"   value="{{addr}}" class="form-control" id="inputaddr" placeholder="addr">
+    </div>
+  </div>
+
+
+
+  <div class="form-group">
+    <label for="inputipranges" class="col-sm-2 control-label">IP范围</label>
+    <div class="col-sm-3">
+    <input type="text" name="ip_ranges" value="{{ip_ranges}}"  class="form-control" id="inputipranges" placeholder="ip_ranges"  />
+     </div>
+    </div>
+ </form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+  <button type="button" class="btn btn-primary add_room_save">提交</button>
+  </div>
+  </div><!-- /.modal-content -->
+ </div><!-- /.modal -->
+</div>
+<!--modal-->
+
+
+
+
+<table  class="roomtable table text-center  table-striped table-bordered table-hover">
+
+ <thead>
+   <tr>
+    <th >机房ID</th>
+    <th >机房名称</th>
+    <th >地址</th>
+    <th >IP范围</th>
+    <th >操作</th>
+  </tr>
+</thead>
+<tbody>
+  {% for room in rooms %}
+  <tr>
+    <td>{{room[0]}}</td>
+    <td>{{room[1]}}</td>
+    <td>{{room[2]}}</td>
+    <td>{{room[3]}}</td>
+    <td ><a href="/view_room_modify/?roomid={{room[0]}}">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0)" class="del_btn" data-id="{{room[0]}}" >删除</a></td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
+{% block script %}
+    <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+{% endblock  %}
+{% block js %}
+   jQuery(document).ready(function() {
+         var table=jQuery('.roomtable').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+   
+         jQuery('.add_room_save').on('click',function() {
+                 jQuery.post('/room_add/json/',
+                       jQuery('.add_room_form').serializeArray(),
+                       function(data){
+                         if (data['code'] === 200)
+                            {
+                              table.api().ajax.reload();}
+                         else
+                            {
+                               alert (data['error']);}
+                         },'json' );         
+          });
+
+        jQuery('.del_btn').on('click',function(){
+                  var url='/rooms/room_del/json/?roomid='+ jQuery(this).data('id');
+                  if (confirm('您确定要删除该机房吗？'))
+                     {
+                     window.location.replace(url);}
+        });
+   });
+
+{% endblock  %}
+
+
