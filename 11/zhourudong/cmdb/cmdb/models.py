@@ -30,7 +30,7 @@ SQL_USER_MODIFY = 'update user set name=%s, age=%s where id=%s'
 
 SQL_VALIDATE_USER_MODIFY = 'select id from user where id != %s and name = %s'
 
-SQL_USER_PASSWORD_MODIFY = 'update user set password=md5(%s) where id=%s'
+SQL_USER_PASSWORD_MODIFY = 'update user set password=%s where id=%s'
 
 SQL_USER_DELETE = 'delete from user where id = %s'
 
@@ -136,7 +136,7 @@ def validate_user_password_modify(uid, password, manager_uid, manager_password):
     return True, ''
 
 def user_password_modify(uid, password):
-    dbutils.execute_sql(SQL_USER_PASSWORD_MODIFY, (password.strip(), uid), False)
+    dbutils.execute_sql(SQL_USER_PASSWORD_MODIFY, ( crypt.md5_str(password.strip()), uid), False)
     return True
 
 def user_delete(uid):
