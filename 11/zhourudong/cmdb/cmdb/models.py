@@ -17,7 +17,7 @@ SQL_VALIDATE_LOGIN = 'select id, name from user where name = %s and password = %
 # use py md5
 SQL_USER_SAVE = 'insert into user(name, age, password) values(%s, %s, %s)'
 
-SQL_VALIDATE_PASSWORD = 'select id from user where id = %s and password = md5(%s)'
+SQL_VALIDATE_PASSWORD = 'select id from user where id = %s and password = %s'
 
 
 SQL_USER_LIST_COLUMNS = ('id', 'name', 'age')
@@ -73,7 +73,7 @@ def validate_login(username, password):
     return  dict(zip(SQL_VALIDATE_LOGIN_COLUMNS, rt_list[0])) if rt_list else None
 
 def validate_password(uid, password):
-    rt_cnt, _ = dbutils.execute_sql(SQL_VALIDATE_PASSWORD, (uid, password), True)
+    rt_cnt, _ = dbutils.execute_sql(SQL_VALIDATE_PASSWORD, (uid, crypt.md5_str(password)), True)
     return rt_cnt > 0
 
 
