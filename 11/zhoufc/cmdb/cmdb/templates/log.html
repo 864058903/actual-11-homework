@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}CMDB | 日志展示{% endblock %}
+{% block link %}
+<link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+<link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+{% endblock %}
+{% block nav_monitor %}class="active"{% endblock %}
+{% block nav_logs %}class="active"{% endblock %}
+{% block breadcrumb %}
+<li>
+    <a href="javascript:void(0)">监控</a>
+</li>
+<li class="active">
+    <strong>日志展示</strong>
+</li>
+{% endblock %}
+{% block content %}
+<a href="/log/?topn=10" class="btn btn-primary active" role="button">TOP 10</a>
+<a href="/log/?topn=20" class="btn btn-primary active" role="button">TOP 20</a>
+<a href="/log/?topn=50" class="btn btn-primary active" role="button">TOP 50</a>
+<a href="/log/?topn=100" class="btn btn-primary active" role="button">TOP 100</a>
+<br/><br/>
+<table class="logs table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>IP</th>
+            <th>URL</th>
+            <th>状态码</th>
+            <th>次数</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+            <tr>
+                <td>{{log[0][0]}}</td>
+                <td>{{log[0][1]}}</td>
+                <td>{{log[0][2]}}</td>
+                <td>{{log[1]}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>   
+</table>
+{% endblock %}
+{% block script %}
+<script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+<script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+{% endblock %}
+
+{% block js %}
+jQuery(document).ready(function() {
+    jQuery('.logs').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+    });
+});
+{% endblock%}
